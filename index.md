@@ -34,4 +34,4 @@ img.innerlync {
   transform: rotate(1800deg) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
 }
 </style>
-<a class="outerlync" href="https://github.com/appfair"><img class="innerlync" src="https://www.appfair.org/favicon.ico" /></a>
+<a class="outerlync" href="https://github.com/appfair"><img class="innerlync" src="https://www.appfair.net/favicon.ico" /></a>
