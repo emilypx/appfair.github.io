@@ -36,9 +36,10 @@ img.innerlync {
 </style>
 <a class="outerlync" href="https://github.com/appfair"><img class="innerlync" src="https://www.appfair.net/favicon.ico" /></a>
 
+<!--
 ### Creating an app with `Carnival`:
 
 1. Launch a terminal window with `/System/Applications/Utilities/Terminal.app/`
 1. Ensure developer tools are installed: `xcode-select --install`
 1. Run Carnival: `sh -c "$(curl -fsSL https://www.appfair.net/carnival.sh)"`
-
+-->
