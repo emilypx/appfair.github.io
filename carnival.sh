@@ -14,7 +14,7 @@ EOF
 #
 # This script does the following (you can do it all manually if you prefer):
 #
-# It will clone: https://github.com/AppFair/carnival 
+# It will clone: https://github.com/appfair/carnival 
 # into: ~/.appfair/carnival/
 # and then delegate to the Swift tool with: swift run carnival
 
@@ -25,12 +25,13 @@ fi
 mkdir -p ~/.appfair/
 if [ ! -d ~/.appfair/carnival ]; then
     echo "_________________________________________________________________"
-    echo "Cloning Carnival source from: https://github.com/AppFair/carnival"
+    echo "Cloning Carnival source from: https://github.com/appfair/carnival"
     echo "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾"
-    git clone https://github.com/AppFair/carnival ~/.appfair/carnival
+    git clone https://github.com/appfair/carnival ~/.appfair/carnival
 fi
 
-git pull -q  ~/.appfair/carnival
+# fetch the latest updates for the current branch
+git -C ~/.appfair/carnival pull -q
 
 if [ ! -d ~/.appfair/carnival/.build ]; then 
     echo "_________________________________________________________________"
