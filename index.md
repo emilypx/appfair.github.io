@@ -2,44 +2,35 @@
 name: AppFair
 title: null
 ---
-<style>
-body {
-    height: 100vh;
-    margin: 0;
-    background-disabled: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(115,115,115,1) 100%);
-}
 
-.outerlync {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
-  display: inline-block;
-  background: transparent;
-}
+# Welcome to the App Fair
 
-img.innerlync {
-  max-width: 15vw;
-  max-height: 15vh;
-}
+The App Fair is an independent app distribution platform for open-source & native applications written in Swift. 
 
-.innerlync {
-  transform-style: preserve-3d;
-  transition: ease-out 0.6s;
-}
+Your fork of the [appfair/App](https://github.com/appfair/App) repository will be automatically built and distributed as one of the [appfair/App releases](https://github.com/appfair/App/releases). 
 
-.outerlync:hover .innerlync {
-  transition: ease-in-out 2.5s;
-  transform: rotate(1800deg) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-}
-</style>
-<a class="outerlync" href="https://github.com/appfair"><img src="https://www.appfair.net/AppFairIcon.svg" /></a>
+These releases can be browsed, searched, and installed using the macOS [App-Fair/App](https://github.com/App-Fair/App), which acts as the hub for discovering, researching, installing, and updating apps.
 
-<!--
-### Creating an app with `Carnival`:
+Note that these releases are automatically signed with an "ad-hoc" certificate, so you, the developer, do not need to subscribe to any paid membership programs.
 
-1. Launch a terminal window with `/System/Applications/Utilities/Terminal.app/`
-1. Ensure developer tools are installed: `xcode-select --install`
-1. Run Carnival: `sh -c "$(curl -fsSL https://www.appfair.net/carnival.sh)"`
--->
+## The Structure of an App Fair app
+
+It consists of a library, [Fair](https://github.com/appfair/Fair)
+
+## Creating an App
+
+## Updating an App
+
+## App Customization
+
+## Restrictions & Requirements
+
+### App Restrictions
+
+### Org Requirements
+
+Sandboxing
+
+## Procedures 
+
+## 
