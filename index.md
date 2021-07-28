@@ -5,25 +5,28 @@ title: The App Fair
 
 # Welcome to the App Fair
 
-The App Fair is an independent app distribution platform for free and open-source applications.
+The App Fair is an independent app distribution platform for free and open-source macOS applications.
 
-# App Fair For Users
+# The App Fair For Users
 
+From an end-user standpoint, the **App Fair.app** catalog browser application allows you to research, discover, install, and update applications from a (potentially) large catalog of free applications. 
 
-# App Fair For Developers
+Apps installed with the **App Fair.app** application are created using the modern platform-native SwiftUI framework and built for both Intel and ARM processors, and thus tend to run faster and use resources more efficiently than other cross-platform application frameworks.
+
+# The App Fair For Developers
 
 App Fair apps are written in Swift and utilize a native SwiftUI user interface. 
-Apps target the newest operating system versions and utilize Swift 5.5, thus unlocking the full potential of Swift's async/await and actor concurrency features./
+Apps target the latest OS versions and utilize Swift 5.5, thus unlocking the full potential of Swift's async/await concurrency features and its actor model.
 
 The distribution process for App Fair apps is completely automated, instantaneous, and free. 
 Provided you have a free GitHubAccount, no additional registration, sign-up, or approval is required in order to start developing and distributing apps for the App Fair.
 
-## Introduction: an "App Fair"?
+## Introduction: an "App Fair" and the "FAIR" process?
 
-"App Fair" the the name of the process through which a native SwiftUI application is created, built, and released for macOS.
+"F-A-I-R" stands for the "Fork-Apply-Integrate-Release" process that describes the process of creating, developing, and distributing an App Fair app.
+The "Fork" and "App" parts are handled by you, the developer: a fork is created of the template `/App` repository, and you develop your app.
+The "Integrate" and "Release" are handled by the cloud build host that accepts pull requests from the developer's fork and validates, builds, packages, and releases the installable app.
 
-From an end-user standpoint, the **App Fair.app** catalog browser application allows you to research, discover, install, and update applications from a (potentially) large catalog of free applications. 
-Apps installed with the **App Fair.app** application are created using the modern platform-native SwiftUI framework and built for both Intel and ARM processors, and thus tend to run faster and use resources more efficiently than other cross-platform application frameworks.
 
 From a developer standpoint, an App Fair app consists of two source code repositories, *Fair* & *App*, combined with an automated *Integration* & *Release* process.
  - [https://github.com/appfair/App](https://github.com/appfair/App) is the repository that is forked to create a new  App Fair app; PRs submitted to this repository are automatically built and released to the **App Fair.app** catalog.
