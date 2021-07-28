@@ -5,11 +5,18 @@ title: The App Fair
 
 # Welcome to the App Fair
 
-The App Fair is an independent app distribution platform for free and open-source applications written in Swift and utilizing a native SwiftUI user interface. 
+The App Fair is an independent app distribution platform for free and open-source applications.
 
-The distribution process is completely automated, instantaneous, and free. 
+# App Fair For Users
 
-Provided you have a free GitHubAccount, no additional registration, sign-up, or approval is required in order to start developing apps for the App Fair.
+
+# App Fair For Developers
+
+App Fair apps are written in Swift and utilize a native SwiftUI user interface. 
+Apps target the newest operating system versions and utilize Swift 5.5, thus unlocking the full potential of Swift's async/await and actor concurrency features./
+
+The distribution process for App Fair apps is completely automated, instantaneous, and free. 
+Provided you have a free GitHubAccount, no additional registration, sign-up, or approval is required in order to start developing and distributing apps for the App Fair.
 
 ## Introduction: an "App Fair"?
 
@@ -27,31 +34,9 @@ From a developer standpoint, an App Fair app consists of two source code reposit
 App Fair apps are written in Swift, a modern & safe language, compiled natively for Intel & ARM, and utilize the SwiftUI framework to provide a truly native application user interface.
 This makes apps installed from the App Fair tend to be fast and efficient, and have the capability to utilize the full range of the platform's native frameworks.
 
-## App Fair Security
-
-A challenge for any application distribution platform is dealing with "badware", which can be simply defined as software with undesired effects. 
-These can be merely annoying and wasteful, such as adware, containers for offensive content, covert proof-of-work crypto-currency miners, and other potentially unwanted programs ("PUPs"). 
-Software can also be actively hostile, such as programs that attempt to exfiltrate your personal data and activities ("spyware") or programs that attempt to lock you out of your own data ("randomware"). 
-At the extreme end of the spectrum, programs that run on your computer can be actively dangerous to both yourself as well as the broader community: they can act as hosts for virus propagation or externally-coordinated clients for a "botnet" that can perform a distributed denial of service (DDoS) attacks or other malicious activities.
-
-Web browsers have been dealing with these issues ever since the advent of JavaScript. 
-Browsers are able to protect the system by having the untrusted code run inside a sandbox that restricts the sorts of activities that are permitted: file system access is generally restricted to cookie storage and compartmentalized local file storage APIs, and network access is typically limited to HTTP (and websockets) access back to the network host for the page that loaded the code.
-
-Similarly, applications that run on most modern operating systems can be "hardened" and constrained to a "sandbox", which restricts the application in what it can do.
-File system access, including access to your personal data (such as contacts, mail, and photos), requires explicit consent from the user before the app can access the data.
-Similarly, direct access to the local hardware (microphone, video/camera, keyboard) is constrained and required explicit consent.
-The App Fair integration process requires that all software be hardened and notarized in order to appear in the catalog.
-
-The App Fair Integration-Release process is completely automated; there is no individual review of apps, neither when they are initially submitted nor when updates are released.
-This allows the release & update processes to be free of delays and keeps the catalog free from reviewer bias, but it also removes any possibility of pre-distribution "gate-keeping" to protect the community from unwanted programs.
-The App Fair instead provides post-distribution gate-keeping by requiring that the source code for the entire app be available to the build process and that it be hosted in publicly-available GitHub repositories.
-For any release in the App Fair catalog, the complete source code is available for inspection, review, and analysis by the entire world.
-This access enables the world-wide security community to use all its resources to identify, isolate, and mitigate badly-behaved apps.
-In addition, a requirement that all the code by hosted in publicly-available Git repositories means that tools like [GitHub's code scanning](https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning) can be used to identify security vulnerabilities in the app or any of the frameworks it embeds.
-
 ## The Structure of the App Fair project
 
-The "App Fair" consists of two separate Swift projects: the [appfair/Fair](https://github.com/appfair/Fair) library, which is a set of Swift runtime libraries that are bundled with all App Fair apps, and an [appfair/App](https://github.com/appfair/App) project that is meant to be forked and used as the template for your own project. 
+<!-- The "App Fair" consists of two separate Swift projects: the [appfair/Fair](https://github.com/appfair/Fair) library, which is a set of Swift runtime libraries that are bundled with all App Fair apps, and an [appfair/App](https://github.com/appfair/App) project that is meant to be forked and used as the template for your own project.  -->
 
 Upon submitting a Pull Request([?](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)) for your [appfair/App](https://github.com/appfair/App) fork's changes, your project will be automatically built, signed, packaged and distributed as a native macOS application via the [appfair/App releases](https://github.com/appfair/App/releases). 
 
@@ -88,7 +73,7 @@ The action will check out the PR and use the `fairtool` to validate the structur
 It also verifies that the sandboxing requirements are met and that the project's `Package.swift` conforms to the integration requirements.
 Finally, it sets the "version" of the app to be the PR's commit hash, which provides visibility into the source that was used to build any version of the app.
 
-If validation passes, the PR will be built, packaged, signed for all the supported platforms. Once this is successful, the app is considered to be "integrated" and thus ready for release.
+If validation passes, the PR will be built, packaged, and signed for all the supported platforms. Once this is successful, the app is considered to be "integrated" and thus ready for release.
 See the [workflow file](https://github.com/appfair/App/blob/main/.github/workflows/release_pr.yml) for the exact details of the process.
 
 The pull request itself can remain open, and it can be later updated (or re-opened) when a new integration is requested.
@@ -113,21 +98,54 @@ The [appfair/App](https://github.com/appfair/App) repository is licensed under t
 If you would like your app's code to be licensed differently, you can create a separate repository (either in the same organization or elsewhere; it merely needs to be publicly available on GitHub) with another license of your choosing, and then reference the project(s) from your `Package.swift` dependencies section. 
 The App/Fair release process doesn't perform any validation of the licenses of any Swift dependencies; it only requires that the license for the forked `/App` project itself remain unchanged, and that all the source files that act as inputs to the build process are available for inspection and analysis at the time of building.
 
-### Sandboxing
 
-## Procedures 
+## App Fair Security
 
-## Current Limitations
+A challenge for any application distribution platform is dealing with "badware", which can be simply defined as software with undesired effects. 
+These can be merely annoying and wasteful, such as adware, containers for offensive content, covert proof-of-work crypto-currency miners, and other potentially unwanted programs ("PUPs"). 
+Software can also be actively hostile, such as programs that attempt to exfiltrate your personal data and activities ("spyware") or programs that attempt to lock you out of your own data ("ransomware"). 
+At the extreme end of the spectrum, programs that run on your computer can be actively dangerous to both yourself as well as the broader network: they can act as hosts for virus propagation or externally-coordinated clients for a "botnet" that can perform a distributed denial of service (DDoS) attacks or other malicious activities.
+
+Web browsers have been dealing with these risks and issues ever since the advent of JavaScript. 
+Browsers have evolved to enable arbitrary code to be run while still protecting the user's system and privacy (to some extent) by having the untrusted code run inside a sandbox that restricts the sorts of activities that are permitted: file system access is generally restricted to cookie storage and compartmentalized local file storage APIs, and network access is typically limited to HTTP (and websockets) access back to the network host for the page that loaded the code.
+
+Similarly, applications that run on most modern operating systems can be "hardened" and constrained to a "sandbox", which restricts the application in what it can see and do.
+File system access, including access to your personal data (such as contacts, mail, and photos), require explicit consent from the user before the app can access the data.
+Similarly, direct access to the local hardware (microphone, video/camera, keyboard) is constrained and also requires explicit consent.
+The App Fair integration process requires that all software be hardened and notarized in order to appear in the catalog.
+
+The App Fair Integration-Release process is completely automated; there is no individual review of apps, neither when they are initially submitted nor when updates are released.
+This allows the release & update processes to be free of delays and keeps the catalog free from reviewer bias, but it also removes any possibility of pre-distribution "gate-keeping" to protect the community from unwanted programs.
+The App Fair instead provides post-distribution gate-keeping by requiring that the source code for the entire app be available to the build process and that it be hosted in publicly-available GitHub repositories.
+For any release in the App Fair catalog, the complete source code is available for inspection, review, and analysis by the entire world.
+This access enables the world-wide security community to use all its resources to identify, isolate, and mitigate badly-behaved apps.
+In addition, a requirement that all the code by hosted in publicly-available Git repositories means that tools like [GitHub's code scanning](https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning) can be used to identify security vulnerabilities in the app or any of the frameworks it embeds.
+
+<!-- ## Current Limitations
 
 Document-based apps?
-No icon customization
+No icon customization -->
 
-## Developer FAQ
+## User FAQ
 
 ### Where are App Fair apps installed?
 
 The standard install location for App Fairs apps is the `/Applications/App Fair/` folder, which exists as a peer to the `/Applications/App Fair.app` application. 
 Storing apps in a sub-folder of the standard `/Applications/` folder prevents name clashes with apps installed through other distribution mechanisms.
+
+### Can I revert to an older version of an app?
+
+When **App Fair.app** installs an update to an existing app, it will place the older version in the user's Trash. 
+As long as the trash remains un-emptied, the previous version of the app will continue to be available to drag back into the `/Applications/App Fair/` folder.
+The App Fair catalog itself only references the most recent version of an app, so you must rely on your own backups (or contact the author of the app) for older versions.
+
+### How can a user delete an app installed with the **App Fair.app** catalog?
+
+Apps are deleted from the `/Applications/App Fair/` folder by dragging them into the Trash or deleting them directly.
+App Fair apps are no different from any other installed app in this regard.
+
+
+## Developer FAQ
 
 ### What versioning scheme do App Fair apps use?
 
@@ -145,15 +163,19 @@ The default icon is automatically generated by the `fairtool` as part of the bui
 
 ### How can I change the category of my app in the **App Fair.app** catalog?
 
+The App Fair uses the information in your App's `Info.plist` to categorize the app in the catalog.
+
 ### Where does the **App Fair.app** catalog get its information about apps?
 
 The catalog browser application uses the public GitHub API to list all the releases for the [appfair/App](https://github.com/appfair/App) project, which it cross-references with the list of forks for the organization information. Assets such as the localization information and icon for the app are retrieved from the releases assets.
 
-### Can a user revert to an older version of an app?
+### How can I monetize my app?
 
-When **App Fair.app** installs an update to an existing app, it will place the older version in the user's Trash. As long as the user's trash remains un-emptied, the previous version of the app will remain available to use user for reversion.
+Apps available through the **App Fair.app** catalog browser application are always free.
+Activating GitHub sponsorships will enable your account to accept financial contributions to your project through any of the supported funding model platforms: GitHub Sponsors, Patreon, Open Collective, Ko-fi, Tidelift, Community Bridge, Liberapay, IssueHunt, and Otechie.
+When sponsorships are enabled, your app's container will automatically add a Help menu link to the sponsorship service.
 
-### How can I remove my app from the App Fair?
+### How can I remove my app from the App Fair catalog?
 
 The simplest way to remove your app from showing up in the **App Fair.app** catalog is to mark your repository or organization as "private", or else archive (or delete) your organization's `/App` fork.
 
@@ -177,14 +199,27 @@ This is in order to be able to run your app's unit tests in a sandboxed environm
 
 As a true native application, App Fair apps can link to any native system framework on their target host.
 However, certain frameworks (typically those that utilize cloud services) will not function at runtime when they are used from apps that are distributed without a paid developer subscription.
-For example, geo-location services (used by the MapKit framework) and speech recognition services (used by the Natural Language framework) are unavailable to apps that are distributed through free channels.
-In general, frameworks that only utilize local system resources will be available for App Fair apps.
+For example, online geo-location services (used by the MapKit framework) and speech recognition services (used by the Natural Language framework) are unavailable to apps that are distributed through free channels.
+
+In general, frameworks that only utilize local system resources can be used without issue in App Fair apps.
+
+### Can I distribute an Electron-style JavaScript app?
+
+The shell of the App you write, including any top-level system menus, must utilize SwiftUI views, idioms, and commands.
+Embedding a binary framework, such as the Chromium rendering engine and the Node.js runtime that together power Electron apps, is not supported.
+However, there is nothing preventing you from embedding any arbitrary native view controller within your app's view hierarchy, such as the `WKWebView` that enables apps to host an HTML5 application within a Safari-like container.
+
+### Do I need a Mac to develop App Fair apps?
+
+*Technically*, no: you could theoretically use any OS to write the Swift code for your `/App` fork.
+Since the Integration and Release phases of the App Fair process are all run in the cloud, no client-side build & run activity is required.
+
+In practice, however, to develop anything but the most trivial of apps requires being able to use a modern IDE, debugger, and the ability to actually run your app in order to test and refine the behavior.
 
 ### Are App Fair apps signed?
 
 Yes. 
 The `Integrate` phase of the App Fair process signs the app with an "ad-hoc" signing certificate.
-Tampering with this signature will prevent the application from being installed and or run.
 
 ### Are App Fair apps notarized?
 
@@ -213,14 +248,6 @@ Both the [appfair/Fair](https://github.com/appfair/Fair) and [appfair/App](https
 
 Only the portion of your app contained in your app organization's `/App` fork is required to be covered by the AGPL.
 You can develop the bulk of your app in a separate repository, which can be covered by any license of your choosing (provided the source code is available for the `Integration` phase of the process).
-
-### How an I monetize my app?
-
-Apps available through the **App Fair.app** catalog browser application are always free.
-Activating GitHub sponsorships will enable your account to accept financial contributions to your project through any of the supported funding model platforms: GitHub Sponsors, Patreon, Open Collective, Ko-fi, Tidelift, Community Bridge, Liberapay, IssueHunt, and Otechie.
-When sponsorships are enabled, your app's container will automatically add a Help menu link to the sponsorship service.
-
-
 
 
 
