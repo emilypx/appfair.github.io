@@ -5,9 +5,51 @@ title: The App Fair
 
 # Welcome to the App Fair
 
-The App Fair is an independent app distribution platform for open-source applications written in Swift and utilizing a native SwiftUI user interface. 
+The App Fair is an independent app distribution platform for free and open-source applications written in Swift and utilizing a native SwiftUI user interface. 
 
-## What is the "App Fair"
+The distribution process is completely automated, instantaneous, and free. 
+
+Provided you have a free GitHubAccount, no additional registration, sign-up, or approval is required in order to start developing apps for the App Fair.
+
+## Introduction: an "App Fair"?
+
+"App Fair" the the name of the process through which a native SwiftUI application is created, built, and released for macOS.
+
+From an end-user standpoint, the **App Fair.app** catalog browser application allows you to research, discover, install, and update applications from a (potentially) large catalog of free applications. 
+Apps installed with the **App Fair.app** application are created using the modern platform-native SwiftUI framework and built for both Intel and ARM processors, and thus tend to run faster and use resources more efficiently than other cross-platform application frameworks.
+
+From a developer standpoint, an App Fair app consists of two source code repositories, *Fair* & *App*, combined with an automated *Integration* & *Release* process.
+ - [https://github.com/appfair/App](https://github.com/appfair/App) is the repository that is forked to create a new  App Fair app; PRs submitted to this repository are automatically built and released to the **App Fair.app** catalog.
+ - Fair is the runtime SwiftUI library that is included in every App Fair project, and acts as a sandboxed container within which your application is run. The `Fair` library is the only required dependency for your app's [https://github.com/appfair/App](https://github.com/appfair/App) fork.
+
+## How does an "App Fair" app differ from apps using other distribution platforms?
+
+App Fair apps are written in Swift, a modern & safe language, compiled natively for Intel & ARM, and utilize the SwiftUI framework to provide a truly native application user interface.
+This makes apps installed from the App Fair tend to be fast and efficient, and have the capability to utilize the full range of the platform's native frameworks.
+
+## App Fair Security
+
+A challenge for any application distribution platform is dealing with "badware", which can be simply defined as software with undesired effects. 
+These can be merely annoying and wasteful, such as adware, containers for offensive content, covert proof-of-work crypto-currency miners, and other potentially unwanted programs ("PUPs"). 
+Software can also be actively hostile, such as programs that attempt to exfiltrate your personal data and activities ("spyware") or programs that attempt to lock you out of your own data ("randomware"). 
+At the extreme end of the spectrum, programs that run on your computer can be actively dangerous to both yourself as well as the broader community: they can act as hosts for virus propagation or externally-coordinated clients for a "botnet" that can perform a distributed denial of service (DDoS) attacks or other malicious activities.
+
+Web browsers have been dealing with these issues ever since the advent of JavaScript. 
+Browsers are able to protect the system by having the untrusted code run inside a sandbox that restricts the sorts of activities that are permitted: file system access is generally restricted to cookie storage and compartmentalized local file storage APIs, and network access is typically limited to HTTP (and websockets) access back to the network host for the page that loaded the code.
+
+Similarly, applications that run on most modern operating systems can be "hardened" and constrained to a "sandbox", which restricts the application in what it can do.
+File system access, including access to your personal data (such as contacts, mail, and photos), requires explicit consent from the user before the app can access the data.
+Similarly, direct access to the local hardware (microphone, video/camera, keyboard) is constrained and required explicit consent.
+The App Fair integration process requires that all software be hardened and notarized in order to appear in the catalog.
+
+The App Fair Integration-Release process is completely automated; there is no individual review of apps, neither when they are initially submitted nor when updates are released.
+This allows the release & update processes to be free of delays and keeps the catalog free from reviewer bias, but it also removes any possibility of pre-distribution "gate-keeping" to protect the community from unwanted programs.
+The App Fair instead provides post-distribution gate-keeping by requiring that the source code for the entire app be available to the build process and that it be hosted in publicly-available GitHub repositories.
+For any release in the App Fair catalog, the complete source code is available for inspection, review, and analysis by the entire world.
+This access enables the world-wide security community to use all its resources to identify, isolate, and mitigate badly-behaved apps.
+In addition, a requirement that all the code by hosted in publicly-available Git repositories means that tools like [GitHub's code scanning](https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning) can be used to identify security vulnerabilities in the app or any of the frameworks it embeds.
+
+## The Structure of the App Fair project
 
 The "App Fair" consists of two separate Swift projects: the [appfair/Fair](https://github.com/appfair/Fair) library, which is a set of Swift runtime libraries that are bundled with all App Fair apps, and an [appfair/App](https://github.com/appfair/App) project that is meant to be forked and used as the template for your own project. 
 
@@ -15,47 +57,61 @@ Upon submitting a Pull Request([?](https://docs.github.com/en/github/collaborati
 
 These releases can be browsed, searched, and installed using the macOS [App-Fair/App](https://github.com/App-Fair/App), which acts as the hub for discovering, researching, installing, and updating apps.
 
-The process is completely automated, instantaneous, and free. No registration or sign-up (other than a GitHub action) is required.
+The process is completely automated, instantaneous, and free. 
+Provided you have a free GitHubAccount, no additional registration, sign-up, or approval is required in order to start developing App Fair apps.
 
 ## The Structure of an App Fair app
 
 ### App Organization 
 
-Your App is represented uniquely by a GitHub Organization, so the first step is to [create a new free organization](https://github.com/account/organizations/new). The organization name must be a two hyphen-separated words using only characters that are legal in URL paths. For example, the GitHub organization for **App Fair.app**, is [https://github.com/App-Fair/](https://github.com/App-Fair/).
+Your App is represented uniquely by a GitHub Organization, so the first step is to [create a new free organization](https://github.com/account/organizations/new). 
+The organization name must be a two hyphen-separated words using only characters that are legal in URL paths. 
+For example, the GitHub organization for the **App Fair.app** catalog browser application itself is [https://github.com/App-Fair/](https://github.com/App-Fair/).
 
-Your app organization can be structured however you want, and can have consist of a team of as few or as many as you like. You can manage multiple apps by creating multiple separate organizations. 
+Your app organization can be structured however you want, and can consist of a team of as few or as many as you like. 
+You can manage create and distribute multiple apps by creating multiple separate organizations. 
 
 ### App Repository
 
-Once your organization is set up, you create your app's project by forking the [https://github.com/appfair/App](https://github.com/appfair/App) repository. This is a Swift project that contains the shell of a cross-platform SwiftUI app.
+Once your organization is set up, you create your app's project by forking the [https://github.com/appfair/App](https://github.com/appfair/App) repository. 
+This is a Swift project that contains the shell of a cross-platform SwiftUI app that you will use as your starting point.
 
 Your app will exist in a top-level repository named, simply, "App".
 
 It consists of a library, [Fair](https://github.com/appfair/Fair)
 
-## The App/Fair Release Process
+## The App Fair Integration Process
 
-## Creating an App
+When a pull request is submitted from your app's fork back to the origin repository at [https://github.com/appfair/App](https://github.com/appfair/App), the integration phase of the App Fair's `Fork-App-Integrate-Release` process is initiated.
+The PR will triggered a GitHub action ([pull_request_target](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request_target)) running on a macOS build host.
+The action will check out the PR and use the `fairtool` to validate the structure of the project and verify the status of the app's organization.
+It also verifies that the sandboxing requirements are met and that the project's `Package.swift` conforms to the integration requirements.
+Finally, it sets the "version" of the app to be the PR's commit hash, which provides visibility into the source that was used to build any version of the app.
 
-## Updating an App
+If validation passes, the PR will be built, packaged, signed for all the supported platforms. Once this is successful, the app is considered to be "integrated" and thus ready for release.
+See the [workflow file](https://github.com/appfair/App/blob/main/.github/workflows/release_pr.yml) for the exact details of the process.
 
-## App Customization
+The pull request itself can remain open, and it can be later updated (or re-opened) when a new integration is requested.
 
-### Colors
+## The App Fair Release Process
 
-### Icon
+Any app that passes the integration process, and whose organization passes the validation requirements, is automatically deployed to the [appfair/App releases](https://github.com/appfair/App/releases). 
 
-## Restrictions & Requirements
+Once the app is releases, it will be visible and available for installation from the **App Fair.app** catalog for as long as the app's organization remains valid.
 
 ### App Restrictions
 
 ### Org Requirements
 
-Must have issues & discussions enabled, must be public & not archived, must have a repository (or redirection) named "App" which contains a fork of the [appfair/App](https://github.com/appfair/App) repository.
+In order for an organization's `/App` project to be visible in the **App Fair.app** catalog, it must be a public organization with at least one public member. 
+The organization must have a repository (or redirection) named "App" (literally), which must be a fork of the [appfair/App](https://github.com/appfair/App) template repository.
+An addition, the repository must have issues & discussions enabled, and also must be public as well as not archived.
 
 ### Licensing
 
-The [appfair/App](https://github.com/appfair/App) repository is licensed under the GNU AGPL, which means that all forks of the project are also covered under that license. If you would like your app's code to be licensed differently, you can create a separate repository (either in the same Organization or a different) with another license of your choosing, and then reference that project from your `Package.swift` dependencies section. The App/Fair release process doesn't perform any validation of the licenses of any dependencies; it only requires that the license for the forked project itself remains unchanged, and that all the source files that act as inputs to the build process are available for inspection and analysis.
+The [appfair/App](https://github.com/appfair/App) repository is licensed under the GNU AGPL, which means that all forks of the project are also covered under that license. 
+If you would like your app's code to be licensed differently, you can create a separate repository (either in the same organization or elsewhere; it merely needs to be publicly available on GitHub) with another license of your choosing, and then reference the project(s) from your `Package.swift` dependencies section. 
+The App/Fair release process doesn't perform any validation of the licenses of any Swift dependencies; it only requires that the license for the forked `/App` project itself remain unchanged, and that all the source files that act as inputs to the build process are available for inspection and analysis at the time of building.
 
 ### Sandboxing
 
@@ -68,56 +124,100 @@ No icon customization
 
 ## Developer FAQ
 
-### Are App Fair apps signed?
-
-App Fair apps are automatically signed with an "ad-hoc" certificate.
-
-### Are App Fair apps notarized?
-
-App Fair apps are not notarized. Apps that are installed through the **App Fair.app**.
-
 ### Where are App Fair apps installed?
 
 The standard install location for App Fairs apps is the `/Applications/App Fair/` folder, which exists as a peer to the `/Applications/App Fair.app` application. 
 Storing apps in a sub-folder of the standard `/Applications/` folder prevents name clashes with apps installed through other distribution mechanisms.
 
-### How is versioning done?
+### What versioning scheme do App Fair apps use?
 
 App Fair apps do not use any sort of conventional version numbering scheme. Rather than a dotted-numeric identifier (such as `1.2.3`), App Fair apps are automatically versioned with a hash of the commit for the pull request that triggered the build of the app. What this means is that you can always take the version number (which you can copy & paste from Finder's `Get Info` on the app) and be able to browse the source code that went into the app's release by searching for that unique commit hash on GitHub.
 
-### Can I release multiple versions at once?
+### Can I have multiple versions of an app released simultaneously?
 
-No: there is only ever a active version of your app that can be made available through the [appfair/App releases](https://github.com/appfair/App/releases) (and, thus, available in the **App Fair.app**). 
+No: there is only ever a single active version of your app that is available through the [appfair/App releases](https://github.com/appfair/App/releases) (and, thus, available for installation in the **App Fair.app** catalog). 
 
-### Can a user revert to an older version of an app if an update goes awry?
+### Can I customize my app's icon?
+
+The default icon is automatically generated by the `fairtool` as part of the build process.
+
+### What is the `fairtool`?
+
+### How can I change the category of my app in the **App Fair.app** catalog?
+
+### 
+
+### Can a user revert to an older version of an app?
 
 When **App Fair.app** installs an update to an existing app, it will place the older version in the user's Trash. As long as the user's trash remains un-emptied, the previous version of the app will remain available to use user for reversion.
 
-### What prevents malicious apps from being distributed?
-
-Xprotect, Sandboxing, GH Issues, GH Discussions, GH organization currency
-
 ### How can I remove my app from the App Fair?
 
-The simplest way to prevent your app from showing up in **App Fair.app** is to mark your repository or organization as "private", or else archive (or delete) your organization's `/App` fork.
+The simplest way to remove your app from showing up in the **App Fair.app** catalog is to mark your repository or organization as "private", or else archive (or delete) your organization's `/App` fork.
 
-In addition, disabling issues or discussions for your organization's `/App` fork will also have the result of making your app no longer appear as a valid installation candidate in **App Fair.app**.
+In addition, disabling issues or discussions for your organization's `/App` fork will also have the result of making your app no longer appear as a valid installation candidate in the **App Fair.app** catalog.
 
 ### How can I have someone else's app removed from the App Fair?
 
-As the App Fair's `Fork-App-Integrate-Release` process is completely automated, there is no mechanism for intervention in the app release process apart from the usual GitHub channels. Organizations that are removed from GitHub will have the effect of removing that organization's `/App` fork from being installable with **App Fair.app**.
+As the App Fair's `integrate-release` process is completely automated, there is no mechanism for direct management of, or intervention in, the app release process. 
+Organizations that are removed from GitHub will have the effect of removing that organization's app from being visible or installable from the **App Fair.app** catalog.
 
 ### Can App Fair apps be installed on non-macOS platforms?
 
-**App Fair.app** is currently only available for macOS 12 on M1 & Intel, and so apps can only be installed and deployed on those platforms.
+The integration phase of the App Fair builds and packages all apps for both macOS and iOS, but the **App Fair.app** catalog browser is currently only available for macOS 12 on ARM & Intel processors.
 
 ### Why do apps need to build for both macOS and iOS?
 
-The integration phase of the App F.A.I.R. process will build your app's fork for both macOS and iOS. This is in order to be able to run your app's unit tests in a sandboxed environment, as well as automatically generating screenshots for users to preview in **App Fair.app**.
+The integration phase of the App Fair process will build your app's fork for both macOS and iOS, even though they are currently only installable using the macOS **App Fair.app** catalog browser application. 
+This is in order to be able to run your app's unit tests in a sandboxed environment, as well as automatically generating screenshots for users to preview in the **App Fair.app** catalog.
 
-### What is the license for the App Fair project?
+### Which native frameworks will my app be able to use?
 
-### Does my apps code need to be licenses under the AGPL?
+As a true native application, App Fair apps can link to any native system framework on their target host.
+However, certain frameworks (typically those that utilize cloud services) will not function at runtime when they are used from apps that are distributed without a paid developer subscription.
+For example, geo-location services (used by the MapKit framework) and speech recognition services (used by the Natural Language framework) are unavailable to apps that are distributed through free channels.
+In general, frameworks that only utilize local system resources will be available for App Fair apps.
+
+### Are App Fair apps signed?
+
+Yes. 
+The `Integrate` phase of the App Fair process signs the app with an "ad-hoc" signing certificate.
+Tampering with this signature will prevent the application from being installed and or run.
+
+### Are App Fair apps notarized?
+
+Although App Fair apps are signed, sandboxed, and utilize the hardened runtime, they are not automatically notarized during the `Integration-Release` phases. 
+Notarization requires a paid developer subscription (and the ongoing acceptance of terms & conditions) and is therefore incompatible with the free & open nature of the App Fair.
+
+If you have a paid developer subscription, you are free to notarize the App Fair release binaries for your app yourself, which will enable you to distribute the same binary both via **App Fair.app** catalog browser application and via other distribution channels.
+
+### What prevents malicious apps from being distributed through the App Fair?
+
+App Fair apps are sandboxed, which prevents them from accessing files that are not explicitly granted authorization from the user.
+This helps to contain the damage that can be caused by malicious (or merely poorly-behaved) application.
+
+Aside from this preventative protection, the system also provides multiple independent remedial protections agains bad actors:
+
+macOS includes built-in antivirus technology called "XProtect" for the signature-based detection of malware, which is updated regularly with signatures of new malware infections and strains.
+
+In addition, macOS also includes the "Malware Removal Tool" (MRT), which is an engine in macOS that remediates infections based on automatic updates of system data files and security information. 
+MRT removes malware upon receiving updated information, and it continues to check for infections on restart and login.
+
+### What is the License for the App Fair project?
+
+Both the [appfair/Fair](https://github.com/appfair/Fair) and [appfair/App](https://github.com/appfair/App) projects, as well as all forks thereof (including the [**App Fair.app** catalog browser application](https://github.com/App-Fair/)), are licensed under the [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.html).
+
+### Is my app code required to use the AGPL?
+
+Only the portion of your app contained in your app organization's `/App` fork is required to be covered by the AGPL.
+You can develop the bulk of your app in a separate repository, which can be covered by any license of your choosing (provided the source code is available for the `Integration` phase of the process).
+
+### How an I monetize my app?
+
+Apps available through the **App Fair.app** catalog browser application are always free.
+Activating GitHub sponsorships will enable your account to accept financial contributions to your project through any of the supported funding model platforms: GitHub Sponsors, Patreon, Open Collective, Ko-fi, Tidelift, Community Bridge, Liberapay, IssueHunt, and Otechie.
+When sponsorships are enabled, your app's container will automatically add a Help menu link to the sponsorship service.
+
 
 
 
