@@ -9,7 +9,7 @@ The App Fair is an independent app distribution platform for free and open-sourc
 
 # The App Fair For Users
 
-From an end-user standpoint, the **App Fair.app** catalog browser application allows you to research, discover, install, and update applications from a (potentially) large catalog of free applications. 
+From an end-user standpoint, the **App Fair.app** catalog browser application allows you to research, discover, install, and update applications from a potentially large catalog of free applications. 
 
 Apps installed with the **App Fair.app** application are created using the modern platform-native SwiftUI framework and built for both Intel and ARM processors, and thus tend to run faster and use resources more efficiently than other cross-platform application frameworks.
 
@@ -21,14 +21,14 @@ Apps target the latest OS versions and utilize Swift 5.5, thus unlocking the ful
 The distribution process for App Fair apps is completely automated, instantaneous, and free. 
 Provided you have a free GitHubAccount, no additional registration, sign-up, or approval is required in order to start developing and distributing apps for the App Fair.
 
-## Introduction: an "App Fair" and the "FAIR" process?
+## Introduction: Fair Ground and the "Fair" process?
 
-"F-A-I-R" stands for the "Fork-Apply-Integrate-Release" process that describes the process of creating, developing, and distributing an App Fair app.
+The App Fair "Fork-Apply-Integrate-Release" process that describes the process of creating, developing, and distributing an App Fair app.
 The "Fork" and "App" parts are handled by you, the developer: a fork is created of the template `/App` repository, and you develop your app.
-The "Integrate" and "Release" are handled by the cloud build host that accepts pull requests from the developer's fork and validates, builds, packages, and releases the installable app.
+The "Integrate" and "Release" are handled by the  build host that accepts pull requests from the developer's fork and validates, builds, packages, and releases the installable app.
+The build host is considered the "Fair Ground", and the reference build host is implemented using a series of GitHub actions, artifacts, and releases.
 
-
-From a developer standpoint, an App Fair app consists of two source code repositories, *Fair* & *App*, combined with an automated *Integration* & *Release* process.
+From an App developer standpoint, an App Fair app is a Swift application that is defined by a Swift Package Manager `Package.swift` file, and that uses of two source code repositories: *Fair* & *App*:
  - [https://github.com/appfair/App](https://github.com/appfair/App) is the repository that is forked to create a new  App Fair app; PRs submitted to this repository are automatically built and released to the **App Fair.app** catalog.
  - Fair is the runtime SwiftUI library that is included in every App Fair project, and acts as a sandboxed container within which your application is run. The `Fair` library is the only required dependency for your app's [https://github.com/appfair/App](https://github.com/appfair/App) fork.
 
@@ -36,6 +36,8 @@ From a developer standpoint, an App Fair app consists of two source code reposit
 
 App Fair apps are written in Swift, a modern & safe language, compiled natively for Intel & ARM, and utilize the SwiftUI framework to provide a truly native application user interface.
 This makes apps installed from the App Fair tend to be fast and efficient, and have the capability to utilize the full range of the platform's native frameworks.
+But unlike other platform-native storefronts, there is no required developer application, fees, or recurring subscriptions, nor is there any review process or delays in issuing updates.
+And the App Fair's "Source Transparency" requirement means that there is always visibility into exactly what code is running on your device.
 
 ## The Structure of the App Fair project
 
@@ -181,6 +183,22 @@ The App Fair uses the information in your App's `Info.plist` to categorize the a
 ### Where does the **App Fair.app** catalog get its information about apps?
 
 The catalog browser application uses the public GitHub API to list all the releases for the [appfair/App](https://github.com/appfair/App) project, which it cross-references with the list of forks for the organization information. Assets such as the localization information and icon for the app are retrieved from the releases assets.
+
+### Can I embed API keys for online services into my App Fair app?
+
+Any "secrets" that are included in your software, such as passwords and API keys, should be considered to be public information.
+The App Fair's "Source Transparency" requirement means that every piece of data that goes into the build process of your app will also be available to the users of the app.
+The presents a problem for API keys and service passwords, since there is no way to "hide" them in your code.
+Sensitive information pushed to open-source repositories, such as GitHub OAuth tokens, personal access tokens, tokens from various cloud service providers, and unencrypted SSH private keys, are routinely scanned, and can be subject to automatic revocation by the organization that hosts the service.
+
+The recommendation is that you not rely on client-side secret data to utilize your application.
+When possible, the onus should be placed on the user to acquire their own token, which they can then store in the keychain or application preferences in your app.
+
+### Can I distribute Beta or Demo versions of my app through the App Fair?
+
+There are no restrictions on the kinds of apps that you can build and distribute on the App Fair.
+The App Fair is open to al apps: Student Projects, Vanity App, Demos, Experiments, Tests, and Re-mixes of other App Fair apps.
+As a completely automated system, there is no human review, so the only requirement to be included in the App Fair catalog is that it passes the automated validation phases of the `integrate-release` process.
 
 ### How can I monetize my app?
 
