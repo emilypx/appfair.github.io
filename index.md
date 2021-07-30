@@ -16,7 +16,7 @@ Apps installed with the **App Fair.app** application are created using the moder
 # The App Fair For Developers
 
 App Fair apps are written in Swift and utilize a native SwiftUI user interface. 
-Apps target the latest OS versions and utilize Swift 5.5, thus unlocking the full potential of Swift's async/await concurrency features and its actor model.
+Apps use Swift 5.5, thereby unlocking the full power of Swift's async/await concurrency features and its actor model.
 
 The distribution process for App Fair apps is completely automated, instantaneous, and free. 
 Provided you have a free GitHubAccount, no additional registration, sign-up, or approval is required in order to start developing and distributing apps for the App Fair.
@@ -36,8 +36,10 @@ From an App developer standpoint, an App Fair app is a Swift application that is
 
 App Fair apps are written in Swift, a modern & safe language, compiled natively for Intel & ARM, and utilize the SwiftUI framework to provide a truly native application user interface.
 This makes apps installed from the App Fair tend to be fast and efficient, and have the capability to utilize the full range of the platform's native frameworks.
-But unlike other platform-native storefronts, there is no required developer application, fees, or recurring subscriptions, nor is there any review process or delays in issuing updates.
-And the App Fair's "Source Transparency" requirement means that there is always visibility into exactly what code is running on your device.
+
+Unlike other platform-native storefronts, there is no required developer application, fees, or recurring subscriptions, nor is there any review process or delays in issuing updates.
+
+The App Fair's "Source Transparency" feature means that there is always visibility into exactly what code is running on your device.
 
 ## The Structure of the App Fair project
 
@@ -45,7 +47,7 @@ And the App Fair's "Source Transparency" requirement means that there is always 
 
 Upon submitting a Pull Request([?](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)) for your [appfair/App](https://github.com/appfair/App) fork's changes, your project will be automatically built, signed, packaged and distributed as a native macOS application via the [appfair/App releases](https://github.com/appfair/App/releases). 
 
-These releases can be browsed, searched, and installed using the macOS [App-Fair/App](https://github.com/App-Fair/App), which acts as the hub for discovering, researching, installing, and updating apps.
+These releases can be browsed, searched, and installed using the macOS the **App Fair.app** catalog browser application, which acts as the hub for discovering, researching, installing, and updating apps.
 
 The process is completely automated, instantaneous, and free. 
 Provided you have a free GitHubAccount, no additional registration, sign-up, or approval is required in order to start developing App Fair apps.
@@ -72,7 +74,7 @@ It consists of a library, [Fair](https://github.com/appfair/Fair)
 
 ## The App Fair Integration Process
 
-When a pull request is submitted from your app's fork back to the origin repository at [https://github.com/appfair/App](https://github.com/appfair/App), the integration phase of the App Fair's `Fork-App-Integrate-Release` process is initiated.
+When a pull request is submitted from your app's fork back to the origin repository at [https://github.com/appfair/App](https://github.com/appfair/App), the integration phase of the App Fair's `Fork-Apply-Integrate-Release` process is initiated.
 The PR will triggered a GitHub action ([pull_request_target](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request_target)) running on a macOS build host.
 The action will check out the PR and use the `fairtool` to validate the structure of the project and verify the status of the app's organization.
 It also verifies that the sandboxing requirements are met and that the project's `Package.swift` conforms to the integration requirements.
@@ -109,7 +111,7 @@ The App/Fair release process doesn't perform any validation of the licenses of a
 A challenge for any application distribution platform is dealing with "badware", which can be simply defined as software with undesired effects. 
 These can be merely annoying and wasteful, such as adware, containers for offensive content, covert proof-of-work crypto-currency miners, and other potentially unwanted programs ("PUPs"). 
 Software can also be actively hostile, such as programs that attempt to exfiltrate your personal data and activities ("spyware") or programs that attempt to lock you out of your own data ("ransomware"). 
-At the extreme end of the spectrum, programs that run on your computer can be actively dangerous to both yourself as well as the broader network: they can act as hosts for virus propagation or externally-coordinated clients for a "botnet" that can perform a distributed denial of service (DDoS) attacks or other malicious activities.
+At the extreme end of the spectrum, programs that run on your computer can be actively dangerous to both yourself as well as the broader network: they can act as hosts for virus propagation or externally-coordinated clients for a "botnet" that can perform distributed denial of service (DDoS) attacks or other malicious activities.
 
 Web browsers have been dealing with these risks and issues ever since the advent of JavaScript. 
 Browsers have evolved to enable arbitrary code to be run while still protecting the user's system and privacy (to some extent) by having the untrusted code run inside a sandbox that restricts the sorts of activities that are permitted: file system access is generally restricted to cookie storage and compartmentalized local file storage APIs, and network access is typically limited to HTTP (and websockets) access back to the network host for the page that loaded the code.
@@ -117,7 +119,7 @@ Browsers have evolved to enable arbitrary code to be run while still protecting 
 Similarly, applications that run on most modern operating systems can be "hardened" and constrained to a "sandbox", which restricts the application in what it can see and do.
 File system access, including access to your personal data (such as contacts, mail, and photos), require explicit consent from the user before the app can access the data.
 Similarly, direct access to the local hardware (microphone, video/camera, keyboard) is constrained and also requires explicit consent.
-The App Fair integration process requires that all software be hardened and notarized in order to appear in the catalog.
+The App Fair integration process requires that all software be hardened and sandboxed in order to appear in the catalog.
 
 The App Fair Integration-Release process is completely automated; there is no individual review of apps, neither when they are initially submitted nor when updates are released.
 This allows the release & update processes to be free of delays and keeps the catalog free from reviewer bias, but it also removes any possibility of pre-distribution "gate-keeping" to protect the community from unwanted programs.
