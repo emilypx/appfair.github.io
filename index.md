@@ -43,9 +43,7 @@ The App Fair's "Source Transparency" feature means that there is always visibili
 
 ## The Structure of the App Fair project
 
-<!-- The "App Fair" consists of two separate Swift projects: the [appfair/Fair](https://github.com/appfair/Fair) library, which is a set of Swift runtime libraries that are bundled with all App Fair apps, and an [appfair/App](https://github.com/appfair/App) project that is meant to be forked and used as the template for your own project.  -->
-
-Upon submitting a Pull Request([?](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)) for your [appfair/App](https://github.com/appfair/App) fork's changes, your project will be automatically built, signed, packaged and distributed as a native macOS application via the [appfair/App releases](https://github.com/appfair/App/releases). 
+Upon submitting a [Pull Request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) for your `/App` fork's changes, your project will be automatically built, signed, packaged and distributed as a native macOS application via the [appfair/App releases](https://github.com/appfair/App/releases). 
 
 These releases can be browsed, searched, and installed using the macOS the **App Fair.app** catalog browser application, which acts as the hub for discovering, researching, installing, and updating apps.
 
@@ -70,9 +68,13 @@ This is a Swift project that contains the shell of a cross-platform SwiftUI app 
 
 Your app will exist in a top-level repository named, simply, "App".
 
-It consists of a library, [Fair](https://github.com/appfair/Fair)
+## The "Fair App Integration Release" process
 
-## The App Fair Integration Process
+Once your app is ready to be released, you create a Pull Request (PR) from your Fork to the upstream [https://github.com/appfair/App](https://github.com/appfair/App) repository. 
+This PR will not be merged; rather, it acts as a trigger to initiate the `Integration` and `Releases` phases of the App Fair process.
+Once a release is created, it will be available at the list of releases at [https://github.com/appfair/App/releases](https://github.com/appfair/App/releases), from which it can be downloaded using the **App Fair.app** catalog browser or other compatible application.
+
+### The Fair App Integration Phase
 
 When a pull request is submitted from your app's fork back to the origin repository at [https://github.com/appfair/App](https://github.com/appfair/App), the integration phase of the App Fair's `Fork-Apply-Integrate-Release` process is initiated.
 The PR will triggered a GitHub action ([pull_request_target](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request_target)) running on a macOS build host.
@@ -85,13 +87,33 @@ See the [workflow file](https://github.com/appfair/App/blob/main/.github/workflo
 
 The pull request itself can remain open, and it can be later updated (or re-opened) when a new integration is requested.
 
-## The App Fair Release Process
+### The Fair App Release Phase
 
 Any app that passes the integration process, and whose organization passes the validation requirements, is automatically deployed to the [appfair/App releases](https://github.com/appfair/App/releases). 
 
 Once the app is releases, it will be visible and available for installation from the **App Fair.app** catalog for as long as the app's organization remains valid.
 
-### App Restrictions
+The [appfair/App releases](https://github.com/appfair/App/releases) contain all the current releases of all the apps that will be available in the **App Fair.app** catalog browser.
+
+These releases contain a number of artifacts that can be accessed using any compatible catalog browser in order to provide detailed metadata about the app's release.
+These release artifacts include:
+
+  * `App-Name-macOS.zip`: the macOS application archive, which will be installed by the **App Fair.app** catalog browser. 
+  * `App-Name-macOS.plist`: the metadata about the macOS application, such as the title and version
+  * `App-Name-iOS.ipa`: the iOS application archives (unsigned)
+  * `App-Name-iOS.plist`: the metadata about the iOS application
+  * `App.entitlements`: the list of permissions the app will request, such as network or file system access
+  * `App-Name-source.tgz`: the complete source code of the integration PR as well as all the resolved SPM dependencies that were used to create the release
+  * `App-Name.png`: the app's icon
+  * `Package.resolved`: the release versions of all the resolved SPM dependenciens
+
+(Note that in addition to these artifacts, GitHub also automatically includes a "Source code (zip)" and "Source code (tar.gz)" archive in the releases; these are 'shallow' source archives without the dependent code; for access to the complete archive of source code that was used to actually build an application, the generated `App-Name-source.tgz` release artifact should be used).
+
+
+## App Fair Catalog Requirements 
+
+The "App Fair" catalog is the list of valid app releases at [appfair/App releases](https://github.com/appfair/App/releases) cross-referenced with the metadata for the `App/` forks: issues, discussions, support info, wikis, project web site, etc.
+This metadata is accumulated using the public GitHub APIs, and the appearance in the catalog is completely automated.
 
 ### Org Requirements
 
@@ -145,6 +167,7 @@ Storing apps in a sub-folder of the standard `/Applications/` folder prevents na
 When **App Fair.app** installs an update to an existing app, it will place the older version in the user's Trash. 
 As long as the trash remains un-emptied, the previous version of the app will continue to be available to drag back into the `/Applications/App Fair/` folder.
 The App Fair catalog itself only references the most recent version of an app, so you must rely on your own backups (or contact the author of the app) for older versions.
+Older releases may additionally be available from the archives saved from the [appfair/App/actions](https://github.com/appfair/App/actions) history; these are typically available for a short time after the release has been created. 
 
 ### How can a user delete an app installed with the **App Fair.app** catalog?
 
@@ -226,12 +249,26 @@ The integration phase of the App Fair builds and packages all apps for both macO
 ### Why do apps need to build for both macOS and iOS?
 
 The integration phase of the App Fair process will build your app's fork for both macOS and iOS, even though they are currently only installable using the macOS **App Fair.app** catalog browser application. 
-This is in order to be able to run your app's unit tests in a sandboxed environment, as well as automatically generating screenshots for users to preview in the **App Fair.app** catalog.
+This is in order to be able to run your app's unit tests in a sandboxed environment, as well as automatically generating screenshots for users to preview in a catalog browser.
+
+### What is the target OS for App Fair applications
+
+In order to be able to utilize the Swift 5.5 concurrency features (async/await & actors), App Fair apps target macOS 12 and iOS 15.
+Note that the [Fair/FairCore](https://github.com/appfair/Fair/tree/main/Sources/FairCore) target is compatible with Swift 5.4 in order to use macOS 11 as the build host.
+
+### Can I build a watchOS or tvOS app?
+
+No. Only macOS and iOS builds are currently supported. 
+
+### Can I use the release artifacts with other distribution channels
+
+The binaries created by the `Integrate-Release` phase are standard `.zip` and `.ipa` archives and should be suitable for distributing via any compatible app distribution mechanisms.
+The release artifacts at [appfair/App releases](https://github.com/appfair/App/releases) are not constrained in how they are distributed or used.
 
 ### Which native frameworks will my app be able to use?
 
-As a true native application, App Fair apps can link to any native system framework on their target host.
-However, certain frameworks (typically those that utilize cloud services) will not function at runtime when they are used from apps that are distributed without a paid developer subscription.
+As a native compiled Swift application, App Fair apps can link to any native system framework on their target host.
+However, certain frameworks that integrate with online components (typically those that utilize cloud services) will not function at runtime when they are used from apps that are distributed without a paid developer subscription.
 For example, online geo-location services (used by the MapKit framework) and speech recognition services (used by the Natural Language framework) are unavailable to apps that are distributed through free channels.
 
 In general, frameworks that only utilize local system resources can be used without issue in App Fair apps.
