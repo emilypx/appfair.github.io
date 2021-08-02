@@ -236,6 +236,10 @@ For example, online geo-location services (used by the MapKit framework) and spe
 
 In general, frameworks that only utilize local system resources can be used without issue in App Fair apps.
 
+### How large are App Fair apps?
+
+Since they use the built-in native frameworks included with the host OS, App Fair apps are generally smaller than those built with cross-platform technologies that need to embed large components. An App Fair app's download size can be under 1 megabyte. There is a 100 megabyte limit to the size of app that will be deployed in the `Integrate-Release` phase.
+
 ### Can I distribute an Electron-style JavaScript app?
 
 The shell of the App you write, including any top-level system menus, must utilize SwiftUI views, idioms, and commands.
@@ -261,18 +265,28 @@ Notarization requires a paid developer subscription (and the ongoing acceptance 
 
 If you have a paid developer subscription, you are free to notarize the App Fair release binaries for your app yourself, which will enable you to distribute the same binary both via **App Fair.app** catalog browser application and via other distribution channels.
 
-### Are there 
+### What can I change in the Package.swift file?
+
+The `Package.swift` for your `/App` fork is expected to conform to the structural conventions of App Fair apps.
+As such, the outline of the `Package.swift` file cannot be changed, but some of the elements, such as the package dependencies, can be edited.
+This restrictions only apply to the `Package.swift` in the `/App` fork itself, and not to the `Package.swift` for any dependent packages.
+
+### My app's code mostly resides in an external Package. How can I make a release when only the dependent package has changed?
+
+The App Fair's `Integrate-Release` phases are triggered by Pull Request that are made from your `/App` fork.
+So in order to create a new release, something in your `/App` fork will need to change before a Pull Request can be created.
+One possible change to make would be to increment the version of the dependent library in your `Package.swift` file, and use that change to issue the PR.
 
 ### What prevents malicious apps from being distributed through the App Fair?
 
 App Fair apps are sandboxed, which prevents them from accessing files that are not explicitly granted authorization from the user.
-This helps to contain the damage that can be caused by malicious (or merely poorly-behaved) application.
+This helps to contain any damage that may be caused by a malicious (or merely poorly-written) application.
 
-Aside from this preventative protection, the system also provides multiple independent remedial protections agains bad actors:
+Along with this preventative protection, the system also provides multiple independent remedial protections agains bad actors:
 
 macOS includes built-in antivirus technology called "XProtect" for the signature-based detection of malware, which is updated regularly with signatures of new malware infections and strains.
 
-In addition, macOS also includes the "Malware Removal Tool" (MRT), which is an engine in macOS that remediates infections based on automatic updates of system data files and security information. 
+Furthermore, macOS also includes the "Malware Removal Tool" (MRT), which is a process that remediates infections based on automatic updates of system data files and security information. 
 MRT removes malware upon receiving updated information, and it continues to check for infections on restart and login.
 
 ### What is the License for the App Fair project?
@@ -282,7 +296,7 @@ Both the [appfair/Fair](https://github.com/appfair/Fair) and [appfair/App](https
 ### Is my app code required to use the AGPL?
 
 Only the portion of your app contained in your app organization's `/App` fork is required to be covered by the AGPL.
-You can develop the bulk of your app in a separate repository, which can be covered by any license of your choosing (provided the source code is available for the `Integration` phase of the process).
+You can develop any portion of your app in a separate repository, which can be covered by any license of your choosing (provided the source code is available for the `Integration-Releases` phases of the process).
 
 
 
