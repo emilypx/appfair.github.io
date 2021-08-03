@@ -66,7 +66,51 @@ You can manage create and distribute multiple apps by creating multiple separate
 Once your organization is set up, you create your app's project by forking the [https://github.com/appfair/App](https://github.com/appfair/App) repository. 
 This is a Swift project that contains the shell of a cross-platform SwiftUI app that you will use as your starting point.
 
-Your app will exist in a top-level repository named, simply, "App".
+Your app will exist in a top-level repository named "App"; it must continue to be called "App", since that is how the catalog browser will be able to access your project metadata.
+
+### Developing your `/App` fork
+
+The `/App` fork is structured as a standard swift package, and includes the following code that will be used as the scaffold of the app:
+
+  * Package.swift
+  * Sources/App/App.swift
+  * Tests/AppTests/AppTests.swift
+
+In addition, the following project files and associated metadata are included for developing the macOS app itself:
+  
+  * App.xcworkspace
+  * App.xcodeproj
+  * App.entitlements
+  * App.plist
+  * App.xcassets
+
+App development can be done by opening `App.xcworkspace` using `Xcode.app` to build, run, and debug the SwiftUI app that is defined in `Sources/App/App.swift`.
+Note, though, that changes to these project files, `App.xcworkspace` and `App.xcodeproj`, will *not* be incorporated into the final project.
+It will be best not to make changes to the project files themselves, since none of the changes will be used in the eventual `Integrate-Release` phases of the process.
+
+### Managing dependencies in your `/App` fork
+
+The `Package.swift` file that defines how your package is built.
+Only the dependencies section of this file can be edited to add your swift package dependencies.
+The section of the `Package.swift` file that can be altered is marked with the comment:
+
+```swift
+// Everything above this line must remain unmodified.
+```
+
+This restriction is enforced by the `Integration` phase of the process, which will refuse to build the project if the fenced areas have been modified.
+
+### Editing the `Sources/App/App.swift` 
+
+The `App.swift` file is the entry point to your application.
+It has a defined structure whose front-matter cannot be changed, as fenced by the comment:
+
+```swift
+// Everything above this line must remain unmodified.
+```
+
+This structure is used to correctly integrate with the `FairApp` library, such as creating the proper help menus and ensuring that the app has a settings interface.
+
 
 ## The "Fair App Integration Release" process
 
