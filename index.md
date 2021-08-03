@@ -72,17 +72,14 @@ Your app will exist in a top-level repository named "App"; it must continue to b
 
 The `/App` fork is structured as a standard swift package, and includes the following code that will be used as the scaffold of the app:
 
-  * Package.swift
-  * Sources/App/App.swift
-  * Tests/AppTests/AppTests.swift
-
-In addition, the following project files and associated metadata are included for developing the macOS app itself:
-  
   * App.xcworkspace
   * App.xcodeproj
   * App.entitlements
   * App.plist
   * App.xcassets
+  * Package.swift
+  * Sources/App/App.swift
+  * Tests/AppTests/AppTests.swift
 
 App development can be done by opening `App.xcworkspace` using `Xcode.app` to build, run, and debug the SwiftUI app that is defined in `Sources/App/App.swift`.
 Note, though, that changes to these project files, `App.xcworkspace` and `App.xcodeproj`, will *not* be incorporated into the final project.
@@ -191,13 +188,8 @@ The App Fair Integration-Release process is completely automated; there is no in
 This allows the release & update processes to be free of delays and keeps the catalog free from reviewer bias, but it also removes any possibility of pre-distribution "gate-keeping" to protect the community from unwanted programs.
 The App Fair instead provides post-distribution gate-keeping by requiring that the source code for the entire app be available to the build process and that it be hosted in publicly-available GitHub repositories.
 For any release in the App Fair catalog, the complete source code is available for inspection, review, and analysis by the entire world.
-This access enables the world-wide security community to use all its resources to identify, isolate, and mitigate badly-behaved apps.
-In addition, a requirement that all the code by hosted in publicly-available Git repositories means that tools like [GitHub's code scanning](https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning) can be used to identify security vulnerabilities in the app or any of the frameworks it embeds.
-
-<!-- ## Current Limitations
-
-Document-based apps?
-No icon customization -->
+This access enables the security community to use all its resources to identify, isolate, and mitigate badly-behaved apps.
+In addition, a requirement that all the code be hosted in publicly-available Git repositories means that tools like [GitHub's code scanning](https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning) can be used to identify security vulnerabilities in the app or any of the frameworks it embeds.
 
 ## User FAQ
 
