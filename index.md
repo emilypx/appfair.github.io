@@ -13,20 +13,22 @@ From an end-user standpoint, the **App Fair.app** catalog browser application al
 
 Apps installed with the **App Fair.app** application are created using the modern platform-native SwiftUI framework and built for both Intel and ARM processors, and thus tend to run faster and use resources more efficiently than other cross-platform application frameworks.
 
+
 # The App Fair For Developers
 
 App Fair apps are written in Swift and utilize a native SwiftUI user interface. 
 Apps use Swift 5.5, thereby unlocking the full power of Swift's async/await concurrency features and its actor model.
 
 The distribution process for App Fair apps is completely automated, instantaneous, and free. 
-Provided you have a free GitHubAccount, no additional registration, sign-up, or approval is required in order to start developing and distributing apps for the App Fair.
+Provided you have a free GitHub account, no additional registration, sign-up, or approval is required in order to start developing and distributing apps for the App Fair.
+
 
 ## Introduction: Fair Ground and the "Fair" process?
 
-The App Fair "Fork-Apply-Integrate-Release" process that describes the process of creating, developing, and distributing an App Fair app.
-The "Fork" and "App" parts are handled by you, the developer: a fork is created of the template `/App` repository, and you develop your app.
-The "Integrate" and "Release" are handled by the  build host that accepts pull requests from the developer's fork and validates, builds, packages, and releases the installable app.
-The build host is considered the "Fair Ground", and the reference build host is implemented using a series of GitHub actions, artifacts, and releases.
+"Fork-App-Integrate-Release" (F-A-I-R) describes the stages of creating, developing, building, and distributing an App Fair app.
+The "Fork" and "App" parts are handled by you, the developer: a fork is created of the template `/App` repository, and you develop your app in your own's organization's repository.
+The "Integrate" and "Release" are handled by the build host that accepts pull requests from the developer's fork and validates, builds, packages, and releases the installable app.
+The build host is considered the "Fair Ground" for the App Fair, and the default build host is implemented using a series of GitHub actions, artifacts, and releases.
 
 From an App developer standpoint, an App Fair app is a Swift application that is defined by a Swift Package Manager `Package.swift` file, and that uses of two source code repositories: *Fair* & *App*:
  - [https://github.com/appfair/App](https://github.com/appfair/App) is the repository that is forked to create a new  App Fair app; PRs submitted to this repository are automatically built and released to the **App Fair.app** catalog.
@@ -329,7 +331,9 @@ In practice, however, to develop anything but the most trivial of apps requires 
 ### Are App Fair apps signed?
 
 Yes. 
-The `Integrate` phase of the App Fair process signs the app with an "ad-hoc" signing certificate.
+As of macOS 12, apps must be signed in order to run.
+The same requirement exists for iOS.
+The `Integrate` phase of the App Fair process signs the app with an "ad-hoc" signing certificate in order to satisfy this requirement.
 
 ### Are App Fair apps notarized?
 
