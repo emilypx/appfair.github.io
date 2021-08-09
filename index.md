@@ -23,7 +23,7 @@ The distribution process for App Fair apps is completely automated, instantaneou
 Provided you have a free GitHub account, no additional registration, sign-up, or approval is required in order to start developing and distributing apps for the App Fair.
 
 
-## Introduction: Fair Ground and the "Fair" process?
+## Introduction: Fair Grounds and the "F-A-I-R" sages
 
 "Fork-App-Integrate-Release" (F-A-I-R) describes the stages of creating, developing, building, and distributing an App Fair app.
 The "Fork" and "App" parts are handled by you, the developer: a fork is created of the template `/App` repository, and you develop your app in your own's organization's repository.
@@ -45,7 +45,7 @@ The App Fair's "Source Transparency" feature means that there is always visibili
 
 ## The Structure of the App Fair project
 
-Upon submitting a [Pull Request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) for your `/App` fork's changes, your project will be automatically built, signed, packaged and distributed as a native macOS application via the [appfair/App releases](https://github.com/appfair/App/releases). 
+Upon submitting a [Pull Request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) for your `/APP-ORG/App` fork's changes, your project will be automatically built, signed, packaged and distributed as a native macOS application via the [appfair/App releases](https://github.com/appfair/App/releases). 
 
 These releases can be browsed, searched, and installed using the macOS the **App Fair.app** catalog browser application, which acts as the hub for discovering, researching, installing, and updating apps.
 
@@ -70,18 +70,21 @@ This is a Swift project that contains the shell of a cross-platform SwiftUI app 
 
 Your app will exist in a top-level repository named "App"; it must continue to be called "App", since that is how the catalog browser will be able to access your project metadata.
 
-### Developing your `/App` fork
+### Developing your `/APP-ORG/App` fork
 
-The `/App` fork is structured as a standard swift package, and includes the following code that will be used as the scaffold of the app:
+The `/APP-ORG/App` repository is structured as a standard swift package, and includes the following code that must be included as the scaffold of the app::
 
-  * App.xcworkspace
-  * App.xcodeproj
-  * App.entitlements
-  * App.plist
-  * App.xcassets
   * Package.swift
   * Sources/App/App.swift
   * Tests/AppTests/AppTests.swift
+
+In addition, at the top level of the repository, there are `Xcode`-specific project files that describe the metadata, build rules, assets, and permissions for the project:
+
+  * `App.xcworkspace` – Xcode workspace file
+  * `App.xcodeproj` – Xcode-specific metadata
+  * `Info.plist` – metadata about your app
+  * `Sandbox.entitlements` – permissions that should be granted to your app
+  * `Assets.xcassets` – the app's icon and tint
 
 App development can be done by opening `App.xcworkspace` using `Xcode.app` to build, run, and debug the SwiftUI app that is defined in `Sources/App/App.swift`.
 Note, though, that changes to these project files, `App.xcworkspace` and `App.xcodeproj`, will *not* be incorporated into the final project.
@@ -111,15 +114,71 @@ It has a defined structure whose front-matter cannot be changed, as fenced by th
 This structure is used to correctly integrate with the `FairApp` library, such as creating the proper help menus and ensuring that the app has a settings interface.
 
 
+### The App Fair sandbox
+
+The "sandbox" is the name for a security environment within which a program is run that restricts the capabilities of the software.
+Your `/App` fork is pre-configured to request minimal permissions, and thus runs in a very restrictive sandboxed environment: no network access is permitted, and file access outside the app's own separate container is not allowed.
+
+You may add new entitlements to your `/App` fork's `App.entitlements` file.
+For each entitlement that is requested, a description of the reason for the entitlement must be added to `Info.plist`.
+This is enforced by the `Integration` phase.
+These descriptions should be plain language explaining why the app needs access to the specific permissions.
+
+The descriptions will be presented to the user via the **App Fair.app** catalog browser, and the user will need to confirm that the app should be granted these permissions.
+The apps may periodically remind the users of the permissions that have been granted to the app, and re-confirm with the user that the app should be granted the permissions.
+This is in addition to automatic confirmations and re-confirmations that the host OS may present to the user over time.
+
+For these reasons, you should not request permissions that your app does not need.
+For example, if you are making a weather app, you should not need to request the user's contact information with the `personal-information.addressbook` entitlement.
+See `AppEntitlement.usageDescriptionProperties` for the usage description property names for the corresponding `App.entitlements` keys.
+
+
 ## The "Fair App Integration Release" process
 
 Once your app is ready to be released, you create a Pull Request (PR) from your Fork to the upstream [https://github.com/appfair/App](https://github.com/appfair/App) repository. 
 This PR will not be merged; rather, it acts as a trigger to initiate the `Integration` and `Releases` phases of the App Fair process.
 Once a release is created, it will be available at the list of releases at [https://github.com/appfair/App/releases](https://github.com/appfair/App/releases), from which it can be downloaded using the **App Fair.app** catalog browser or other compatible application.
 
+
 ### The Fair App Integration Phase
 
 When a pull request is submitted from your app's fork back to the origin repository at [https://github.com/appfair/App](https://github.com/appfair/App), the integration phase of the App Fair's `Fork-Apply-Integrate-Release` process is initiated.
+
+### Configuring your Fork for the Integration-Release
+
+Once you have created your `/APP-ORG/App` fork
+
+```
+$ git remote -v
+origin    https://github.com/APP-ORG/App.git (fetch)
+origin    https://github.com/APP-ORG/App.git (push)
+
+$ git remote add upstream https://github.com/appfair/App.git
+
+$ git remote -v
+origin      https://github.com/APP-ORG/App.git (fetch)
+origin      https://github.com/APP-ORG/App.git (push)
+upstream    https://github.com/appfair/App.git (fetch)
+upstream    https://github.com/appfair/App.git (push)
+
+$ git fetch upstream
+remote: Enumerating objects…
+remote: Counting objects…
+remote: Compressing objects…
+remote: Total … (delta …), reused … (delta …), pack-reused …
+Unpacking objects: 100% (15/15), 1.15 KiB | 51.00 KiB/s, done.
+From https://github.com/appfair/App
+ 
+$ git pull
+Current branch main is up to date.
+
+$ git merge upstream/main
+Merge made by the 'recursive' strategy.
+ …/…/…     | 2 +-
+ …/…/…     | 5 +++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+```
+
 The PR will triggered a GitHub action ([pull_request_target](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request_target)) running on a macOS build host.
 The action will check out the PR and use the `fairtool` to validate the structure of the project and verify the status of the app's organization.
 It also verifies that the sandboxing requirements are met and that the project's `Package.swift` conforms to the integration requirements.
@@ -231,7 +290,7 @@ The default icon is automatically generated by the `fairtool` as part of the bui
 ### What is the `fairtool`?
 
 Fairtool is the name of the utility that is included with the `Fair` project, that can be used to validate a project, generate icons, and the like.
-It can be run from any `/App` fork from Terminal.app with the command:
+It can be run from any `/APP-ORG/App` fork from Terminal.app with the command:
 
 ```
 $ swift run fairtool help
@@ -271,9 +330,9 @@ When sponsorships are enabled, your app's container will automatically add a Hel
 
 ### How can I remove my app from the App Fair catalog?
 
-The simplest way to remove your app from showing up in the **App Fair.app** catalog is to mark your repository or organization as "private", or else archive (or delete) your organization's `/App` fork.
+The simplest way to remove your app from showing up in the **App Fair.app** catalog is to mark your repository or organization as "private", or else archive (or delete) your organization's `/APP-ORG/App` fork.
 
-In addition, disabling issues or discussions for your organization's `/App` fork will also have the result of making your app no longer appear as a valid installation candidate in the **App Fair.app** catalog.
+In addition, disabling issues or discussions for your organization's `/APP-ORG/App` fork will also have the result of making your app no longer appear as a valid installation candidate in the **App Fair.app** catalog.
 
 ### How can I have someone else's app removed from the App Fair?
 
@@ -323,7 +382,7 @@ However, there is nothing preventing you from embedding any arbitrary native vie
 
 ### Do I need a Mac to develop App Fair apps?
 
-*Technically*, no: you could theoretically use any OS to write the Swift code for your `/App` fork.
+*Technically*, no: you could theoretically use any OS to write the Swift code for your `/APP-ORG/App` fork.
 Since the Integration and Release phases of the App Fair process are all run in the cloud, no client-side build & run activity is required.
 
 In practice, however, to develop anything but the most trivial of apps requires being able to use a modern IDE, debugger, and the ability to actually run your app in order to test and refine the behavior.
@@ -335,6 +394,11 @@ As of macOS 12, apps must be signed in order to run.
 The same requirement exists for iOS.
 The `Integrate` phase of the App Fair process signs the app with an "ad-hoc" signing certificate in order to satisfy this requirement.
 
+### What is "Ad-Hoc" code signing?
+
+When an app is "signed", it protects the app from being tampered with once it has been installed.
+When a signature is "Ad-Hoc", it means that there is no identifying information associated with the signature.
+
 ### Are App Fair apps notarized?
 
 Although App Fair apps are signed, sandboxed, and utilize the hardened runtime, they are not automatically notarized during the `Integration-Release` phases. 
@@ -344,14 +408,14 @@ If you have a paid developer subscription, you are free to notarize the App Fair
 
 ### What can I change in the Package.swift file?
 
-The `Package.swift` for your `/App` fork is expected to conform to the structural conventions of App Fair apps.
+The `Package.swift` for your `/APP-ORG/App` fork is expected to conform to the structural conventions of App Fair apps.
 As such, the outline of the `Package.swift` file cannot be changed, but some of the elements, such as the package dependencies, can be edited.
-This restrictions only apply to the `Package.swift` in the `/App` fork itself, and not to the `Package.swift` for any dependent packages.
+This restrictions only apply to the `Package.swift` in the `/APP-ORG/App` fork itself, and not to the `Package.swift` for any dependent packages.
 
 ### My app's code mostly resides in an external Package. How can I make a release when only the dependent package has changed?
 
-The App Fair's `Integrate-Release` phases are triggered by Pull Request that are made from your `/App` fork.
-So in order to create a new release, something in your `/App` fork will need to change before a Pull Request can be created.
+The App Fair's `Integrate-Release` phases are triggered by Pull Request that are made from your `/APP-ORG/App` fork.
+So in order to create a new release, something in your `/APP-ORG/App` fork will need to change before a Pull Request can be created.
 One possible change to make would be to increment the version of the dependent library in your `Package.swift` file, and use that change to issue the PR.
 
 ### What prevents malicious apps from being distributed through the App Fair?
@@ -372,8 +436,5 @@ Both the [appfair/Fair](https://github.com/appfair/Fair) and [appfair/App](https
 
 ### Is my app code required to use the AGPL?
 
-Only the portion of your app contained in your app organization's `/App` fork is required to be covered by the AGPL.
+Only the portion of your app contained in your app organization's `/APP-ORG/App` fork is required to be covered by the AGPL.
 You can develop any portion of your app in a separate repository, which can be covered by any license of your choosing (provided the source code is available for the `Integration-Releases` phases of the process).
-
-
-
