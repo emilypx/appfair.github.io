@@ -72,7 +72,7 @@ Your app will exist in a top-level repository named "App"; it must continue to b
 
 ### Developing your `/APP-ORG/App` fork
 
-The `/APP-ORG/App` repository is structured as a standard swift package, and includes the following code that must be included as the scaffold of the app::
+The `/APP-ORG/App` repository is structured as a standard swift package, and includes the following code that must be included as the scaffold and starting point for your app:
 
   * Package.swift
   * Sources/App/App.swift
@@ -80,7 +80,7 @@ The `/APP-ORG/App` repository is structured as a standard swift package, and inc
 
 In addition, at the top level of the repository, there are `Xcode`-specific project files that describe the metadata, build rules, assets, and permissions for the project:
 
-  * `App.xcworkspace` – Xcode workspace file
+  * `App.xcworkspace` – Xcode workspace file for running and debugging your app
   * `App.xcodeproj` – Xcode-specific metadata
   * `Info.plist` – metadata about your app
   * `Sandbox.entitlements` – permissions that should be granted to your app
@@ -90,7 +90,7 @@ App development can be done by opening `App.xcworkspace` using `Xcode.app` to bu
 Note, though, that changes to these project files, `App.xcworkspace` and `App.xcodeproj`, will *not* be incorporated into the final project.
 It will be best not to make changes to the project files themselves, since none of the changes will be used in the eventual `Integrate-Release` phases of the process.
 
-### Managing dependencies in your `/App` fork
+### Managing dependencies in your `/APP-ORG/App` fork
 
 The `Package.swift` file that defines how your package is built.
 Only the dependencies section of this file can be edited to add your swift package dependencies.
@@ -117,9 +117,9 @@ This structure is used to correctly integrate with the `FairApp` library, such a
 ### The App Fair sandbox
 
 The "sandbox" is the name for a security environment within which a program is run that restricts the capabilities of the software.
-Your `/App` fork is pre-configured to request minimal permissions, and thus runs in a very restrictive sandboxed environment: no network access is permitted, and file access outside the app's own separate container is not allowed.
+Your `/APP-ORG/App` fork is pre-configured to request minimal permissions, and thus runs in a very restrictive sandboxed environment: USB & bluetooth are forbidden, no network access is permitted, and file access outside the app's own separate container is not allowed.
 
-You may add new entitlements to your `/App` fork's `App.entitlements` file.
+You may add new entitlements to your `/APP-ORG/App` fork's `App.entitlements` file.
 For each entitlement that is requested, a description of the reason for the entitlement must be added to `Info.plist`.
 This is enforced by the `Integration` phase.
 These descriptions should be plain language explaining why the app needs access to the specific permissions.
@@ -332,11 +332,14 @@ When sponsorships are enabled, your app's container will automatically add a Hel
 
 The simplest way to remove your app from showing up in the **App Fair.app** catalog is to mark your repository or organization as "private", or else archive (or delete) your organization's `/APP-ORG/App` fork.
 
-In addition, disabling issues or discussions for your organization's `/APP-ORG/App` fork will also have the result of making your app no longer appear as a valid installation candidate in the **App Fair.app** catalog.
+In addition, disabling issues or discussions for your `/APP-ORG/App` fork will also have the result of making your app no longer appear as a valid installation candidate in the **App Fair.app** catalog.
+Discussions and issues are required in order to allow users a channel for support questions and other communications.
 
 ### How can I have someone else's app removed from the App Fair?
 
 As the App Fair's `integrate-release` process is completely automated, there is no mechanism for direct management of, or intervention in, the app release process. 
+Each app that is listed in that app's github repository, which is required to have issues and discussions enabled.
+You can use these forums to contact the developer(s) of the app.
 Organizations that are removed from GitHub will have the effect of removing that organization's app from being visible or installable from the **App Fair.app** catalog.
 
 ### Can App Fair apps be installed on non-macOS platforms?
