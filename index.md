@@ -23,7 +23,7 @@ The distribution process for App Fair apps is completely automated, instantaneou
 Provided you have a free GitHub account, no additional registration, sign-up, or approval is required in order to start developing and distributing apps for the App Fair.
 
 
-## Introduction: Fair Grounds and the "F-A-I-R" sages
+## Introduction: Fair Grounds and the "F-A-I-R" stages
 
 "Fork-App-Integrate-Release" (F-A-I-R) describes the stages of creating, developing, building, and distributing an App Fair app.
 The "Fork" and "App" parts are handled by you, the developer: a fork is created of the template `/App` repository, and you develop your app in your own's organization's repository.
