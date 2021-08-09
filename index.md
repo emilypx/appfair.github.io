@@ -11,7 +11,7 @@ The App Fair is an independent app distribution platform for free and open-sourc
 
 From an end-user standpoint, the **App Fair.app** catalog browser application allows you to research, discover, install, and update applications from an unlimited online collection. 
 
-Apps installed with the **App Fair.app** application are created using the modern platform-native SwiftUI framework and built for both Intel and ARM processors, and thus tend to run faster and use resources more efficiently than other cross-platform application frameworks.
+Apps installed with the **App Fair.app** application are created using the modern platform-native SwiftUI framework and built for both Intel and ARM processors, and therefore tend to run faster and use resources more efficiently than other cross-platform application frameworks.
 At the same time, they use modern "Sandboxing" techniques to protect your system and ensure that you are always aware of what actions the apps are permitted to take, such as reading and writing files, communicating over the internet, or accessing your camera, microphone, or other USB & bluetooth devices.
 
 ## Free & Fair, Forever
