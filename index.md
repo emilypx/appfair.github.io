@@ -25,7 +25,7 @@ Some App developers may enable patronage services, which provides the ability fo
 # The App Fair For Student Developers
 
 App Fair apps are written in Swift and utilize a native SwiftUI user interface. 
-Apps are written in Swift version 5.5, giving them access to the full power of Swift's async/await concurrency features.
+Apps target macOS 12 and Swift version 5.5, giving them access to the full power of Swift's async/await concurrency features.
 
 The distribution process for App Fair apps is completely automated, instantaneous, and free. 
 The only requirement is a GitHub account that is associated with your `.edu` e-mail address.
