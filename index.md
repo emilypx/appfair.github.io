@@ -6,13 +6,13 @@ title: The App Fair
 # Welcome to the App Fair
 
 The App Fair is an independent app distribution platform for free and open-source macOS applications written by students and educators.
-App Fair apps use modern native user-interface elements with emphasis on performance, efficiency, accessibility and inclusiveness.
+App Fair apps use modern native frameworks and user-interface elements with a focus on performance, efficiency, accessibility and inclusiveness.
 
 # The App Fair For Users
 
 From an end-user standpoint, the **App Fair.app** catalog browser application allows you to research, discover, install, and update applications from an unlimited online collection. 
 
-Apps installed with the **App Fair.app** application are created using the modern platform-native SwiftUI framework and built for both Intel and ARM processors, and therefore tend to run faster and use resources more efficiently than other cross-platform application frameworks.
+Apps installed with the **App Fair.app** application are created using the modern platform-native `SwiftUI` framework and built for both Intel and ARM processors, and therefore tend to run faster and use resources more efficiently than other cross-platform application frameworks.
 At the same time, they use modern "Sandboxing" techniques to protect your system and ensure that you are always aware of what actions the apps are permitted to take, such as reading and writing files, communicating over the internet, or accessing your camera, microphone, or other USB & bluetooth devices.
 
 ## Free & Fair, Forever
@@ -24,28 +24,27 @@ Some App developers may enable patronage services, which provides the ability fo
 
 # The App Fair For Student Developers
 
-App Fair apps are written in Swift and utilize a native SwiftUI user interface. 
+App Fair apps are written in Swift and utilize a native `SwiftUI` user interface. 
 Apps target macOS 12 and Swift version 5.5, giving them access to the full power of Swift's async/await concurrency features.
 
 The distribution process for App Fair apps is completely automated, instantaneous, and free. 
 The only requirement is a GitHub account that is associated with your `.edu` e-mail address.
 No additional registration, sign-up, or approval is required in order to start developing and distributing apps for the App Fair.
 
-
 ## Introduction: Fair Grounds and the "F-A-I-R" stages
 
 "Fork-App-Integrate-Release" (F-A-I-R) describes the stages of creating, developing, building, and distributing an App Fair app.
-The "Fork" and "App" parts are handled by you, the developer: a fork is created of the template `/APP-ORG/App` repository, and you develop your app in your own's organization's repository.
-The "Integrate" and "Release" are handled by the build host that accepts pull requests from the developer's fork and validates, builds, packages, and releases the installable app.
-The build host is considered the "Fair Ground" for the App Fair, and the default build host is implemented using a series of GitHub actions, artifacts, and releases.
+The "Fork" and "App" parts are handled by you, the developer: a fork is created of the template [`/appfair/App`](https://github.com/appfair/App) repository, and you develop your app in your own's organization's repository.
+The "Integrate" and "Release" phases are handled by the build host that accepts pull requests from the developer's fork and validates, builds, packages, and releases the installable app.
+The build host is considered the "fairground" for the App Fair, and the default build host is implemented using a collection of GitHub actions, artifacts, and releases, all of which are contained within the [appfair/App](https://github.com/appfair/App) repository.
 
 From an App developer standpoint, an App Fair app is a Swift application that is defined by a Swift Package Manager `Package.swift` file, and that uses of two source code repositories: *Fair* & *App*:
  - [https://github.com/appfair/App](https://github.com/appfair/App) is the repository that is forked to create a new  App Fair app; PRs submitted to this repository are automatically built and released to the **App Fair.app** catalog.
- - Fair is the runtime SwiftUI library that is included in every App Fair project, and acts as a sandboxed container within which your application is run. The `Fair` library is the only required dependency for your app's [https://github.com/appfair/App](https://github.com/appfair/App) fork.
+ - Fair is the runtime `SwiftUI` library that is included in every App Fair project, and acts as a sandboxed container within which your application is run. The `Fair` library is the only required dependency for your app's [https://github.com/appfair/App](https://github.com/appfair/App) fork.
 
 ## "App Fair" & other distribution platforms
 
-App Fair apps are written in Swift, a modern & safe language, compiled natively for Intel & ARM, and utilize the SwiftUI framework to provide a truly native application user interface.
+App Fair apps are written in Swift, a modern & safe language, compiled natively for Intel & ARM, and utilize the `SwiftUI` framework to provide a truly native application user interface.
 This makes apps installed from the App Fair tend to be fast and efficient, and have the capability to utilize the full range of the platform's native frameworks.
 
 Unlike other platform-native storefronts, there is no required developer application, fees, or recurring subscriptions, nor is there any review process or delays in issuing updates.
@@ -75,7 +74,7 @@ You can manage create and distribute multiple apps by creating multiple separate
 ### App Repository
 
 Once your organization is set up, you create your app's project by forking the [https://github.com/appfair/App](https://github.com/appfair/App) repository. 
-This is a Swift project that contains the shell of a cross-platform SwiftUI app that you will use as your starting point.
+This is a Swift project that contains the shell of a cross-platform `SwiftUI` app that you will use as your starting point.
 
 Your app will exist in a top-level repository named "App"; it must continue to be called "App", since that is how the catalog browser will be able to access your project metadata.
 
@@ -95,7 +94,7 @@ In addition, at the top level of the repository, there are `Xcode`-specific proj
   * `Sandbox.entitlements` – permissions that should be granted to your app
   * `Assets.xcassets` – the app's icon and tint
 
-App development can be done by opening `App.xcworkspace` using `Xcode.app` to build, run, and debug the SwiftUI app that is defined in `Sources/App/App.swift`.
+App development can be done by opening `App.xcworkspace` using `Xcode.app` to build, run, and debug the `SwiftUI` app that is defined in `Sources/App/App.swift`.
 Note, though, that changes to these project files, `App.xcworkspace` and `App.xcodeproj`, will *not* be incorporated into the final project.
 It will be best not to make changes to the project files themselves, since none of the changes will be used in the eventual `integrate-release` phases of the process.
 
@@ -408,7 +407,7 @@ Users will need to first manually un-install the app in order to then manually i
 
 ### Can I distribute an Electron-style JavaScript app?
 
-The shell of the App you write, including any top-level system menus, must utilize SwiftUI views, idioms, and commands.
+The shell of the App you write, including any top-level system menus, must utilize `SwiftUI` views, idioms, and commands.
 Embedding a binary framework, such as the Chromium rendering engine and the Node.js runtime that together power Electron apps, is not supported.
 However, there is nothing preventing you from embedding any arbitrary native view controller within your app's view hierarchy, such as the `WKWebView` that enables apps to host an HTML5 application within a Safari-like container.
 
