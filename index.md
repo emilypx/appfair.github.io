@@ -5,22 +5,29 @@ title: The App Fair
 
 # Welcome to the App Fair
 
-The App Fair is an independent app distribution platform for free and open-source macOS applications.
+The App Fair is an independent app distribution platform for free and open-source macOS applications written by students and educators.
 
 # The App Fair For Users
 
-From an end-user standpoint, the **App Fair.app** catalog browser application allows you to research, discover, install, and update applications from a potentially large catalog of free applications. 
+From an end-user standpoint, the **App Fair.app** catalog browser application allows you to research, discover, install, and update applications from an unlimited online collection. 
 
 Apps installed with the **App Fair.app** application are created using the modern platform-native SwiftUI framework and built for both Intel and ARM processors, and thus tend to run faster and use resources more efficiently than other cross-platform application frameworks.
+At the same time, they use modern "Sandboxing" techniques to protect your system and ensure that you are always aware of what actions the apps are permitted to take, such as reading and writing files, communicating over the internet, or accessing your camera, microphone, or other USB & bluetooth devices.
 
+## Free & Fair, Forever
 
-# The App Fair For Developers
+App Fair apps are always free; there is never any charge to download and install apps from the catalog, nor is there any possibility for in-app purchases or subscriptions.
+Any apps you install from the App Fair will be free and fair, forever.
+Some App developers may enable patronage services, which provides the ability for users to sponsor developers whose apps they enjoy using and to fund the ongoing development of the app.
+
+# The App Fair For Students & Developers
 
 App Fair apps are written in Swift and utilize a native SwiftUI user interface. 
 Apps use Swift 5.5, thereby unlocking the full power of Swift's async/await concurrency features and its actor model.
 
 The distribution process for App Fair apps is completely automated, instantaneous, and free. 
-Provided you have a free GitHub account, no additional registration, sign-up, or approval is required in order to start developing and distributing apps for the App Fair.
+The only requirement is a GitHub account that is associated with your `.edu` e-mail address.
+No additional registration, sign-up, or approval is required in order to start developing and distributing apps for the App Fair.
 
 
 ## Introduction: Fair Grounds and the "F-A-I-R" stages
@@ -117,7 +124,7 @@ This structure is used to correctly integrate with the `FairApp` library, such a
 ### The App Fair sandbox
 
 The "sandbox" is the name for a security environment within which a program is run that restricts the capabilities of the software.
-Your `/APP-ORG/App` fork is pre-configured to request minimal permissions, and thus runs in a very restrictive sandboxed environment: USB & bluetooth are forbidden, no network access is permitted, and file access outside the app's own separate container is not allowed.
+Your `/APP-ORG/App` fork is pre-configured to request minimal permissions, and thus runs in a very restrictive sandboxed environment: USB & bluetooth hardware access is not permitted, network access communication is blocked, and file access outside the app's own sandboxed container is not allowed.
 
 You may add new entitlements to your `/APP-ORG/App` fork's `App.entitlements` file.
 For each entitlement that is requested, a description of the reason for the entitlement must be added to `Info.plist`.
