@@ -310,7 +310,6 @@ Apps can be deleted from the `/Applications/App Fair/` folder by dragging them i
 
 App Fair apps are no different from any other installed app in this regard.
 
-
 ## Developer FAQ
 
 ### How do I fork the `appfair/App` repository?
