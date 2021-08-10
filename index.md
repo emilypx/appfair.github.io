@@ -416,6 +416,8 @@ Apps available through the **App Fair.app** catalog browser application are alwa
 Activating GitHub sponsorships will enable your account to accept financial contributions to your project through any of the supported funding model platforms.
 When sponsorships are enabled, your app's container will automatically add a Help menu link to the sponsorship service.
 
+For more information about enabling sponsorships for your app, see [Displaying a sponsor button in your repository](https://docs.github.com/en/github/administering-a-repository/managing-repository-settings/displaying-a-sponsor-button-in-your-repository).
+
 ### How can I remove my app from the App Fair catalog?
 
 The simplest way to remove your app from showing up in the **App Fair.app** catalog is to mark your repository or organization as "private", or else archive (or delete) your organization's `/APP-ORG/App` fork.
@@ -558,12 +560,12 @@ When a failure occurs in the `integrate-release` phases, you will typically get 
 The first place you should look is at the log for the [/appfair/App/actions](https://github.com/appfair/App/actions) that corresponds to your PR (which you should title with your App's identifier).
 The log will identify most common issues, such as an invalid license or e-mail address.
 
-You can also perform validation of your app by running the `fairtool` from `Terminal.app`.
+You can also perform validation of your app by running the `fairtool` yourself.
 This utility is automatically included with every app that uses the `FairApp` SPM package.
-To validate the package in the current directory for the `APP-ORG` organization name you can run:
+To validate the package using `Terminal.app` for the current directory of the `APP-ORG` organization name, you can run the following (replacing "APP-ORG" with your organization's name):
 
 ```
-zsh$ xcrun swift run -- fairtool validate --verbose true --hub github.com/appfair --org APP-ORG --project .
+swift run -- fairtool validate --verbose true --hub github.com/appfair --org APP-ORG --project .
 ```
 
 This command will check both the structure and contents of the current package, as well as check the proper configuration for the `APP-ORG` project.
