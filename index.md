@@ -266,9 +266,21 @@ For any release in the App Fair catalog, the complete source code is available f
 This access enables the security community to use all its resources to identify, isolate, and mitigate badly-behaved apps.
 In addition, a requirement that all the code be hosted in publicly-available Git repositories means that tools like [GitHub's code scanning](https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning) can be used to identify security vulnerabilities in the app or any of the frameworks it embeds.
 
-This adds an accountability element: all the source that goes into any release of app, whether it be part of the `/APP-ORG/App` fork itself, or as part of a third-party SPM dependency.
+### Commit Signing
 
+The App Fair's `integrate-release` build process signs the release's binary artifacts with an "Ad-Hoc" code signing certificate.
+While this satisfies the policy requirements of certain platforms and provides some protection against tampering, this ad-hoc signature does not offer any useful identifying information.
+The signature is essentially an anonymous seal on the binary placed on it by the `integrate-release` build phases.
 
+Instead, the App Fair provides author accountability and identifiability by requiring that any commit that triggers the `integrate-release` process be cryptographically signed with a GPG signature.
+This signature must be associated with an `.edu` e-mail address, and that address must be associated with user's GitHub account (although it does not need to be the primary e-mail address for the account).
+
+For information on setting up commit signing, see the following documentation:
+
+  * [Signing commits](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/signing-commits)
+  * [Telling git about your signing key](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/telling-git-about-your-signing-key)
+  * [Associating an email with your GPG key](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/associating-an-email-with-your-gpg-key)
+  * [Setting your commit email address](https://docs.github.com/en/github/setting-up-and-managing-your-github-user-account/managing-email-preferences/setting-your-commit-email-address)
 
 
 
@@ -345,8 +357,12 @@ When possible, the onus should be placed on the user to acquire their own token,
 ### Can I distribute Beta or Demo versions of my app through the App Fair?
 
 There are no restrictions on the kinds of apps that you can build and distribute on the App Fair.
-The App Fair is open to al apps: Student Projects, Vanity App, Demos, Experiments, Tests, and Re-mixes of other App Fair apps.
+The App Fair welcomes all apps: Student Projects, Vanity App, Demos, Experiments, Tests, and Re-mixes of other App Fair apps.
 As a completely automated system, there is no human review, so the only requirement to be included in the App Fair catalog is that it passes the automated validation phases of the `integrate-release` process.
+
+### How is e-mail verification done?
+
+`sender` of pull request
 
 ### Can I distribute my app using other distribution channels?
 
