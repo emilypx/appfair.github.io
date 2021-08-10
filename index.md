@@ -78,7 +78,7 @@ This is a Swift project that contains the shell of a cross-platform `SwiftUI` ap
 
 Your app will exist in a top-level repository named "App"; it must continue to be called "App", since that is how the catalog browser will be able to access your project metadata.
 
-For more information on the fork process, see the [GitHub "Working with forks" documentation](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/working-with-forks).
+For more information on the fork process, see: [Working with forks](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/working-with-forks).
 
 ### Developing your `/APP-ORG/App` fork
 
@@ -189,7 +189,7 @@ Merge made by the 'recursive' strategy.
  2 files changed, 4 insertions(+), 3 deletions(-)
 ```
 
-The PR will triggered a GitHub action ([pull_request_target](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request_target)) running on a macOS build host.
+The PR will triggered a GitHub action (of type [pull_request_target](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request_target)) running on a macOS build host.
 The action will check out the PR and use the `fairtool` to validate the structure of the project and verify the status of the app's organization.
 It also verifies that the sandboxing requirements are met and that the project's `Package.swift` conforms to the integration requirements.
 Finally, it sets the "version" of the app to be the PR's commit hash, which provides visibility into the source that was used to build any version of the app.
@@ -264,7 +264,7 @@ This allows the release & update processes to be free of delays and keeps the ca
 The App Fair instead provides post-distribution accountability by requiring that the source code for the entire app be available to the build process and that it be hosted in publicly-available GitHub repositories.
 For any release in the App Fair catalog, the complete source code is available for inspection, review, and analysis by the entire world.
 This access enables the security community to use all its resources to identify, isolate, and mitigate badly-behaved apps.
-In addition, a requirement that all the code be hosted in publicly-available Git repositories means that tools like [GitHub's code scanning](https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning) can be used to identify security vulnerabilities in the app or any of the frameworks it embeds.
+In addition, a requirement that all the code be hosted in publicly-available Git repositories means that tools like [code scanning](https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning) can be used to identify security vulnerabilities in the app or any of the frameworks it embeds.
 
 ### Commit Signing
 
@@ -314,7 +314,8 @@ App Fair apps are no different from any other installed app in this regard.
 
 ### How do I fork the `appfair/App` repository?
 
-See the GitHub documentation: [Fork a repo](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
+Once you have set up your free `APP-ORG` organization that will represent the app, you can fork the repository by going to [https://github.com/appfair/App/fork](https://github.com/appfair/App/fork).
+See the GitHub documentation: [Fork a repo](https://docs.github.com/en/get-started/quickstart/fork-a-repo).
 
 ### What versioning scheme do App Fair apps use?
 
@@ -370,7 +371,8 @@ Change the `Description` section of the repository details "About" setting.
 
 ### How can I categorize my app in the App Fair catalog
 
-You can classify and categorize your app for the App Fair catalog by adding any two of the following to the `topics` of your `/APP-ORG/App` fork.
+You can classify and categorize your app for the App Fair catalog by adding any two of the following to the `topics` of your `/APP-ORG/App` fork's "About" settings.
+For more information, see [Adding topics to your repository](https://docs.github.com/en/github/administering-a-repository/managing-repository-settings/classifying-your-repository-with-topics#adding-topics-to-your-repository).
 
  - [`appfair-business`](https://github.com/topics/appfair-business)
  - [`appfair-developer-tools`](https://github.com/topics/appfair-developer-tools)
