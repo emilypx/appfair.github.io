@@ -22,7 +22,7 @@ Any apps you install from the App Fair will be free and fair, forever.
 
 Some App developers may enable patronage services, which provides the ability for users to electively sponsor developers whose apps they enjoy using, as well as to fund the ongoing development of the app and encourage new features.
 
-# The App Fair For Student Developers
+# The App Fair For Developers
 
 App Fair apps are written in Swift and utilize a native `SwiftUI` user interface. 
 Apps target macOS 12 and Swift version 5.5, giving them access to the full power of Swift's async/await concurrency features.
@@ -47,13 +47,13 @@ From an App developer standpoint, an App Fair app is a Swift application that is
 App Fair apps are written in Swift, a modern & safe language, compiled natively for Intel & ARM, and utilize the `SwiftUI` framework to provide a truly native application user interface.
 This makes apps installed from the App Fair tend to be fast and efficient, and have the capability to utilize the full range of the platform's native frameworks.
 
-Unlike other platform-native storefronts, there is no required developer application, fees, or recurring subscriptions, nor is there any review process or delays in issuing updates.
+Unlike other platform-native store-fronts, there is no application, fees, or recurring subscriptions to createm develop, and update App Fair apps, nor are there any reviews or systematic delays in issuing updates to your apps.
 
 The App Fair's "Source Transparency" feature means that there is always visibility into exactly what code is running on your device.
 
 ## The Structure of the App Fair project
 
-Upon submitting a [Pull Request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) for your `/APP-ORG/App` fork's changes, your project will be automatically built, signed, packaged and distributed as a native macOS application via the [appfair/App releases](https://github.com/appfair/App/releases). 
+Upon submitting a [Pull Request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) for your `/APP-ORG/App` fork's changes, your project will be automatically built, signed, and packaged as a native macOS application.
 
 These releases can be browsed, searched, and installed using the macOS the **App Fair.app** catalog browser application, which acts as the hub for discovering, researching, installing, and updating apps.
 
@@ -73,10 +73,12 @@ You can manage create and distribute multiple apps by creating multiple separate
 
 ### App Repository
 
-Once your organization is set up, you create your app's project by forking the [https://github.com/appfair/App](https://github.com/appfair/App) repository. 
+Once your organization is set up, you create your your `/APP-ORG/App` project by forking the [https://github.com/appfair/App](https://github.com/appfair/App) repository into your new organization name.
 This is a Swift project that contains the shell of a cross-platform `SwiftUI` app that you will use as your starting point.
 
 Your app will exist in a top-level repository named "App"; it must continue to be called "App", since that is how the catalog browser will be able to access your project metadata.
+
+For more information on the fork process, see the [GitHub "Working with forks" documentation](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/working-with-forks).
 
 ### Developing your `/APP-ORG/App` fork
 
@@ -266,6 +268,16 @@ In addition, a requirement that all the code be hosted in publicly-available Git
 
 This adds an accountability element: all the source that goes into any release of app, whether it be part of the `/APP-ORG/App` fork itself, or as part of a third-party SPM dependency.
 
+
+
+
+
+
+
+
+
+# Troubleshooting & Frequently Asked Questions
+
 ## User FAQ
 
 ### Where are App Fair apps installed?
@@ -335,6 +347,15 @@ When possible, the onus should be placed on the user to acquire their own token,
 There are no restrictions on the kinds of apps that you can build and distribute on the App Fair.
 The App Fair is open to al apps: Student Projects, Vanity App, Demos, Experiments, Tests, and Re-mixes of other App Fair apps.
 As a completely automated system, there is no human review, so the only requirement to be included in the App Fair catalog is that it passes the automated validation phases of the `integrate-release` process.
+
+### Can I distribute my app using other distribution channels?
+
+You have complete control over how you distribute your App Fair apps.
+Your app's binary package can be hosted as a direct download on your web site, which side-steps the need for users to install the the **App Fair.app** catalog browser application in order to use your app.
+Note, however, that since the app is not "notarized", any direct download will require the user to perform some manual steps in order to launch the app: on macOS, they must right-click (or command-click) on the `.app` file and select "Open…" and accept a warning dialog.
+The user must do this **twice** in order to run the app when it has been downloaded directly from a web site.
+
+You are also free to release your App Fair apps through any other distribution network or store-front of your choosing, subject to the rules and restrictions of those channels.
 
 ### How can I monetize my app?
 
@@ -469,3 +490,29 @@ Both the [appfair/Fair](https://github.com/appfair/Fair) and [appfair/App](https
 
 Only the portion of your app contained in your app organization's `/APP-ORG/App` fork is required to be covered by the AGPL.
 You can develop any portion of your app in a separate repository, which can be covered by any license of your choosing (provided the source code is available during the fairground's `integrate-release` phases).
+
+
+## Troubleshooting
+
+### Debugging a failed integration 
+
+Once you submit your PR your `/APP-ORG/App` fork ([/appfair/App/pulls](https://github.com/appfair/App/pulls)), the App Fair's `integrate-release` process is initiated with an action: [/appfair/App/actions](https://github.com/appfair/App/actions).
+This process verifies, builds, and tests your app using an action that is outside of your control.
+This means that care must be taken to keep the build process working as expected.
+Notably, you should not make changes to the template file `Sources/App/AppMai.swift` (where modifications are explicitly prohibited), nor should you make major changes to the Xcode project files (since any changes will be ignored by the `integrate` build process).
+
+When a failure occurs in the `integrate-release` phases, you will typically get an e-mail (contingent on your GitHub notification settings).
+The first place you should look is at the log for the [/appfair/App/actions](https://github.com/appfair/App/actions) that corresponds to your PR (which you should title with your App's identifier).
+The log will identify most common issues, such as an invalid license or e-mail address.
+
+You can also perform validation of your app by running the `fairtool` from `Terminal.app`.
+This utility is automatically included with every app that uses the `FairApp` SPM package.
+To validate the package in the current directory for the `APP-ORG` organization name you can run:
+
+```
+zsh$ xcrun swift run -- fairtool validate --verbose true --hub github.com/appfair --org APP-ORG --project .
+```
+
+This command will check both the structure and contents of the current package, as well as check the proper configuration for the `APP-ORG` project.
+Note that this is exactly the same process that the `integrate` phase executes, so using the `fairtool` is a good validation test to run yourself before creating or updating an existing PR.
+
