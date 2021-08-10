@@ -313,6 +313,10 @@ App Fair apps are no different from any other installed app in this regard.
 
 ## Developer FAQ
 
+### How do I fork the `appfair/App` repository?
+
+See the GitHub documentation: [Fork a repo](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
+
 ### What versioning scheme do App Fair apps use?
 
 App Fair apps do not use any sort of conventional version numbering scheme. Rather than a dotted-numeric identifier (such as `1.2.3`), App Fair apps are automatically versioned with a hash of the commit for the pull request that triggered the build of the app. What this means is that you can always take the version number (which you can copy & paste from Finder's `Get Info` on the app) and be able to browse the source code that went into the app's release by searching for that unique commit hash on GitHub.
@@ -357,12 +361,44 @@ When possible, the onus should be placed on the user to acquire their own token,
 ### Can I distribute Beta or Demo versions of my app through the App Fair?
 
 There are no restrictions on the kinds of apps that you can build and distribute on the App Fair.
-The App Fair welcomes all apps: Student Projects, Vanity App, Demos, Experiments, Tests, and Re-mixes of other App Fair apps.
+The App Fair welcomes all apps: Student Projects, Experiments, Artistic and Literary works, Vanity App, Demos, Tests, and Re-Mixes of other App Fair apps.
 As a completely automated system, there is no human review, so the only requirement to be included in the App Fair catalog is that it passes the automated validation phases of the `integrate-release` process.
+
+### How can I set the description of my app in the App Fair catalog
+
+Change the `Description` section of the repository details "About" setting.
+
+
+### How can I categorize my app in the App Fair catalog
+
+You can classify and categorize your app for the App Fair catalog by adding any two of the following to the `topics` of your `/APP-ORG/App` fork.
+
+ - [`appfair-business`](https://github.com/topics/appfair-business)
+ - [`appfair-developer-tools`](https://github.com/topics/appfair-developer-tools)
+ - [`appfair-education`](https://github.com/topics/appfair-education)
+ - [`appfair-entertainment`](https://github.com/topics/appfair-entertainment)
+ - [`appfair-finance`](https://github.com/topics/appfair-finance)
+ - [`appfair-games`](https://github.com/topics/appfair-games)
+ - [`appfair-graphics-design`](https://github.com/topics/appfair-graphics-design)
+ - [`appfair-healthcare-fitness`](https://github.com/topics/appfair-healthcare-fitness)
+ - [`appfair-lifestyle`](https://github.com/topics/appfair-lifestyle)
+ - [`appfair-medical`](https://github.com/topics/appfair-medical)
+ - [`appfair-music`](https://github.com/topics/appfair-music)
+ - [`appfair-news`](https://github.com/topics/appfair-news)
+ - [`appfair-photography`](https://github.com/topics/appfair-photography)
+ - [`appfair-productivity`](https://github.com/topics/appfair-productivity)
+ - [`appfair-reference`](https://github.com/topics/appfair-reference)
+ - [`appfair-social-networking`](https://github.com/topics/appfair-social-networking)
+ - [`appfair-sports`](https://github.com/topics/appfair-sports)
+ - [`appfair-travel`](https://github.com/topics/appfair-travel)
+ - [`appfair-utilities`](https://github.com/topics/appfair-utilities)
+ - [`appfair-video`](https://github.com/topics/appfair-video)
+ - [`appfair-weather`](https://github.com/topics/appfair-weather)
+
 
 ### How is e-mail verification done?
 
-`sender` of pull request
+The GPG signature of the initiator of the `integrate-release` pull request must be for an `.edu` e-mail address and the commit must be [verified](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/about-commit-signature-verification).
 
 ### Can I distribute my app using other distribution channels?
 
