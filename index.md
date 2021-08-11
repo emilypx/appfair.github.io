@@ -139,7 +139,7 @@ The apps may periodically remind the users of the permissions that have been gra
 This is in addition to automatic confirmations and re-confirmations that the host OS may present to the user over time.
 
 For these reasons, you should not request permissions that your app does not need.
-For example, if you are making a weather app, you should not need to request the user's contact information with the `personal-information.addressbook` entitlement.
+For example, if you are making a weather app, you should not need to request the user's microphone with the `device.microphone` entitlement.
 See `AppEntitlement.usageDescriptionProperties` for the usage description property names for the corresponding `App.entitlements` keys.
 
 
@@ -397,7 +397,7 @@ For more information, see [Adding topics to your repository](https://docs.github
  - [`appfair-weather`](https://github.com/topics/appfair-weather)
 
 
-### How is e-mail verification done?
+### How is e-mail verification performed?
 
 The GPG signature of the initiator of the `integrate-release` pull request must be for an `.edu` e-mail address and the commit must be [verified](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/about-commit-signature-verification).
 
@@ -486,7 +486,19 @@ Since they use the built-in native frameworks included with the host OS, App Fai
 There is currently no auto-updating feature in the App Fair.
 App updates must be installed manually and individually from the **App Fair.app** catalog browser application.
 
-### Can I change the permissions in Sandbox.entitlements for an update?
+### What permissions am I permitted to use in `Sandbox.entitlements`
+
+Your app may request any permission in the `Sandbox.entitlements` with the exception of the following permissions:
+
+ - `files.all`
+ - `cs.allow-unsigned-executable-memory`
+ - `cs.allow-dyld-environment-variables`
+ - `cs.disable-library-validation`
+ - `cs.disable-executable-page-protection`
+
+Note, however, that any permission you request must have a corresponding `usageDescriptionProperties` in the `Info.plist` metadata file explaining to the user (via the listing in the App Fair catalog) why the entitlement is requested.
+
+### Can I change the permissions in `Sandbox.entitlements` for an update?
 
 No. 
 When installing an app, users are presented with the list of entitlements that the app will request, such as file or network permissions, or access to hardware devices. 
