@@ -33,10 +33,14 @@ No additional registration, sign-up, or approval is required in order to start d
 
 ## Introduction: Fair Grounds and the "F-A-I-R" stages
 
-"Fork-App-Integrate-Release" (F-A-I-R) describes the stages of creating, developing, building, and distributing an App Fair app.
+"Fork-App-Integrate-Release" (F-A-I-R) describes the stages of creating, developing, building, and distributing an app.
 The "Fork" and "App" parts are handled by you, the developer: a fork is created of the template [`/appfair/App`](https://github.com/appfair/App) repository, and you develop your app in your own's organization's repository.
 The "Integrate" and "Release" phases are handled by the build host that accepts pull requests from the developer's fork and validates, builds, packages, and releases the installable app.
-The build host is considered the "fairground" for the App Fair, and the default build host is implemented using a collection of GitHub actions, artifacts, and releases, all of which are contained within the [appfair/App](https://github.com/appfair/App) repository.
+
+The integration & release service is considered the "fairground", and it handles accepting incoming requests to validate and release an app.
+A fairground can be implemented in various ways; the reference implementation uses a system of git actions, artifacts, and releases hosted on GitHub.
+This reference implementation, combined with the security configuration and user policies, is known as the "App Fair", which heretofore will be referred to synonymously with any "fairground" implementation.
+The "App Fair" is implemented using a collection of GitHub actions, artifacts, and releases, all of which are contained within the [appfair/App](https://github.com/appfair/App) repository.
 
 From an App developer standpoint, an App Fair app is a Swift application that is defined by a Swift Package Manager `Package.swift` file, and that uses of two source code repositories: *Fair* & *App*:
  - [https://github.com/appfair/App](https://github.com/appfair/App) is the repository that is forked to create a new  App Fair app; PRs submitted to this repository are automatically built and released to the **App Fair.app** catalog.
@@ -85,7 +89,8 @@ For more information on the fork process, see: [Working with forks](https://docs
 The `/APP-ORG/App` repository is structured as a standard swift package, and includes the following code that must be included as the scaffold and starting point for your app:
 
   * Package.swift
-  * Sources/App/App.swift
+  * Sources/App/AppMain.swift
+  * Sources/App/AppContainer.swift
   * Tests/AppTests/AppTests.swift
 
 In addition, at the top level of the repository, there are `Xcode`-specific project files that describe the metadata, build rules, assets, and permissions for the project:
@@ -96,7 +101,7 @@ In addition, at the top level of the repository, there are `Xcode`-specific proj
   * `Sandbox.entitlements` – permissions that should be granted to your app
   * `Assets.xcassets` – the app's icon and tint
 
-App development can be done by opening `App.xcworkspace` using `Xcode.app` to build, run, and debug the `SwiftUI` app that is defined in `Sources/App/App.swift`.
+App development can be done by opening `App.xcworkspace` using `Xcode.app` to build, run, and debug the `SwiftUI` app that is defined in `Sources/App/AppContainer.swift`.
 Note, though, that changes to these project files, `App.xcworkspace` and `App.xcodeproj`, will *not* be incorporated into the final project.
 It will be best not to make changes to the project files themselves, since none of the changes will be used in the eventual `integrate-release` phases of the process.
 
@@ -599,3 +604,41 @@ swift run -- fairtool validate --verbose true --hub github.com/appfair --org APP
 This command will check both the structure and contents of the current package, as well as check the proper configuration for the `APP-ORG` project.
 Note that this is exactly the same process that the `integrate` phase executes, so using the `fairtool` is a good validation test to run yourself before creating or updating an existing PR.
 
+# Appendix
+
+## App Fair Distribution Checklist
+
+Use this checklist to ensure that your app is set up properly for distribution in the App Fair catalog.
+
+### Organizatioon
+
+ - [ ] Is your `App-Org` two distinct words?
+
+### Forked Repository
+
+ - [ ] Is your fork accessible at `https://github.com/App-Org/App/`?
+ - [ ] Is your `/App` fork public?
+ - [ ] Is your `/App` fork un-archived?
+ - [ ] Does your `/App` fork have issues enabled?
+ - [ ] Does your `/App` fork have discussions enabled?
+ - [ ] Does your `/App` fork use the AGPL license?
+
+### Source Code
+
+ - [ ] Is the project name in `Package.swift` the same as the `App-Org`?
+ - [ ] Is the `Fair` library the first dependencies
+ - [ ] Is the `Sources/App/AppMain.swift` file unmodified from the origin?
+
+### Metadata
+
+ - [ ] Does your app have an icon?
+ - [ ] Does your app have a version?
+ - [ ] Have you added `UsageDescription` properties to `Info.plist` for every entitlement sought in `Sandbox.entitlements`?
+ 
+### Pull Request
+
+ - [ ] Is the title of your Pull Request formatted as: `App-Org v1.2.3`?
+ - [ ] Does the title of your PR match the version in `Info.plist`
+ - [ ] Is the Pull Request commit signed with a valid e-mail address?
+ - [ ] Is the e-mail address associated with your GitHub account?
+ 
