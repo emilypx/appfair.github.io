@@ -401,6 +401,9 @@ For more information, see [Adding topics to your repository](https://docs.github
 
 The GPG signature of the initiator of the `integrate-release` pull request must be for an `.edu` e-mail address and the commit must be [verified](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/about-commit-signature-verification).
 
+You must have a valid e-mail address configured in your list of keys in your [GPG keys settings](https://github.com/settings/keys)
+
+
 ### Can I distribute my app using other distribution channels?
 
 You have complete control over how you distribute your App Fair apps.
