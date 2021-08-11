@@ -112,16 +112,12 @@ The section of the `Package.swift` file that can be altered is marked with the c
 
 This restriction is enforced by the `Integration` phase of the process, which will refuse to build the project if the fenced areas have been modified.
 
-### Editing the `Sources/App/App.swift` 
+### AppContainer.swift and AppMain.swift
 
-The `App.swift` file is the entry point to your application.
-It has a defined structure whose front-matter cannot be changed, as fenced by the comment:
+The `Sources/App/AppMain.swift` is the entry point to your app on all available platforms.
+The contents of the file must not be changed, or validation of your project will fail at the `integrate` phase.
 
-```swift
-// Everything above this line must remain unmodified.
-```
-
-This structure is used to correctly integrate with the `FairApp` library, such as creating the proper help menus and ensuring that the app has a settings interface.
+To customize your app, you should instead start by editing the `AppContainer` extension in `Sources/App/AppContainer.swift` to provide the required protocol implementations for your app's root view.
 
 
 ### The App Fair sandbox
@@ -142,13 +138,19 @@ For these reasons, you should not request permissions that your app does not nee
 For example, if you are making a weather app, you should not need to request the user's microphone with the `device.microphone` entitlement.
 See `AppEntitlement.usageDescriptionProperties` for the usage description property names for the corresponding `App.entitlements` keys.
 
-
 ## The "Fair App Integration Release" process
 
 Once your app is ready to be released, you create a Pull Request (PR) from your Fork to the upstream [https://github.com/appfair/App](https://github.com/appfair/App) repository. 
 This PR will not be merged; rather, it acts as a trigger to initiate the `Integration` and `Releases` phases of the App Fair process.
 Once a release is created, it will be available at the list of releases at [https://github.com/appfair/App/releases](https://github.com/appfair/App/releases), from which it can be downloaded using the **App Fair.app** catalog browser or other compatible application.
 
+
+## Validating your app with validate_app.yml
+
+Your `/APP-ORG/App` fork will include a GitHub action at `.github/workflows/validate_app.yml` that will perform the same validations of your app's organization and metadata that the `integrate` phase will perform upon submission of an `integration` PR.
+This allows you to ensure that while developing your app, all the required tests and validations continue to pass, which increases the likelihood that your app will pass the eventual `integrate-releases` phases.
+
+All you need to do to enable that the validation action runs on every commit to your `main` branch is to enable the actions in the `Actions` tab of your `/APP-ORG/App` fork's page.
 
 ### The Fair App Integration Phase
 
