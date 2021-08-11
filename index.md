@@ -272,8 +272,10 @@ The App Fair's `integrate-release` build process signs the release's binary arti
 While this satisfies the policy requirements of certain platforms and provides some protection against tampering, this ad-hoc signature does not offer any useful identifying information.
 The signature is essentially an anonymous seal on the binary placed on it by the `integrate-release` build phases.
 
-Instead, the App Fair provides author accountability and identifiability by requiring that any commit that triggers the `integrate-release` process be cryptographically signed with a GPG signature.
-This signature must be associated with an `.edu` e-mail address, and that address must be associated with user's GitHub account (although it does not need to be the primary e-mail address for the account).
+Instead, the App Fair provides author accountability and identifiability by requiring that any commit that triggers the `integrate-release` process be cryptographically signed with the author's GPG signature.
+This signature must be associated with an `.edu` (or other approved) e-mail address, and that address must be associated with user's GitHub account (although it does not need to be the primary e-mail address for the account).
+
+Note that only the commit that creates or updates the `integrate` PR is required to be signed; other commits to the repository, or to third-party dependencies, do not need to be signed (although it is always encouraged). For this reason, it is the creator of the PR's commit that is considered to be the "author" of the app in terms of validation and accountability.
 
 For information on setting up commit signing, see the following documentation:
 
@@ -281,8 +283,6 @@ For information on setting up commit signing, see the following documentation:
   * [Telling git about your signing key](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/telling-git-about-your-signing-key)
   * [Associating an email with your GPG key](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/associating-an-email-with-your-gpg-key)
   * [Setting your commit email address](https://docs.github.com/en/github/setting-up-and-managing-your-github-user-account/managing-email-preferences/setting-your-commit-email-address)
-
-
 
 
 
@@ -465,6 +465,17 @@ However, certain frameworks that integrate with online components (typically tho
 For example, online geo-location services (used by the MapKit framework) and speech recognition services (used by the Natural Language framework) are unavailable to apps that are distributed through free channels.
 
 In general, frameworks that only utilize local system resources can be used without issue in App Fair apps.
+
+
+### What kinds of source files can I include with my app?
+
+The App Fair's `integrate-release` process uses the [Swift Package Manager (SPM)](https://swift.org/package-manager/) tool for building both your `/APP-ORG/App` fork, as well as all the third-party dependencies.
+SPM is focused primarily on the Swift language, but it can be used to build a wide variety of source.
+Note that binary dependencies are not permitted in the `Package.swift` build file; the App Fair requires that all source code that goes into the app be available during the build process.
+
+### Can I load executable code at runtime
+
+Except for Just-in-Time compilation, the `Sandbox.entitlements` forbids the dynamic loading of unsigned executable code at runtime.
 
 ### How large are App Fair apps?
 
