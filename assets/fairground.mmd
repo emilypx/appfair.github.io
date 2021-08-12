@@ -1,16 +1,38 @@
 sequenceDiagram
-    # see: https://mermaid-js.github.io/mermaid/#/sequenceDiagram
-    Creator->>App Fair: Fork<br />appfair/App
-    App Fair-->>Creator: fork created
-    loop Creator
-        Creator->>Creator: development cycle
+    %% see: https://mermaid-js.github.io/mermaid/#/sequenceDiagram
+    Creator->>Platform: Fork: appfair/App
+    Platform-->>Creator: fork created at:<br />github.com/App-Org/App.git
+    Note over Creator: App Development
+    Note over Creator: App Testing
+    Creator->>Platform: Integrate: Pull Request
+    Note over Platform: Validate Creator
+    Note over Platform: Validate App
+    Note over Platform: Build & Sign Binary
+    Note over Platform: Release Artifacts
+    Note over Platform: Update Catalog
+    Consumer->>Platform: Browse & Search apps
+    Platform-->>Consumer: app catalog
+    Note over Consumer: Search Apps
+    Note over Consumer: Compare Apps
+    Note over Consumer: Choose App
+    Consumer->>Platform: Install App
+    Platform-->>Consumer: app download & install
+    Note over Consumer: Use App
+
+    rect rgb(0, 100, 200, 0.3)
+        loop User-Developer Communication
+            Consumer->>Creator: Consumer Feedback
+            Creator->>Consumer: Creator Response
+        end
     end
-    Creator->>App Fair: Pull Request
-    loop
-        App Fair->>App Fair: app & org validation
-    end
-    App Fair->>Consumer: Publish<br />App Catalog
-    Consumer->>App Fair: Research apps
-    Consumer->>App Fair: Install apps
-    Consumer->>App Fair: Update apps
+
+    Note over Creator: Maintain App
+    Creator->>Platform: Integrate: Pull Request
+    Note over Platform: Build & Release
+    Note over Platform: Update Catalog
+    Platform-->>Consumer: app update notification
+    Note over Consumer: Review App Changes
+    Note over Consumer: Decide on App Update
+    Consumer->>Platform: Update App
+    Platform-->>Consumer: app updated
 
