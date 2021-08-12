@@ -5,24 +5,17 @@ title: The App Fair
 
 # Welcome to the App Fair
 
-The App Fair is an independent app distribution platform for free and open-source macOS applications written by students and educators.
+The App Fair is an independent app distribution platform for free open-source macOS applications created by students and educators.
 App Fair apps use modern native frameworks and user-interface elements with a focus on performance, efficiency, accessibility and inclusiveness.
 
-# The App Fair For Users
+## The App Fair for App Users
 
 From an end-user standpoint, the **App Fair.app** catalog browser application allows you to research, discover, install, and update applications from an unlimited online collection. 
 
 Apps installed with the **App Fair.app** application are created using the modern platform-native `SwiftUI` framework and built for both Intel and ARM processors, and therefore tend to run faster and use resources more efficiently than other cross-platform application frameworks.
 At the same time, they use modern "Sandboxing" techniques to protect your system and ensure that you are always aware of what actions the apps are permitted to take, such as reading and writing files, communicating over the internet, or accessing your camera, microphone, or other USB & bluetooth devices.
 
-## Free & Fair, Forever
-
-App Fair apps are always free; there is never any charge to download and install apps from the catalog, nor is there any possibility for in-app purchases or subscriptions.
-Any apps you install from the App Fair will be free and fair, forever.
-
-Some App developers may enable patronage services, which provides the ability for users to electively sponsor developers whose apps they enjoy using, as well as to fund the ongoing development of the app and encourage new features.
-
-# The App Fair For Developers
+## The App Fair for App Developers
 
 App Fair apps are written in Swift and utilize a native `SwiftUI` user interface. 
 Apps target macOS 12 and Swift version 5.5, giving them access to the full power of Swift's async/await concurrency features.
@@ -31,7 +24,9 @@ The distribution process for App Fair apps is completely automated, instantaneou
 The only requirement is a GitHub account that is associated with your `.edu` e-mail address.
 No additional registration, sign-up, or approval is required in order to start developing and distributing apps for the App Fair.
 
-## Introduction: Fair Grounds and the "F-A-I-R" stages
+## The App Fair fairground
+
+### Introduction: Fair Grounds and the "F-A-I-R" stages
 
 "Fork-App-Integrate-Release" (F-A-I-R) describes the stages of creating, developing, building, and distributing an app.
 The "Fork" and "App" parts are handled by you, the developer: a fork is created of the template [`/appfair/App`](https://github.com/appfair/App) repository, and you develop your app in your own's organization's repository.
@@ -46,7 +41,7 @@ From an App developer standpoint, an App Fair app is a Swift application that is
  - [https://github.com/appfair/App](https://github.com/appfair/App) is the repository that is forked to create a new  App Fair app; PRs submitted to this repository are automatically built and released to the **App Fair.app** catalog.
  - Fair is the runtime `SwiftUI` library that is included in every App Fair project, and acts as a sandboxed container within which your application is run. The `Fair` library is the only required dependency for your app's [https://github.com/appfair/App](https://github.com/appfair/App) fork.
 
-## "App Fair" & other distribution platforms
+### "App Fair" & other distribution platforms
 
 App Fair apps are written in Swift, a modern & safe language, compiled natively for Intel & ARM, and utilize the `SwiftUI` framework to provide a truly native application user interface.
 This makes apps installed from the App Fair tend to be fast and efficient, and have the capability to utilize the full range of the platform's native frameworks.
@@ -246,6 +241,51 @@ Finally, the `APP-ORG` organization's public contact must be a valid e-mail addr
 The [appfair/App](https://github.com/appfair/App) repository is licensed under the GNU AGPL, which means that all forks of the project are also covered under that license. 
 If you would like your app's code to be licensed differently, you can create a separate repository (either in the same organization or elsewhere; it merely needs to be publicly available on GitHub) with another license of your choosing, and then reference the project(s) from your `Package.swift` dependencies section. 
 The App/Fair release process doesn't perform any validation of the licenses of any Swift dependencies; it only requires that the license for the forked `/App` project itself remain unchanged, and that all the source files that act as inputs to the build process are available for inspection and analysis at the time of building.
+
+
+## App Fair Principles
+
+The App Fair is founded on a principle of mutual respect between the creators and users of the app, as well as the app distribution itself.
+
+## Ideal: Free
+
+App Fair apps are always free; there is never any charge to download and install apps from the catalog, nor is there any possibility for in-app purchases or subscriptions.
+Any apps you install from the App Fair will be free and fair, forever.
+
+Some App developers may enable patronage services, which provides the ability for users to electively sponsor developers whose apps they enjoy using, as well as to fund the ongoing development of the app and encourage new features.
+
+## Ideal: Fair
+
+The App Fair is designed to encourage fairness and respect between software creators (the app developers), software consumers (the users of the app), and the "fairground" distribution platform (the App Fair).
+
+### Creator-Platform-Consumer Trust Relationship
+
+Any system of software aggregation and distribution involves three groups:
+
+ - Consumers: the end-users of the software. These are the people that use the Platform to find, research, install, and update software on the devices.
+ - Creators: the person or people that develop the software designed to be distributed to Consumers via the Platform.
+ - Platform: the software processes that handle the ingestion, validation, packaging, cataloging, rating, and distribution of software from Creators to Consumers.
+
+This guiding principles for each separate relationship in this collection is:
+
+ - Creator-Platform: the Creators trust the distribution platform to treat them fairly. Creators should not be advantaged or disadvantaged by hidden rules implemented by the Platform. Creators should have free and unfettered control over how they add, remove, or update apps available in the Platform's catalog.
+
+ - Consumer-Platform: the Consumers trust that the Platform will provide a safe and reliable mechanism to find, research, install, and update software. The Consumers rely on the Platform to ensure that there are reliable communication channels available for the Consumer to rely questions and concerns to the Creator.
+ 
+<!--  - Consumer-Creator: 
+ - Consumer-Platform: 
+ 
+ - Creator-Consumer: the Creators trust that the Consumers will use their software as intended and will respect the intellectual property rights of the Creators.
+
+ - Platform-Creator: the Platforms trust that the Creators will use their distribution 
+ - Platform-Consumer:  -->
+
+## Ideal: Forever
+
+While apps distributed through the App Fair catalog can be removed by their creators at any time, the apps do not otherwise expire.
+Once you have downloaded and installed an app, you can be confident that it will remain in its current operational state until you remove or update it.
+To this end, the App Fair does not impose any automatic updating mechanism on your apps.
+App updated must always be explicitly initiated by the end user.
 
 
 ## App Fair Security
@@ -597,11 +637,21 @@ Both the [appfair/Fair](https://github.com/appfair/Fair) and [appfair/App](https
 Only the portion of your app contained in your app organization's `/APP-ORG/App` fork is required to be covered by the AGPL.
 You can develop any portion of your app in a separate repository, which can be covered by any license of your choosing (provided the source code is available during the fairground's `integrate-release` phases).
 
-### Can I make my own fairground?
+
+
+## FairGround FAQ
+
+### Can I make my own FairGround?
 
 The "App Fair" is the reference implementation of a fairground, using a model of non-commercial copyleft open-source projects that mandate source transparency and explicit security entitlements.
 Alternative fairground models are possible by simply mirroring the structure and repositories of the `appfair` organization.
 The bulk of the fairground's logic is in the `Fair` library, which you can customize to handle any custom rules for your implementation.
+
+## How is the FairGround's catalog updated?
+
+The "App Fair" reference implementation has a special [catalog tag](https://github.com/appfair/App/releases/tag/catalog).
+This tag is updated with a new `catalog.json` file after every successful `integrate-release` run.
+The `catalog.json` file is the manifest of all the current and valid apps that can be downloaded using a catalog browser.
 
 
 ## Troubleshooting
