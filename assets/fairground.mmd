@@ -1,3 +1,4 @@
+%%{init: { 'logLevel': 'debug', 'theme': 'forest' } }%%
 sequenceDiagram
     %% see: https://mermaid-js.github.io/mermaid/#/sequenceDiagram
     Creator->>Platform: Fork: appfair/App
@@ -16,7 +17,8 @@ sequenceDiagram
     Platform-->>Consumer: app catalog
     Note over Consumer: Search Apps
     Note over Consumer: Compare Apps
-    Note over Consumer: Choose App
+    Note over Consumer: Select App
+    Note over Consumer: Approve Permissions
     Consumer->>Platform: Install App
     Platform-->>Consumer: app download & install
     Note over Consumer: Use App
@@ -24,11 +26,16 @@ sequenceDiagram
     rect rgb(0, 100, 200, 0.3)
         loop User-Developer Communication
             Consumer->>Creator: Consumer Feedback
+                Note over Platform: Discussion Forums
+                Note over Creator,Consumer: Direct Communicatioon
+                Note over Platform: Issue Reporting System
             Creator->>Consumer: Creator Response
         end
     end
 
     Note over Creator: Maintain App
+    Note over Creator: Fix Bugs
+    Note over Creator: Add Features
     Creator->>Platform: Integrate: Pull Request
     Note over Platform: Build & Release
     Note over Platform: Update Catalog
