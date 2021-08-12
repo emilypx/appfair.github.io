@@ -2,9 +2,11 @@ sequenceDiagram
     %% see: https://mermaid-js.github.io/mermaid/#/sequenceDiagram
     Creator->>Platform: Fork: appfair/App
     Platform-->>Creator: fork created at:<br />github.com/App-Org/App.git
+    activate Creator
     Note over Creator: App Development
     Note over Creator: App Testing
     Creator->>Platform: Integrate: Pull Request
+    deactivate Creator
     Note over Platform: Validate Creator
     Note over Platform: Validate App
     Note over Platform: Build & Sign Binary
@@ -32,7 +34,7 @@ sequenceDiagram
     Note over Platform: Update Catalog
     Platform-->>Consumer: app update notification
     Note over Consumer: Review App Changes
-    Note over Consumer: Decide on App Update
+    Note over Consumer: Choose to Update App
     Consumer->>Platform: Update App
     Platform-->>Consumer: app updated
 
