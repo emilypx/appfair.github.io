@@ -1,0 +1,16 @@
+sequenceDiagram
+    # see: https://mermaid-js.github.io/mermaid/#/sequenceDiagram
+    Creator->>App Fair: Fork<br />appfair/App
+    App Fair-->>Creator: fork created
+    loop Creator
+        Creator->>Creator: development cycle
+    end
+    Creator->>App Fair: Pull Request
+    loop
+        App Fair->>App Fair: app & org validation
+    end
+    App Fair->>Consumer: Publish<br />App Catalog
+    Consumer->>App Fair: Research apps
+    Consumer->>App Fair: Install apps
+    Consumer->>App Fair: Update apps
+
