@@ -26,6 +26,8 @@ No additional registration, sign-up, or approval is required in order to start d
 
 ## The App Fair fairground
 
+![fairground](assets/fairground.svg)
+
 ### Introduction: the FAIR process
 
 "Fork-Apply-Integrate-Release" (F-A-I-R) describes the stages of creating, developing, building, and distributing an app.
@@ -144,8 +146,6 @@ See `AppEntitlement.usageDescriptionProperties` for the usage description proper
 Once your app is ready to be released, you create a Pull Request (PR) from your Fork to the upstream [https://github.com/appfair/App](https://github.com/appfair/App) repository. 
 This PR will not be merged; rather, it acts as a trigger to initiate the `Integration` and `Releases` phases of the App Fair process.
 Once a release is created, it will be available at the list of releases at [https://github.com/appfair/App/releases](https://github.com/appfair/App/releases), from which it can be downloaded using the **App Fair.app** catalog browser or other compatible application.
-
-![diagram](assets/diagram.svg)
 
 ## Validating your app with validate_app.yml
 
