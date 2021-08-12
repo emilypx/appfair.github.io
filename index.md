@@ -610,35 +610,36 @@ Note that this is exactly the same process that the `integrate` phase executes, 
 
 Use this checklist to ensure that your app is set up properly for distribution in the App Fair catalog.
 
-### Organizatioon
+### Organization
 
- - [ ]  Is your `App-Org` two distinct words?
+ - [ ]  Does `App-Org` consist of two short distinct words separated by a hyphen?
 
-### Forked Repository
+### Forked `/App` Repository
 
- - [ ]  Is your fork accessible at `https://github.com/App-Org/App/`?
+ - [ ]  Is your forked repository *publicly* accessible at: `https://github.com/App-Org/App/`?
  - [ ]  Is your `/App` fork public?
- - [ ]  Is your `/App` fork un-archived?
+ - [ ]  Is your `/App` fork not disabled?
+ - [ ]  Is your `/App` fork not archived?
  - [ ]  Does your `/App` fork have issues enabled?
  - [ ]  Does your `/App` fork have discussions enabled?
- - [ ]  Does your `/App` fork use the AGPL license?
+ - [ ]  Does your `/App` fork use the AGPL-3.0 license?
 
 ### Source Code
 
  - [ ]  Is the project name in `Package.swift` the same as the `App-Org`?
- - [ ]  Is the `Fair` library the first dependencies
+ - [ ]  Is the `Fair` library the first entry in your app's dependencies list?
  - [ ]  Is the `Sources/App/AppMain.swift` file unmodified from the origin?
 
 ### Metadata
 
- - [ ]  Does your app have an icon?
  - [ ]  Does your app have a version?
- - [ ]  Have you added `UsageDescription` properties to `Info.plist` for every entitlement sought in `Sandbox.entitlements`?
+ - [ ]  Does your app have an icon?
+ - [ ]  Does your `Info.plist` have `*UsageDescription` properties for each entitlement sought in `Sandbox.entitlements`?
  
 ### Pull Request
 
  - [ ]  Is the title of your Pull Request formatted as: `App-Org v1.2.3`?
  - [ ]  Does the title of your PR match the version in `Info.plist`
- - [ ]  Is the Pull Request commit signed with a valid e-mail address?
- - [ ]  Is the e-mail address associated with your GitHub account?
+ - [ ]  Is your Pull Request commit "verified" by GitHub
+ - [ ]  Is the e-mail address associated with the commit valid (e.g., an `.edu` address)?
  
