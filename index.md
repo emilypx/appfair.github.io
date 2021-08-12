@@ -472,7 +472,7 @@ However, certain frameworks that integrate with online components (typically tho
 For example, online geo-location services (used by the MapKit framework) and speech recognition services (used by the Natural Language framework) are unavailable to apps that are distributed through free channels.
 
 In general, frameworks that only utilize local system resources can be used without issue in App Fair apps.
-
+Note that any frameworks your app depends on must be available for both `macOS` and `iOS`.
 
 ### What kinds of source files can I include with my app?
 
@@ -520,6 +520,16 @@ The shell of the App you write, including any top-level system menus, must utili
 Embedding a binary framework, such as the Chromium rendering engine and the Node.js runtime that together power Electron apps, is not supported.
 However, there is nothing preventing you from embedding any arbitrary native view controller within your app's view hierarchy, such as the `WKWebView` that enables apps to host an HTML5 application within a Safari-like container.
 
+### Can I build my App Fair app using Mac Catalyst?
+
+No.
+App Fair apps are cross-platform and must use the native user-interface toolkit for their respective platform (AppKit on macOS and UIKit on iOS).
+Using `SwiftUI` makes this mostly transparent to the developer.
+
+### Can I build my App Fair app using Qt?
+
+No.
+
 ### Do I need a Mac to develop App Fair apps?
 
 *Technically*, no: you could theoretically use any OS to write the Swift code for your `/APP-ORG/App` fork.
@@ -527,10 +537,15 @@ Since the Integration and Release phases of the App Fair process are all run in 
 
 In practice, however, to develop anything but the most trivial of apps requires being able to use a modern IDE, debugger, and the ability to actually run your app in order to test and refine the behavior.
 
+### Why is my `integrate` pull request never merged?
+
+Your `integrate` PRs are not intended to ever be merged into the [appfair/App](https://github.com/appfair/App/pulls) repository.
+Rather, they are required merely to trigger the `pull_request_target` GitHub action that initiates the `integrate-release` phases.
+
 ### Are App Fair apps signed?
 
 Yes. 
-As of macOS 12, apps must be signed in order to run.
+As of macOS 12, all apps must be signed in order to run on every native architecture.
 The same requirement exists for iOS.
 The `Integrate` phase of the App Fair process signs the app with an "ad-hoc" signing certificate in order to satisfy this requirement.
 
@@ -542,7 +557,7 @@ When a signature is "Ad-Hoc", it means that there is no identifying information 
 ### Are App Fair apps notarized?
 
 Although App Fair apps are signed, sandboxed, and utilize the hardened runtime, they are not automatically notarized during the fairground's `integrate-release` phases. 
-Notarization requires a paid developer subscription (and the ongoing acceptance of terms & conditions) and is therefore incompatible with the free & open nature of the App Fair.
+Notarization requires a recurring paid developer subscription (and the ongoing acceptance of terms & conditions) and is therefore incompatible with the free & fair nature of the App Fair.
 
 If you have a paid developer subscription, you are free to notarize the App Fair release binaries for your app yourself, which will enable you to distribute the same binary both via **App Fair.app** catalog browser application and via other distribution channels.
 
@@ -550,7 +565,10 @@ If you have a paid developer subscription, you are free to notarize the App Fair
 
 The `Package.swift` for your `/APP-ORG/App` fork is expected to conform to the structural conventions of App Fair apps.
 As such, the outline of the `Package.swift` file cannot be changed, but some of the elements, such as the package dependencies, can be edited.
-This restrictions only apply to the `Package.swift` in the `/APP-ORG/App` fork itself, and not to the `Package.swift` for any dependent packages.
+These requirements are enforces with a number of `precondition` statements at the end of the `Package.swift` file; these must not be removed or altered.
+
+Note that these restrictions only apply to the `Package.swift` in the `/APP-ORG/App` fork itself, and not to the `Package.swift` for any dependent packages.
+The App Fair does not analyze any of your transitive dependences other than to enforce that they do not include binary targets, so any valid SPM `Package.swift` can be used as a dependency, provided it is available for both `macOS` and `iOS`.
 
 ### My app's code mostly resides in an external Package. How can I make a release when only the dependent package has changed?
 
@@ -578,6 +596,12 @@ Both the [appfair/Fair](https://github.com/appfair/Fair) and [appfair/App](https
 
 Only the portion of your app contained in your app organization's `/APP-ORG/App` fork is required to be covered by the AGPL.
 You can develop any portion of your app in a separate repository, which can be covered by any license of your choosing (provided the source code is available during the fairground's `integrate-release` phases).
+
+### Can I make my own fairground?
+
+The "App Fair" is the reference implementation of a fairground, using a model of non-commercial copyleft open-source projects that mandate source transparency and explicit security entitlements.
+Alternative fairground models are possible by simply mirroring the structure and repositories of the `appfair` organization.
+The bulk of the fairground's logic is in the `Fair` library, which you can customize to handle any custom rules for your implementation.
 
 
 ## Troubleshooting
@@ -610,10 +634,17 @@ Note that this is exactly the same process that the `integrate` phase executes, 
 
 Use this checklist to ensure that your app is set up properly for distribution in the App Fair catalog.
 
-### Organization
+### App Organization
 
  - [ ]  Does `App-Org` consist of two short distinct words separated by a hyphen?
 
+
+### User Account
+
+ - [ ]  Do you have a valid (i.e., `.edu`) e-mail address set and verified in your [email settings](https://github.com/settings/emails)
+ - [ ]  Is "Keep my email addresses private" turned off in your [email settings](https://github.com/settings/emails)
+ - [ ]  Do you have [vigilant mode](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits#enabling-vigilant-mode) enabled?
+ 
 ### Forked `/App` Repository
 
  - [ ]  Is your forked repository *publicly* accessible at: `https://github.com/App-Org/App/`?
