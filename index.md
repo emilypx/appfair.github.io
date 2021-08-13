@@ -363,6 +363,11 @@ App Fair apps are no different from any other installed app in this regard.
 
 ## Developer FAQ
 
+### How do I use git and GitHub?
+
+There are a multitude of resources availabl.
+A good starting point is GitHub's [Hello World](https://guides.github.com/activities/hello-world/) tutorial.
+
 ### How do I fork the `appfair/App` repository?
 
 Once you have set up your free `APP-ORG` organization that will represent the app, you can fork the repository by going to [https://github.com/appfair/App/fork](https://github.com/appfair/App/fork).
