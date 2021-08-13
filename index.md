@@ -26,19 +26,21 @@ No additional registration, sign-up, or approval is required in order to start d
 
 ## The App Fair fairground
 
+The "fairground" is the name for the abstract service that acts as the platform for app distribution, and includes services for user authorization, and for validating, building, packaging, cataloging, and distributing the apps.
+The "App Fair" is the reference fairground, implemented as a set of GitHub repositories, actions, and policies.
+These are defined primarily in the [appfair/App](https://github.com/appfair/App) repository, which also acts as the base repository to be forked by app developers.
+
 ![fairground](assets/fairground.svg)
 
 ### Introduction: the FAIR process
 
 "Fork-Apply-Integrate-Release" (F-A-I-R) describes the stages of creating, developing, building, and distributing an app.
-The "Fork" and "Apply" parts are handled by you, the developer: a fork is created of the base [`/appfair/App`](https://github.com/appfair/App) repository, and you develop your app in your own's organization's repository.
-When you are ready to release, you apply your changes in the form of a Pull Request (PR) back to the base `/appfair/App` repository.
+The "Fork" and "Apply" parts are handled by you, the developer: a fork is created from the base [`/appfair/App`](https://github.com/appfair/App) repository, and in that fork you develop your app.
+When you are ready to publish a release, you apply your changes in the form of a Pull Request (PR) back to the base `/appfair/App` repository.
 The "Integrate" and "Release" phases are handled by the build host that accepts pull requests from the developer's fork and validates, builds, packages, and releases the installable app.
 
-The integration & release service is considered the "fairground", and it handles accepting incoming requests to validate and release an app.
-A fairground can be implemented in various ways; the reference implementation uses a system of git actions, artifacts, and releases hosted on GitHub.
-This reference implementation, combined with the security configuration and user policies, is known as the "App Fair", which heretofore will be referred to synonymously with any "fairground" implementation.
-The "App Fair" is implemented using a collection of GitHub actions, artifacts, and releases, all of which are contained within the [appfair/App](https://github.com/appfair/App) repository.
+The integration & release phases are the central part of the "fairground" process.
+These phases handle accepting incoming requests to validate and release an app.
 
 From an App developer standpoint, an App Fair app is a Swift application that is defined by a Swift Package Manager `Package.swift` file, and that uses of two source code repositories: *Fair* & *App*:
  - [https://github.com/appfair/App](https://github.com/appfair/App) is the repository that is forked to create a new  App Fair app; PRs submitted to this repository are automatically built and released to the **App Fair.app** catalog.
