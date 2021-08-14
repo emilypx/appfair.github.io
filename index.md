@@ -5,7 +5,7 @@ title: The App Fair
 
 # Welcome to the App Fair
 
-<img align="right" width="100" height="100" src="AppFairIcon.svg" />
+<img align="right" width="250" src="AppFairIcon.svg" />
 
 The App Fair is an independent app distribution platform for free open-source macOS applications created by students and educators.
 App Fair apps use modern native frameworks and user-interface elements with a focus on performance, efficiency, accessibility and inclusiveness.
@@ -802,6 +802,11 @@ Use this checklist to ensure that your app is set up properly for distribution i
  
 ## App Fair Badge
 
-You can use the following badge on your app's promotional material to link directly to your App Fair catalog entry: [https://www.appfair.net/AppFairBadge.svg](https://www.appfair.net/AppFairBadge.svg).
+You can use the following badge on your app's promotional material to link directly to your App Fair catalog entry.
+You can include the App Fair badge with the following HTML:
 
- ![Free for all at the App Fair](AppFairBadge.svg)
+```
+<img width="450" alt="Free for all at the App Fair!" src="https://www.appfair.net/AppFairBadge.svg" />
+```
+
+<p align="center"><img width="450" alt="Free for all at the App Fair!" src="https://www.appfair.net/AppFairBadge.svg" /></p>
