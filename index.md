@@ -298,6 +298,10 @@ An example of a single app entry in the catalog JSON follows.
 
 Note that the same app will appear twice if it targets multiple operating systems with different binary artifact formats (e.g., `.zip` and `.ipa`).
 
+The full structure of the `fairapps.json` file is:
+
+![faircatalog](assets/faircatalog.svg)
+
 # Principles of the App Fair
 
 The App Fair is founded on a principle of mutual respect between the creators and users of the app, as well as the app distribution itself.
