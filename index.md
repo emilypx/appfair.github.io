@@ -67,11 +67,11 @@ From an App developer standpoint, an App Fair app is a Swift application that is
 App Fair apps are written in Swift, a modern & safe language, compiled natively for Intel & ARM, and utilize the `SwiftUI` framework to provide a truly native application user interface.
 This makes apps installed from the App Fair tend to be fast and efficient, and have the capability to utilize the full range of the platform's native frameworks.
 
-Unlike other platform-native store-fronts, there is no application, fees, or recurring subscriptions to createm develop, and update App Fair apps, nor are there any reviews or systematic delays in issuing updates to your apps.
+Unlike other platform-native store-fronts, there is no application, fees, or recurring subscriptions to create, develop, and update App Fair apps, nor are there any reviews or systematic delays in issuing updates to your apps.
 
 The App Fair's "Source Transparency" feature means that there is always visibility into exactly what code is running on your device.
 
-## The Structure of the App Fair project
+## The App Fair process
 
 Upon submitting a [Pull Request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) for your `/APP-ORG/App` fork's changes, your project will be automatically built, signed, and packaged as a native macOS application.
 
@@ -165,13 +165,6 @@ Once your app is ready to be released, you create a Pull Request (PR) from your 
 This PR will not be merged; rather, it acts as a trigger to initiate the `Integration` and `Releases` phases of the App Fair process.
 Once a release is created, it will be available at the list of releases at [https://github.com/appfair/App/releases](https://github.com/appfair/App/releases), from which it can be downloaded using the **App Fair.app** catalog browser or other compatible application.
 
-## Validating your app with validate_app.yml
-
-Your `/APP-ORG/App` fork will include a GitHub action at `.github/workflows/validate_app.yml` that will perform the same validations of your app's organization and metadata that the `integrate` phase will perform upon submission of an `integration` PR.
-This allows you to ensure that while developing your app, all the required tests and validations continue to pass, which increases the likelihood that your app will pass the eventual `integrate-releases` phases.
-
-All you need to do to enable that the validation action runs on every commit to your `main` branch is to enable the actions in the `Actions` tab of your `/APP-ORG/App` fork's page.
-
 ### The Fair App Integration Phase
 
 When a pull request is submitted from your app's fork back to the origin repository at [https://github.com/appfair/App](https://github.com/appfair/App), the integration phase of the App Fair's `Fork-Apply-Integrate-Release` process is initiated.
@@ -243,6 +236,15 @@ These release artifacts include:
 
 (Note that in addition to these artifacts, GitHub also automatically includes a "Source code (zip)" and "Source code (tar.gz)" archive in the releases; these are 'shallow' source archives without the dependent code; for access to the complete archive of source code that was used to actually build an application, the generated `App-Name-source.tgz` release artifact should be used).
 
+### Validating your app with validate_app.yml
+
+Your `/APP-ORG/App` fork will include a GitHub action at `.github/workflows/validate_app.yml` that will perform the same validations of your app's organization and metadata that the `integrate` phase will perform upon submission of an `integration` PR.
+This allows you to ensure that while developing your app, all the required tests and validations continue to pass, which increases the likelihood that your app will pass the eventual `integrate-releases` phases.
+
+All you need to do to enable that the validation action runs on every commit to your `main` branch is to enable the actions in the `Actions` tab of your `/APP-ORG/App` fork's page.
+
+
+# The App Fair Catalog
 
 ## App Fair Catalog Requirements 
 
@@ -262,8 +264,40 @@ The [appfair/App](https://github.com/appfair/App) repository is licensed under t
 If you would like your app's code to be licensed differently, you can create a separate repository (either in the same organization or elsewhere; it merely needs to be publicly available on GitHub) with another license of your choosing, and then reference the project(s) from your `Package.swift` dependencies section. 
 The App/Fair release process doesn't perform any validation of the licenses of any Swift dependencies; it only requires that the license for the forked `/App` project itself remain unchanged, and that all the source files that act as inputs to the build process are available for inspection and analysis at the time of building.
 
+## Catalog Format
 
-## App Fair Principles
+The App Fair "catalog" is simply a JSON file located at [https://github.com/appfair/App/releases/download/catalog/fairapps.json](https://github.com/appfair/App/releases/download/catalog/fairapps.json).
+This catalog file is re-generated by the `integrate-release` process after each successful release.
+The JSON file is downloaded by the **App Fair.app** catalog browser application, and can be used by other catalog apps that conform to the same format.
+
+An example of a single app entry in the catalog JSON follows.
+
+```json
+{
+  "identifier" : "appfair",
+  "name" : "appfair",
+  "apps" : [
+    {
+      "name" : "App Fair",
+      "developerName" : "appfair",
+      "bundleIdentifier" : "app.App-Fair",
+      "version" : "1.0.0",
+      "localizedDescription" : "The App Fair catalog browser app",
+      "size" : 1161843,
+      "versionDate" : "2019-04-04T21:45:44Z",
+      "iconURL" : "https://github.com/appfair/App/releases/download/App-Fair/App-Fair.png",
+      "downloadURL" : "https://github.com/appfair/App/releases/download/App-Fair/App-Fair-macOS.zip",
+      "screenshotURLs" : [
+        "https://github.com/appfair/App/releases/download/App-Fair/…"
+      ]
+    }
+  ]
+}
+```
+
+Note that the same app will appear twice if it targets multiple operating systems with different binary artifact formats (e.g., `.zip` and `.ipa`).
+
+# Principles of the App Fair
 
 The App Fair is founded on a principle of mutual respect between the creators and users of the app, as well as the app distribution itself.
 
@@ -439,7 +473,11 @@ As a completely automated system, there is no human review, so the only requirem
 ### How can I set the description of my app in the App Fair catalog
 
 Change the `Description` section of the repository details "About" setting.
+This will serve as the description of the 
 
+### How do I provide documentation for my app?
+
+The `README.md` file in your `/App/` fork repository should be used as the entry point to your application's documentation.
 
 ### How can I categorize my app in the App Fair catalog
 
@@ -479,7 +517,7 @@ You must have a valid e-mail address configured in your list of keys in your [GP
 ### Can I distribute my app using other distribution channels?
 
 You have complete control over how you distribute your App Fair apps.
-Your app's binary package can be hosted as a direct download on your web site, which side-steps the need for users to install the the **App Fair.app** catalog browser application in order to use your app.
+Your app's binary package can be hosted as a direct download on your web site, which side-steps the need for users to install the **App Fair.app** catalog browser application in order to use your app.
 Note, however, that since the app is not "notarized", any direct download will require the user to perform some manual steps in order to launch the app: on macOS, they must right-click (or command-click) on the `.app` file and select "Open…" and accept a warning dialog.
 The user must do this **twice** in order to run the app when it has been downloaded directly from a web site.
 
@@ -507,16 +545,20 @@ Each app that is listed in that app's github repository, which is required to ha
 You can use these forums to contact the developer(s) of the app.
 Organizations that are removed from GitHub will have the effect of removing that organization's app from being visible or installable from the **App Fair.app** catalog.
 
-### Can App Fair apps be installed on non-macOS platforms?
+### What platforms do App Fair apps support
 
 The integration phase of the App Fair builds and packages all apps for both macOS and iOS, but the **App Fair.app** catalog browser is currently only available for macOS 12 on ARM & Intel processors.
+
+### Can the `.ipa` release artifacts be side-loaded on iOS devices?
+
+Side-loading the `.ipa` build artifacts is not well tested at this time.
 
 ### Why do apps need to target both macOS and iOS?
 
 The integration phase of the App Fair process will build your app's fork for both macOS and iOS, even though they are currently only installable using the macOS **App Fair.app** catalog browser application. 
 This is in order to be able to run your app's unit tests in a sandboxed environment, as well as automatically generating screenshots for users to preview in a catalog browser.
 
-### What is the target OS for App Fair applications
+### What are the target OS versions for App Fair applications?
 
 In order to be able to utilize the Swift 5.5 concurrency features (async/await & actors), App Fair apps target macOS 12 and iOS 15.
 Note that the [Fair/FairCore](https://github.com/appfair/Fair/tree/main/Sources/FairCore) target is compatible with Swift 5.4 in order to use macOS 11 as the build host.
@@ -525,10 +567,10 @@ Note that the [Fair/FairCore](https://github.com/appfair/Fair/tree/main/Sources/
 
 No. Only macOS and iOS builds are currently supported. 
 
-### Can I use the release artifacts with other distribution channels
+### Can I use App Fair release artifacts with other distribution channels?
 
 The binaries created by the `integrate-release` phase are standard `.zip` and `.ipa` archives and should be suitable for distributing via any compatible app distribution mechanisms.
-The release artifacts at [appfair/App releases](https://github.com/appfair/App/releases) are not constrained in how they are distributed or used.
+The release artifacts at [appfair/App releases](https://github.com/appfair/App/releases) are not restricted in how they are distributed or used.
 
 ### Which native frameworks will my app be able to use?
 
@@ -537,7 +579,7 @@ However, certain frameworks that integrate with online components (typically tho
 For example, online geo-location services (used by the MapKit framework) and speech recognition services (used by the Natural Language framework) are unavailable to apps that are distributed through free channels.
 
 In general, frameworks that only utilize local system resources can be used without issue in App Fair apps.
-Note that any frameworks your app depends on must be available for both `macOS` and `iOS`.
+Note that any frameworks your app depends on must be available on *both* `macOS` and `iOS`, or else conditional build guards must be put in place on your code.
 
 ### What kinds of source files can I include with my app?
 
@@ -545,9 +587,10 @@ The App Fair's `integrate-release` process uses the [Swift Package Manager (SPM)
 SPM is focused primarily on the Swift language, but it can be used to build a wide variety of source.
 Note that binary dependencies are not permitted in the `Package.swift` build file; the App Fair requires that all source code that goes into the app be available during the build process.
 
-### Can I load executable code at runtime
+### Can I load executable code at runtime?
 
 Except for Just-in-Time compilation, the `Sandbox.entitlements` forbids the dynamic loading of unsigned executable code at runtime.
+This is to help ensure the App Fair's Source Transparency goal.
 
 ### How large are App Fair apps?
 
@@ -668,16 +711,16 @@ You can develop any portion of your app in a separate repository, which can be c
 
 ### Can I make my own FairGround?
 
-The "App Fair" is the reference implementation of a fairground, using a model of non-commercial copyleft open-source projects that mandate source transparency and explicit security entitlements.
+The "App Fair" is the reference implementation of a fairground, using a model of non-commercial open-source projects mandating source transparency and explicit security entitlements.
 Alternative fairground models are possible by simply mirroring the structure and repositories of the `appfair` organization.
-The bulk of the fairground's logic is in the `Fair` library, which you can customize to handle any custom rules for your implementation.
+The bulk of the fairground's logic, as well as the runtime code for fairground integration, is in the [Fair](https://github.com/appfair/Fair) library, which you can customize to handle your implementation's policies and restrictions.
 
 ## How is the FairGround's catalog updated?
 
-The "App Fair" reference implementation has a special [catalog tag](https://github.com/appfair/App/releases/tag/catalog).
+The "App Fair" reference implementation has a special [catalog release tag](https://github.com/appfair/App/releases/tag/catalog).
 This tag is updated with a new `catalog.json` file after every successful `integrate-release` run.
 The `catalog.json` file is the manifest of all the current and valid apps that can be downloaded using a catalog browser.
-
+This manifest is generated by the `fairtool`, which uses the GitHub API calls to aggregate the publicly-available information from the release artifacts, fork integrations, and contributor profiles that makes up the distributed collection of available apps.
 
 ## Troubleshooting
 
@@ -711,41 +754,41 @@ Use this checklist to ensure that your app is set up properly for distribution i
 
 ### App Organization
 
- - [ ]  Does `App-Org` consist of two short distinct words separated by a hyphen?
+ 1. [ ] Does `App-Org` consist of two short distinct words separated by a hyphen?
 
 
 ### User Account
 
- - [ ]  Do you have a valid (i.e., `.edu`) e-mail address set and verified in your [email settings](https://github.com/settings/emails)
- - [ ]  Is "Keep my email addresses private" turned off in your [email settings](https://github.com/settings/emails)
- - [ ]  Do you have [vigilant mode](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits#enabling-vigilant-mode) enabled?
+ 1. Do you have a valid (e.g., `.edu`) e-mail address set and verified in your [email settings](https://github.com/settings/emails)
+ 1. Is "Keep my email addresses private" turned off in your [email settings](https://github.com/settings/emails)
+ 1. Do you have [vigilant mode](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits#enabling-vigilant-mode) enabled?
  
 ### Forked `/App` Repository
 
- - [ ]  Is your forked repository *publicly* accessible at: `https://github.com/App-Org/App/`?
- - [ ]  Is your `/App` fork public?
- - [ ]  Is your `/App` fork not disabled?
- - [ ]  Is your `/App` fork not archived?
- - [ ]  Does your `/App` fork have issues enabled?
- - [ ]  Does your `/App` fork have discussions enabled?
- - [ ]  Does your `/App` fork use the AGPL-3.0 license?
+ 1. Is your forked repository *publicly* accessible at: `https://github.com/App-Org/App/`?
+ 1. Is your `/App` fork public?
+ 1. Is your `/App` fork not disabled?
+ 1. Is your `/App` fork not archived?
+ 1. Does your `/App` fork have issues enabled?
+ 1. Does your `/App` fork have discussions enabled?
+ 1. Does your `/App` fork use the AGPL-3.0 license?
 
 ### Source Code
 
- - [ ]  Is the project name in `Package.swift` the same as the `App-Org`?
- - [ ]  Is the `Fair` library the first entry in your app's dependencies list?
- - [ ]  Is the `Sources/App/AppMain.swift` file unmodified from the origin?
+ 1. Is the project name in `Package.swift` the same as the `App-Org`?
+ 1. Is the `Fair` library the first entry in your app's dependencies list?
+ 1. Is the `Sources/App/AppMain.swift` file unmodified from the origin?
 
 ### Metadata
 
- - [ ]  Does your app have a version?
- - [ ]  Does your app have an icon?
- - [ ]  Does your `Info.plist` have `*UsageDescription` properties for each entitlement sought in `Sandbox.entitlements`?
+ 1. Does your app have a version?
+ 1. Does your app have an icon?
+ 1. Does your `Info.plist` have `*UsageDescription` properties for each entitlement sought in `Sandbox.entitlements`?
  
 ### Pull Request
 
- - [ ]  Is the title of your Pull Request formatted as: `App-Org v1.2.3`?
- - [ ]  Does the title of your PR match the version in `Info.plist`
- - [ ]  Is your Pull Request commit "verified" by GitHub
- - [ ]  Is the e-mail address associated with the commit valid (e.g., an `.edu` address)?
+ 1. Is the title of your Pull Request formatted as: `App-Org v1.2.3`?
+ 1. Does the title of your PR match the version in `Info.plist`
+ 1. Is your Pull Request commit signed and marked as "verified" by GitHub?
+ 1. Is the e-mail address associated with the commit valid (e.g., an `.edu` address)?
  
