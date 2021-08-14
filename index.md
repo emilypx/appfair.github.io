@@ -49,7 +49,7 @@ The "fairground" is the name for the abstract service that acts as the platform 
 The "App Fair" is the reference fairground, implemented as a set of GitHub repositories, actions, and policies.
 These are defined primarily in the [appfair/App](https://github.com/appfair/App) repository, which also acts as the base repository to be forked by app developers.
 
-![fairground](assets/fairground.svg)
+<img align="right" width="400" alt="Diagram of the App Fair process" src="assets/fairground.svg" />
 
 ### Introduction: the FAIR process
 
