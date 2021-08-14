@@ -5,7 +5,7 @@ title: The App Fair
 
 # Welcome to the App Fair
 
-<img align="right" width="250" src="AppFairIcon.svg" />
+<img align="right" width="250" alt="App Fair Icon for https://www.appfair.net" src="AppFairIcon.svg" />
 
 The App Fair is an independent app distribution platform for free open-source macOS applications created by students and educators.
 App Fair apps use modern native frameworks and user-interface elements with a focus on performance, efficiency, accessibility and inclusiveness.
@@ -49,9 +49,9 @@ The "fairground" is the name for the abstract service that acts as the platform 
 The "App Fair" is the reference fairground, implemented as a set of GitHub repositories, actions, and policies.
 These are defined primarily in the [appfair/App](https://github.com/appfair/App) repository, which also acts as the base repository to be forked by app developers.
 
-<img align="right" width="400" alt="Diagram of the App Fair process" src="assets/fairground.svg" />
-
 ### Introduction: the FAIR process
+
+<img align="left" width="450" alt="Diagram of the App Fair process" src="assets/fairground.svg" />
 
 "Fork-Apply-Integrate-Release" (F-A-I-R) describes the stages of creating, developing, building, and distributing an app.
 The "Fork" and "Apply" parts are handled by you, the developer: a fork is created from the base [`/appfair/App`](https://github.com/appfair/App) repository, and in that fork you develop your app.
@@ -806,7 +806,7 @@ You can use the following badge on your app's promotional material to link direc
 You can include the App Fair badge with the following HTML:
 
 ```
-<img width="450" alt="Free for all at the App Fair!" src="https://www.appfair.net/AppFairBadge.svg" />
+<img width="450" alt="Free for all at the App Fair – https://www.appfair.net" src="https://www.appfair.net/AppFairBadge.svg" />
 ```
 
-<p align="center"><img width="450" alt="Free for all at the App Fair!" src="https://www.appfair.net/AppFairBadge.svg" /></p>
+<p align="center"><img width="450" alt="Free for all at the App Fair – https://www.appfair.net" src="https://www.appfair.net/AppFairBadge.svg" /></p>
