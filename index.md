@@ -17,19 +17,20 @@ At the same time, they use modern "Sandboxing" techniques to protect your system
 
 ### Getting Started
 
-The fastest way to install the App Fair catalog browser app by opening `Terminal.app` and running the following command:
+The fastest way to install the App Fair catalog browser app by launching `Terminal.app` and entering the following command:
 
 ```shell
 curl -fsSL https://github.com/appfair/App/releases/download/App-Fair/App-Fair-macOS.zip | ditto --noqtn -x -k - /Applications/
 ```
 
  The command will download the latest release zip and install it directly into your `/Applications/` folder.
+ From there, you can launch the **App Fair.app** catalog browser application to start searching for apps.
  
-
-As an alternative means of installation, you can download and unzip the [App-Fair-macOS.zip](https://github.com/appfair/App/releases/download/App-Fair/App-Fair-macOS.zip) file directly, but note that since it is not notarized, you will need to open via the command-clicking the `App Fair.app` file and selecting the "Open…" menu.
+As an alternative means of installation, you can download and unzip the [App-Fair-macOS.zip](https://github.com/appfair/App/releases/download/App-Fair/App-Fair-macOS.zip) file directly.
+Since the `App Fair.app` app is not "notarized", you will need to first launch it by command-clicking the app and selecting the "Open…" menu.
 This will have to be done *twice*, both times accepting the warning about launching an un-notarized app.
 
-Note that once you have installed the `App Fair.app` once, further updates will take place via the App Fair itself, and you will no longer need to perform any special steps to launch the app.
+Note that once you have installed and launched the `App Fair.app` a first time, subsequent updates will take place via the App Fair itself, and you will no longer need to perform any special steps to launch the app.
 
 ## The App Fair for App Developers
 
