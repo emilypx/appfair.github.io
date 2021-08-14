@@ -18,8 +18,8 @@
     <path id="badge-outline" fill="url(#outline-gradient)" stroke="#979797" stroke-width="2" d="M43.9972148,372 C19.7424593,372 0,352.2096 0,327.9831 L0,43.9518 C0,19.716 19.7424593,0 43.9972148,0 L311.31431,0 C335.55976,0 356,19.716 356,43.9518 L356,327.9831 C356,352.2096 335.55976,372 311.31431,372 L43.9972148,372 Z"/>
     <path id="badge-background" fill="#0091FF" d="M311.35015,363 L44.6963392,363 C24.9931502,363 9,347.029941 9,327.31428 L9,42.7323074 C9,23.0259631 24.9931502,7 44.6963392,7 L311.34085,7 C331.06264,7 347,23.0259631 347,42.7323074 L347,327.31428 C347,347.029941 331.06264,363 311.35015,363 Z"/>
 
-    <text fill="#FFF" font-family="Arial-BoldMT, Arial" font-size="90" font-weight="bold"><tspan x="437" y="134">Free for all at the</tspan></text>
-    <text fill="#FFF" font-family="Arial-Black, Arial Black" font-size="170" font-weight="700"><tspan x="389" y="290">App Fair</tspan></text>
+    <text fill="#FFF" font-family="system-ui" font-size="90" font-weight="bold"><tspan x="437" y="134">Free for all at the</tspan></text>
+    <text fill="#FFF" font-family="system-ui" font-size="170" font-weight="700"><tspan x="430" y="290">App Fair</tspan></text>
 
     <g transform="translate(50 50)">
         <g filter="url(#invert-colors)">
