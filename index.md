@@ -3,6 +3,8 @@ name: AppFair
 title: The App Fair
 ---
 
+![Free for all at the App Fair](AppFairBadge.svg)
+
 # Welcome to the App Fair
 
 The App Fair is an independent app distribution platform for free open-source macOS applications created by students and educators.
