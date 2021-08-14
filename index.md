@@ -800,6 +800,8 @@ Use this checklist to ensure that your app is set up properly for distribution i
  1. Is the e-mail address associated with the commit valid (e.g., an `.edu` address)?
  
  
- ## App Fair Badge
+## App Fair Badge
+
+You can use the following badge on your app's promotional material to link directly to your App Fair catalog entry: [https://www.appfair.net/AppFairBadge.svg](https://www.appfair.net/AppFairBadge.svg).
 
  ![Free for all at the App Fair](AppFairBadge.svg)
