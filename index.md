@@ -3,7 +3,7 @@ name: AppFair
 title: The App Fair
 ---
 
-![Free for all at the App Fair](AppFairBadge.svg)
+ ![The App Fair Logo](AppFairIcon.svg)
 
 # Welcome to the App Fair
 
@@ -799,3 +799,7 @@ Use this checklist to ensure that your app is set up properly for distribution i
  1. Is your Pull Request commit signed and marked as "verified" by GitHub?
  1. Is the e-mail address associated with the commit valid (e.g., an `.edu` address)?
  
+ 
+ ## App Fair Badge
+
+ ![Free for all at the App Fair](AppFairBadge.svg)
