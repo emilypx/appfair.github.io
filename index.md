@@ -303,8 +303,6 @@ Note that the same app will appear twice if it targets multiple operating system
 The full structure of the `fairapps.json` file is:
 
 ![faircatalog](assets/faircatalog.svg)
-![faircatalog](assets/faircatalog.svg)
-![faircatalog](assets/faircatalog.svg)
 
 # Principles of the App Fair
 
@@ -808,7 +806,7 @@ You can use the following badge on your app's promotional material to link direc
 You can include the App Fair badge with the following HTML:
 
 ```
-<img width="450" alt="Free for all at the App Fair – https://www.appfair.net" src="https://www.appfair.net/AppFairBadge.svg" />
+<img src="https://www.appfair.net/AppFairBadge.svg" width="450" alt="Free for all at the App Fair – https://www.appfair.net" />
 ```
 
-<p align="center"><img width="450" alt="Free for all at the App Fair – https://www.appfair.net" src="https://www.appfair.net/AppFairBadge.svg" /></p>
+<p align="center"><img src="https://www.appfair.net/AppFairBadge.svg" width="450" alt="Free for all at the App Fair – https://www.appfair.net" /></p>
