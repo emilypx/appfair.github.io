@@ -1,11 +1,4 @@
 classDiagram
-    class FairCatalog {
-        -String: name
-        -String: identifier
-        -Array<AppRelease>: apps
-        -Array<NewsPost>: news
-    }
-
     class AppRelease {
         -String: name
         -String: bundleIdentifier
@@ -21,18 +14,5 @@ classDiagram
         -Optional<String>: versionDescription
         -Optional<String>: tintColor
         -Optional<Bool>: beta
-        -Optional<String>: sourceIdentifier
-    }
-
-    class NewsPost {
-        -String: identifier
-        -Date: date
-        -String: title
-        -String: caption
-        -Optional<Bool>: notify
-        -Optional<String>: tintColor
-        -Optional<URL>: url
-        -Optional<URL>: imageURL
-        -Optional<String>: appID
         -Optional<String>: sourceIdentifier
     }

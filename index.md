@@ -298,11 +298,16 @@ An example of a single app entry in the catalog JSON follows.
 }
 ```
 
+The catalog is constructed from the list of all the [forks of the appfair/App](https://github.com/appfair/App/network/members) who have passed the `integrate-release` phases and have an [artifact for download](https://github.com/appfair/App/releases) and whose organizations are valid (e.g., have a valid app name and have issues & discussions enabled).
+The catalog creation is completely automatic.
+
 Note that the same app will appear twice if it targets multiple operating systems with different binary artifact formats (e.g., `.zip` and `.ipa`).
 
 The full structure of the `fairapps.json` file is:
 
-![faircatalog](assets/faircatalog.svg)
+![faircatalog-FairCatalog](assets/faircatalog-FairCatalog.svg)
+![faircatalog-AppRelease](assets/faircatalog-AppRelease.svg)
+![faircatalog-NewsPost](assets/faircatalog-NewsPost.svg)
 
 # Principles of the App Fair
 
