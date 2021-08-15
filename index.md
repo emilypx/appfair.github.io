@@ -7,7 +7,7 @@ title: The App Fair
 
 <img align="right" width="250" alt="App Fair Icon for https://www.appfair.net" src="AppFairIcon.svg" />
 
-The App Fair is an independent app distribution platform for free open-source macOS applications created by students and educators.
+The App Fair is an independent app distribution platform for free open-source macOS (12) applications created by students and educators.
 App Fair apps use modern native frameworks and user-interface elements with a focus on performance, efficiency, accessibility and inclusiveness.
 
 ## The App Fair for App Users
@@ -19,7 +19,7 @@ At the same time, they use modern "Sandboxing" techniques to protect your system
 
 ### Getting Started
 
-The fastest way to install the App Fair catalog browser app by launching `Terminal.app` and entering the following command:
+The App Fair catalog browser app can be installed on macOS 12 is by launching `Terminal.app` and entering the following command:
 
 ```shell
 curl -fsSL https://github.com/appfair/App/releases/download/App-Fair/App-Fair-macOS.zip | ditto --noqtn -x -k - /Applications/
@@ -29,7 +29,7 @@ curl -fsSL https://github.com/appfair/App/releases/download/App-Fair/App-Fair-ma
  From there, you can launch the **App Fair.app** catalog browser application to start searching for apps.
  
 As an alternative means of installation, you can download and unzip the [App-Fair-macOS.zip](https://github.com/appfair/App/releases/download/App-Fair/App-Fair-macOS.zip) file directly.
-Since the `App Fair.app` app is not "notarized", you will need to first launch it by command-clicking the app and selecting the "Open…" menu.
+Since the `App Fair.app` app is not "notarized", you will need to first launch it by command-clicking the app and then selecting the "Open…" menu item.
 This will have to be done *twice*, both times accepting the warning about launching an un-notarized app.
 
 Note that once you have installed and launched the `App Fair.app` a first time, subsequent updates will take place via the App Fair itself, and you will no longer need to perform any special steps to launch the app.
@@ -302,6 +302,8 @@ Note that the same app will appear twice if it targets multiple operating system
 
 The full structure of the `fairapps.json` file is:
 
+![faircatalog](assets/faircatalog.svg)
+![faircatalog](assets/faircatalog.svg)
 ![faircatalog](assets/faircatalog.svg)
 
 # Principles of the App Fair
