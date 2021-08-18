@@ -559,8 +559,8 @@ Side-loading the `.ipa` build artifacts is not well tested at this time.
 
 ### Why do apps need to target both macOS and iOS?
 
-The integration phase of the App Fair process will build your app's fork for both macOS and iOS, even though they are currently only installable using the macOS **App Fair.app** catalog browser application. 
-This is in order to be able to run your app's unit tests in a sandboxed environment, as well as automatically generating screenshots for users to preview in a catalog browser.
+The integration phase of the App Fair process will build your app's fork for both macOS and iOS, even though they are currently only installable using the macOS **App Fair.app** catalog browser application.
+All apps must run in both iOS and macOS.
 
 ### What are the target OS versions for App Fair applications?
 
