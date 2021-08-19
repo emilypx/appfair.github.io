@@ -149,7 +149,7 @@ To customize your app, you should instead start by editing the `AppContainer` ex
 The "sandbox" is the name for a security environment within which a program is run that restricts the capabilities of the software.
 Your `/APP-ORG/App` fork is pre-configured to request minimal permissions, and thus runs in a very restrictive sandboxed environment: USB & bluetooth hardware access is not permitted, network access communication is blocked, and file access outside the app's own sandboxed container is not allowed.
 
-You may add new entitlements to your `/APP-ORG/App` fork's `App.entitlements` file.
+You may add new entitlements to your `/APP-ORG/App` fork's `Sandbox.entitlements` file.
 For each entitlement that is requested, a description of the reason for the entitlement must be added to `Info.plist`.
 This is enforced by the `Integration` phase.
 These descriptions should be plain language explaining why the app needs access to the specific permissions.
@@ -160,7 +160,53 @@ This is in addition to automatic confirmations and re-confirmations that the hos
 
 For these reasons, you should not request permissions that your app does not need.
 For example, if you are making a weather app, you should not need to request the user's microphone with the `device.microphone` entitlement.
-See `AppEntitlement.usageDescriptionProperties` for the usage description property names for the corresponding `App.entitlements` keys.
+
+#### Entitlement Usage Descriptions
+
+The following `AppEntitlement.usageDescriptionProperties` are the properties for the `Info.plist` metadata that corresponds to the `Sandbox.entitlements` keys:
+
+    * `FairAppDebugger`: permits application to act as a debugger ("cs.debugger") 
+    * `FairAppNetworkCientUsageDescription`: enables network access, both local and internet ("network.client")
+    * `FairAppNetworkServerUsageDescription`: enabled the app to listen on ports and receive connections ("network.server")
+    * `FairAppFilesUserSelectedReadWriteUsageDescription`: allows the app to read and write files that the user has explicitly granted authorization to ("files.user-selected-read-write")
+    * `FairAppFilesUserSelectedReadOnlyUsageDescription`: allows the app read-only access to the files that user has explicitly granted authorization to ("files.user-selected-read-only")
+    * `FairAppFilesUserSelectedExecutableUsageDescription` 
+    * `FairAppFilesDownloadsReadOnlyUsageDescription` 
+    * `FairAppFilesDownloadsReadWriteUsageDescription` 
+    * `FairAppAssetsPicturesReadOnlyUsageDescription` 
+    * `FairAppAssetsPicturesReadWriteUsageDescription` 
+    * `FairAppAssetsMusicReadOnlyUsageDescription` 
+    * `FairAppAssetsMusicReadWriteUsageDescription` 
+    * `FairAppAssetsMoviesReadOnlyUsageDescription` 
+    * `FairAppAssetsMoviesReadWriteUsageDescription` 
+    * `FairAppPersonalInformationAddressbookUsageDescription` 
+    * `FairAppPersonalInformationCalendarsUsageDescription` 
+    * `FairAppPersonalInformationLocationUsageDescription` 
+    * `FairAppDeviceCameraUsageDescription` 
+    * `FairAppDeviceMicrophoneUsageDescription` 
+    * `FairAppApplicationGroupsUsageDescription` 
+    * `FairAppDeviceAudioVideoBridgingUsageDescription` 
+    * `FairAppDeviceUsbUsageDescription` 
+    * `FairAppPrintUsageDescription` 
+    * `FairAppDeviceBluetoothUsageDescription` 
+    * `FairAppDeviceFirewireUsageDescription` 
+    * `FairAppDeviceAudioInputUsageDescription` 
+    * `FairAppDeviceSerialUsageDescription` 
+    * `FairAppFilesBookmarksAppScopeUsageDescription` 
+    * `FairAppFilesBookmarksDocumentScopeUsageDescription` 
+    * `FairAppScriptingTargetsUsageDescription` 
+    * `FairAppAppleEventsUsageDescription` 
+    * `FairAppAudioUnitHostUsageDescription` 
+    * `FairAppMachLookupGlobalNameUsageDescription` 
+    * `FairAppMachRegisterGlobalNameUsageDescription` 
+    * `FairAppFilesHomeRelativePathReadOnlyUsageDescription` 
+    * `FairAppFilesHomeRelativePathReadWriteUsageDescription` 
+    * `FairAppFilesAbsolutePathReadOnlyUsageDescription` 
+    * `FairAppFilesAbsolutePathReadWriteUsageDescription` 
+    * `FairAppIokitUserClientClassUsageDescription` 
+    * `FairAppSharedPreferenceReadOnlyUsageDescription` 
+    * `FairAppSharedPreferenceReadWriteUsageDescription` 
+
 
 ## The "Fair App Integration Release" process
 
@@ -694,6 +740,18 @@ Notarization requires a recurring paid developer subscription (and the ongoing a
 
 If you have a paid developer subscription, you are free to notarize the App Fair release binaries for your app yourself, which will enable you to distribute the same binary both via **App Fair.app** catalog browser application and via other distribution channels.
 
+### How do I re-name my project?
+
+An App Fair app is defined exclusively by the `App-Org` name of the organization.
+If you can change the name of your organization, the new app name will be used the next time you make a release.
+If you re-name `App-OrgA` to `App-OrgB`, the old `App-OrgA` will automatically disappear from the catalog.
+Note, however, that since the bundle identifier will change from `app.App-OrgA` to `app.App-OrgB`, all the container settings for you app will change, so your users will find that they will not be able to access preferences or resources that were stored in the previous `app.App-OrgA` container.
+
+### What files can my app access?
+
+As a sandboxed app, only a certain set of system files can be accessed without adding the `files.user-selected.read-write` permission to the `Sandbox.entitlements` file and the corresponding 
+
+
 ### What can I change in the Package.swift file?
 
 The `Package.swift` for your `/APP-ORG/App` fork is expected to conform to the structural conventions of App Fair apps.
@@ -783,7 +841,8 @@ Use this checklist to ensure that your app is set up properly for distribution i
 
 ### App Organization
 
- 1. Does `App-Org` consist of two short distinct words separated by a hyphen?
+ 1. Does your `App-Org` name consist of two distinct words separated by a hyphen?
+ 2. Does your `App-Org` consist solely of URL-safe (ASCII) letters?
 
 
 ### User Account
