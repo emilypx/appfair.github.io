@@ -549,7 +549,7 @@ Each app that is listed in that app's github repository, which is required to ha
 You can use these forums to contact the developer(s) of the app.
 Organizations that are removed from GitHub will have the effect of removing that organization's app from being visible or installable from the **App Fair.app** catalog.
 
-### What platforms do App Fair apps support
+### What platforms do App Fair apps support?
 
 The integration phase of the App Fair builds and packages all apps for both macOS and iOS, but the **App Fair.app** catalog browser is currently only available for macOS 12 on ARM & Intel processors.
 
@@ -590,6 +590,12 @@ Note that any frameworks your app depends on must be available on *both* `macOS`
 The App Fair's `integrate-release` process uses the [Swift Package Manager (SPM)](https://swift.org/package-manager/) tool for building both your `/APP-ORG/App` fork, as well as all the third-party dependencies.
 SPM is focused primarily on the Swift language, but it can be used to build a wide variety of source.
 Note that binary dependencies are not permitted in the `Package.swift` build file; the App Fair requires that all source code that goes into the app be available during the build process.
+
+### Do I need to use the Fair library?
+
+Yes.
+The App Fair expects that your app will conform to the protocols defined in the `FairApp` library.
+The App Fair's `integrate-release` process will validate your `Package.swift` file to ensure that the first dependency for your app is `appfair/Fair` and that it uses the `main` branch.
 
 ### Can I load executable code at runtime?
 
