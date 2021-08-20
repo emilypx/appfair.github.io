@@ -67,15 +67,6 @@ From an App developer standpoint, an App Fair app is a Swift application that is
  - [https://github.com/appfair/App](https://github.com/appfair/App) is the repository that is forked to create a new  App Fair app; PRs submitted to this repository are automatically built and released to the **App Fair.app** catalog.
  - Fair is the runtime `SwiftUI` library that is included in every App Fair project, and acts as a sandboxed container within which your application is run. The `Fair` library is the only required dependency for your app's [https://github.com/appfair/App](https://github.com/appfair/App) fork.
 
-### "App Fair" & other distribution platforms
-
-App Fair apps are written in Swift, a modern & safe language, compiled natively for Intel & ARM, and utilize the `SwiftUI` framework to provide a truly native application user interface.
-This makes apps installed from the App Fair tend to be fast and efficient, and have the capability to utilize the full range of the platform's native frameworks.
-
-Unlike other platform-native store-fronts, there is no application, fees, or recurring subscriptions to create, develop, and update App Fair apps, nor are there any reviews or systematic delays in issuing updates to your apps.
-
-The App Fair's "Source Transparency" feature means that there is always visibility into exactly what code is running on your device.
-
 ## The App Fair process
 
 <img align="left" width="450" alt="Diagram of the App Fair process" src="assets/fairground.svg" />
@@ -450,6 +441,14 @@ Older releases may additionally be available from the archives saved from the [a
 Apps can be deleted from the `/Applications/App Fair/` folder by dragging them into the Trash or deleting them directly.
 
 App Fair apps are no different from any other installed app in this regard.
+
+
+### How does the App Fair compare to other software distribution platforms?
+
+App Fair apps are written in Swift, a modern & safe language, compiled natively for Intel & ARM, and utilize the `SwiftUI` framework to provide a truly native application user interface.
+This makes apps installed from the App Fair tend to be fast and efficient, and have the capability to utilize the full range of the platform's native frameworks.
+
+What sets the App Fair apart from other platform-native store-fronts is that there is no application, fees, or recurring subscriptions to create, develop, and update App Fair apps, nor are there any reviews or systematic delays in issuing updates to apps.
 
 ## Developer FAQ
 
