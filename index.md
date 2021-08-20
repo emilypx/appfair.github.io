@@ -51,8 +51,6 @@ These are defined primarily in the [appfair/App](https://github.com/appfair/App)
 
 ### Introduction: the FAIR process
 
-<img align="left" width="450" alt="Diagram of the App Fair process" src="assets/fairground.svg" />
-
 "Fork-Apply-Integrate-Release" (F-A-I-R) describes the stages of creating, developing, building, and distributing an app.
 The "Fork" and "Apply" parts are handled by you, the developer: a fork is created from the base [`/appfair/App`](https://github.com/appfair/App) repository, and in that fork you develop your app.
 When you are ready to publish a release, you apply your changes in the form of a Pull Request (PR) back to the base `/appfair/App` repository.
@@ -79,6 +77,8 @@ Unlike other platform-native store-fronts, there is no application, fees, or rec
 The App Fair's "Source Transparency" feature means that there is always visibility into exactly what code is running on your device.
 
 ## The App Fair process
+
+<img align="left" width="450" alt="Diagram of the App Fair process" src="assets/fairground.svg" />
 
 Upon submitting a [Pull Request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) for your `/APP-ORG/App` fork's changes, your project will be automatically built, signed, and packaged as a native macOS application.
 
