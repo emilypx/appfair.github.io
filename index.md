@@ -40,7 +40,7 @@ App Fair apps are written in Swift and utilize a native `SwiftUI` user interface
 Apps target macOS 12 and Swift version 5.5, giving them access to the full power of Swift's async/await concurrency features.
 
 The distribution process for App Fair apps is completely automated, instantaneous, and free. 
-The only requirement is a GitHub account that is associated with your `.edu` e-mail address.
+The only requirement is a GitHub account that is associated with your `.edu` or `.ac.uk` e-mail address.
 No additional registration, sign-up, or approval is required in order to start developing and distributing apps for the App Fair.
 
 ## The App Fair fair-ground
@@ -58,8 +58,12 @@ The "Fork" and "Apply" parts are handled by you, the developer: a fork is create
 When you are ready to publish a release, you apply your changes in the form of a Pull Request (PR) back to the base `/appfair/App` repository.
 The "Integrate" and "Release" phases are handled by the build host that accepts pull requests from the developer's fork and validates, builds, packages, and releases the installable app.
 
-The integration & release phases are the central part of the "fair-ground" process.
-These phases handle accepting incoming requests to validate and release an app.
+The integration phases is the trusted core of the "fair-ground" process.
+This phase handles accepting incoming pull requests to validate, build, and package an app.
+The `integrate` phase is where usage policies are enforced (to the extent permissible by automation) and where security entitlements are verified.
+Finally, the app is packaged, signed, and archived.
+
+The final phase, the `release` phase, involves the cataloging of the artifacts from the `integrate` phase and making that catalog available to a compliant catalog browser application (such as the macOS **App Fair.app** catalog browser application).
 
 From an App developer standpoint, an App Fair app is a Swift application that is defined by a Swift Package Manager `Package.swift` file, and that uses of two source code repositories: *Fair* & *App*:
  - [https://github.com/appfair/App](https://github.com/appfair/App) is the repository that is forked to create a new  App Fair app; PRs submitted to this repository are automatically built and released to the **App Fair.app** catalog.
@@ -283,7 +287,7 @@ This metadata is accumulated using the public GitHub APIs, and the appearance in
 In order for an organization's `/APP-ORG/App` project to be visible in the **App Fair.app** catalog, it must be a public organization with at least one public member. 
 The organization must have a repository (or redirection) named "App" (literally), which must be a fork of the [appfair/App](https://github.com/appfair/App) repository.
 In addition, the repository must have issues & discussions enabled, and also must be public & un-archived.
-Finally, the `APP-ORG` organization's public contact must be a valid e-mail address ending in ".edu".
+Finally, the `APP-ORG` organization's public contact must be a valid e-mail address ending in ".edu" or ".ac.uk".
 
 ### Licensing
 
@@ -403,10 +407,11 @@ The signature is essentially an anonymous seal on the binary placed on it by the
 
 Instead, the App Fair provides author accountability and identifiability by requiring that any commit that triggers the `integrate-release` process needs to be marked as `verified` by GitHub.
 This means that the commit itself is cryptographically signed.
-This signature must be associated with an `.edu` (or other approved) e-mail address, and that address must be associated with user's GitHub account (although it does not need to be the primary e-mail address for the account).
+This signature must be associated with an academic e-mail address, and that address must be associated with user's GitHub account.
+The academic address does not need to be the primary address for the user, but it does need to be listed in the developer's validated public e-mail addresses at [https://github.com/settings/profile](https://github.com/settings/profile).
 
 The simplest way to sign your PR commit is to simply use the GitHub web interface whenever you update your PR to trigger the `integrate-release` phases.
-GitHub will mark any commit that you make using their web interface as being "verified" with one of the e-mail addresses you have configured with them.
+GitHub will mark any commit that you make using their web interface as being "verified" with whichever of the e-mail addresses you have configured with them.
 
 Alternatively, you can sign commits from the `Terminal.app` using the `gpg` tool, which you can install using `homebrew`.
 This will enable you to update your PR from the terminal, but is considerably more complex to set up.
@@ -453,6 +458,12 @@ App Fair apps are no different from any other installed app in this regard.
 There are a multitude of resources available online for both `git` (the source control management tool), and `GitHub`, the service that hosts both free and commercial git repositories and provides related services.
 A good starting point is GitHub's [Hello World](https://guides.github.com/activities/hello-world/) tutorial.
 Fluency with git will be important for managing your app's lifecycle.
+
+### Can I develop an App Fair app with a non-`.edu` academic e-mail address?
+
+While anyone is free to fork the App Fair's [base repository](https://github.com/appfair/App.git), the App Fair's enforces that the committer of the `integrate` PR has an associated academic e-mail address.
+These addresses are currently restricted to those ending in `.edu` and `.ac.uk`.
+More academic institutions will be added to the list on a case-by-case basis.
 
 ### How do I fork the `appfair/App` repository?
 
@@ -537,7 +548,7 @@ For more information, see [Adding topics to your repository](https://docs.github
 
 ### How is e-mail verification performed?
 
-The GPG signature of the initiator of the `integrate-release` pull request must be for an `.edu` e-mail address and the commit must be [verified](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/about-commit-signature-verification).
+The GPG signature of the initiator of the `integrate-release` pull request must be for an `.edu` or `.ac.uk` e-mail address and the commit must be [verified](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/about-commit-signature-verification).
 
 You must have a valid e-mail address configured in your list of keys in your [GPG keys settings](https://github.com/settings/keys)
 
@@ -569,7 +580,7 @@ Discussions and issues are required in order to allow users a channel for suppor
 ### How can I have someone else's app removed from the App Fair?
 
 As the App Fair's `integrate-release` process is completely automated, there is no mechanism for direct management of, or intervention in, the app release process. 
-Each app that is listed in that app's github repository, which is required to have issues and discussions enabled.
+Each app that is listed in that app's GitHub repository, which is required to have issues and discussions enabled.
 You can use these forums to contact the developer(s) of the app.
 Organizations that are removed from GitHub will have the effect of removing that organization's app from being visible or installable from the **App Fair.app** catalog.
 
@@ -647,11 +658,11 @@ Users can revert to previous versions only if they have their own backup or if t
 
 Your app may request any permission in the `Sandbox.entitlements` with the exception of the following permissions:
 
- - `files.all`
- - `cs.allow-unsigned-executable-memory`
- - `cs.allow-dyld-environment-variables`
- - `cs.disable-library-validation`
- - `cs.disable-executable-page-protection`
+ - `*.files.all`
+ - `*.cs.allow-unsigned-executable-memory`
+ - `*.cs.allow-dyld-environment-variables`
+ - `*.cs.disable-library-validation`
+ - `*.cs.disable-executable-page-protection`
 
 Note, however, that any permission you request must have a corresponding `usageDescriptionProperties` in the `Info.plist` metadata file explaining to the user (via the listing in the App Fair catalog) why the entitlement is requested.
 
@@ -777,12 +788,14 @@ There is a reference implementation of an app that behaves as a bad actor at [ht
 The "Badware Malware" app's repository, and the associated issues and discussion forums, is meant to act as a forum for discussions and issues specific to the App Fair implementation and policies.
 
 For security issues related to the underlying platform or operating system (e.g., bugs in the OS that permit apps to break out of their sandbox), refer to the platform vendor's published security disclosure advice for guidance.
+
 For non-public disclosure and questions related to the App Fair platform itself, you can e-mail [security+nodisclosure@appfair.net](security+nodisclosure@appfair.net).
-Sensitive communications can be encrypted using the following key:
+
+Sensitive communications should be signed with your PGP public key.
+Encryption with the following key is also encouraged:
 
 ```
 -----BEGIN PGP PUBLIC KEY BLOCK-----
-
 mQINBGEWmKEBEACwr7gphnlfUMmXkygFpZ9YByN07Bc2xuEtvBRMlsyqYBdnmBdl
 PMq9lD8aA+0G0Hz/rOtyoMx7NFw1yuC9xJIac9q05IhmDy9quQk8sNZUal2vIc2r
 Rbg+mfGioJEQPJzLWGj+tbfEGuSbH22vUSWhhUEphzSsGysi7A7FoZbt/yjZsX18
@@ -849,9 +862,10 @@ You can develop any portion of your app in a separate repository, which can be c
 
 ### Can I make my own fair-ground?
 
-The "App Fair" is the reference implementation of a fair-ground, using a model of non-commercial open-source projects mandating source transparency and explicit security entitlement disclosure.
+The "App Fair" is the reference implementation of a fair-ground, using a model of non-commercial open-source projects for academic developers and mandating source transparency and the explicit disclosure of security entitlements.
 Alternative fair-ground models are possible by simply mirroring the structure and repositories of the `appfair` organization.
-The bulk of the fair-ground's logic, as well as the runtime code for fair-ground integration, is in the [Fair](https://github.com/appfair/Fair) library, which you can customize to handle your implementation's policies and restrictions.
+Many of the App Fair's policies are simply flags that can be set on the `fairtool validate` action that is run during the `integrate` phase.
+The bulk of the fair-ground's logic, as well as the runtime code for fair-ground integration, is in the [Fair](https://github.com/appfair/Fair) library, which you can customize to handle your own implementation's policies, restrictions, and commerce needs.
 
 ## How is the fair-ground's catalog updated?
 
@@ -911,7 +925,7 @@ Use this checklist to ensure that your app is set up properly for distribution i
 
 ### User Account
 
- 1. Do you have a valid (e.g., `.edu`) e-mail address set and verified in your [email settings](https://github.com/settings/emails)?
+ 1. Do you have a valid (e.g., `.edu` or `.ac.uk`) e-mail address set and verified in your [email settings](https://github.com/settings/emails)?
  1. Is "Keep my email addresses private" turned off in your [email settings](https://github.com/settings/emails)?
  1. Have you enabled [vigilant mode](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits#enabling-vigilant-mode)?
  
@@ -942,7 +956,7 @@ Use this checklist to ensure that your app is set up properly for distribution i
  1. Is the title of your Pull Request formatted as: `App-Org v1.2.3`?
  1. Does the title of your PR match the version in `Info.plist`
  1. Is your Pull Request commit signed and marked as "verified" by GitHub?
- 1. Is the e-mail address associated with the commit valid (e.g., an `.edu` address)?
+ 1. Is the e-mail address associated with the commit valid (e.g., an `.edu` or `.ac.uk` address)?
  
  
 ## App Fair News
