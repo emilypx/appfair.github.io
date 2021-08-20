@@ -43,10 +43,10 @@ The distribution process for App Fair apps is completely automated, instantaneou
 The only requirement is a GitHub account that is associated with your `.edu` e-mail address.
 No additional registration, sign-up, or approval is required in order to start developing and distributing apps for the App Fair.
 
-## The App Fair fairground
+## The App Fair fair-ground
 
-The "fairground" is the name for the abstract service that acts as the platform for app distribution, and includes services for user authorization, and for validating, building, packaging, cataloging, and distributing the apps.
-The "App Fair" is the reference fairground, implemented as a set of GitHub repositories, actions, and policies.
+The "fair-ground" is the name for the abstract service that acts as the platform for app distribution, and includes services for user authorization, and for validating, building, packaging, cataloging, and distributing the apps.
+The "App Fair" is the reference fair-ground, implemented as a set of GitHub repositories, actions, and policies.
 These are defined primarily in the [appfair/App](https://github.com/appfair/App) repository, which also acts as the base repository to be forked by app developers.
 
 ### Introduction: the FAIR process
@@ -58,7 +58,7 @@ The "Fork" and "Apply" parts are handled by you, the developer: a fork is create
 When you are ready to publish a release, you apply your changes in the form of a Pull Request (PR) back to the base `/appfair/App` repository.
 The "Integrate" and "Release" phases are handled by the build host that accepts pull requests from the developer's fork and validates, builds, packages, and releases the installable app.
 
-The integration & release phases are the central part of the "fairground" process.
+The integration & release phases are the central part of the "fair-ground" process.
 These phases handle accepting incoming requests to validate and release an app.
 
 From an App developer standpoint, an App Fair app is a Swift application that is defined by a Swift Package Manager `Package.swift` file, and that uses of two source code repositories: *Fair* & *App*:
@@ -143,6 +143,18 @@ The contents of the file must not be changed, or validation of your project will
 
 To customize your app, you should instead start by editing the `AppContainer` extension in `Sources/App/AppContainer.swift` to provide the required protocol implementations for your app's root view.
 
+### The Fair Library
+
+The [https://github.com/appfair/Fair.git](https://github.com/appfair/Fair.git) repository is the cornerstone for the App Fair.
+Fair contains the code for the following aspects of a fair-ground:
+
+1. Managing the fair-ground process (app validation and catalog management) using the `fairtool` executable target running on the fair-ground's build host
+2. Serving as the canonical source for the contents of the fair-ground's base repository, such as the App Fair's at: [https://github.com/appfair/App.git](https://github.com/appfair/App.git)
+3. Acting as the point of entry to an app's launch, thereby providing automatic runtime features such as integration with the fair-ground's catalog management and runtime security checks
+
+All apps distributed through a fair-ground such as the App Fair much include the HEAD of the `Fair` library as their initial dependency.
+This ensures that all integrated apps are always up-to-date with respect to feature improvements, bug fixes, and security enhancements that may be made to the container environment.
+This requirement is enforced during the `integrate-release` phase
 
 ### The App Fair sandbox
 
@@ -219,39 +231,6 @@ Once a release is created, it will be available at the list of releases at [http
 When a pull request is submitted from your app's fork back to the origin repository at [https://github.com/appfair/App](https://github.com/appfair/App), the integration phase of the App Fair's `Fork-Apply-Integrate-Release` process is initiated.
 
 ### Configuring your Fork for the integrate-release phases
-
-Once you have created your `/APP-ORG/App` fork
-
-```
-$ git remote -v
-origin    https://github.com/APP-ORG/App.git (fetch)
-origin    https://github.com/APP-ORG/App.git (push)
-
-$ git remote add upstream https://github.com/appfair/App.git
-
-$ git remote -v
-origin      https://github.com/APP-ORG/App.git (fetch)
-origin      https://github.com/APP-ORG/App.git (push)
-upstream    https://github.com/appfair/App.git (fetch)
-upstream    https://github.com/appfair/App.git (push)
-
-$ git fetch upstream
-remote: Enumerating objects…
-remote: Counting objects…
-remote: Compressing objects…
-remote: Total … (delta …), reused … (delta …), pack-reused …
-Unpacking objects: 100% (15/15), 1.15 KiB | 51.00 KiB/s, done.
-From https://github.com/appfair/App
- 
-$ git pull
-Current branch main is up to date.
-
-$ git merge upstream/main
-Merge made by the 'recursive' strategy.
- …/…/…     | 2 +-
- …/…/…     | 5 +++--
- 2 files changed, 4 insertions(+), 3 deletions(-)
-```
 
 The PR will triggered a GitHub action (of type [pull_request_target](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request_target)) running on a macOS build host.
 The action will check out the PR and use the `fairtool` to validate the structure of the project and verify the status of the app's organization.
@@ -368,7 +347,7 @@ Some App developers may enable patronage services, which provides the ability fo
 
 ## Ideal: Fair
 
-The App Fair is designed to encourage fairness and respect between software creators (the app developers), software consumers (the users of the app), and the "fairground" distribution platform (the App Fair).
+The App Fair is designed to encourage fairness and respect between software creators (the app developers), software consumers (the users of the app), and the "fair-ground" distribution platform (the App Fair).
 
 ### Creator-Platform-Consumer Trust Relationship
 
@@ -382,16 +361,8 @@ This guiding principles for each separate relationship in this collection is:
 
  - Creator-Platform: the Creators trust the distribution platform to treat them fairly. Creators should not be advantaged or disadvantaged by hidden rules implemented by the Platform. Creators should have free and unfettered control over how they add, remove, or update apps available in the Platform's catalog.
 
- - Consumer-Platform: the Consumers trust that the Platform will provide a safe and reliable mechanism to find, research, install, and update software. The Consumers rely on the Platform to ensure that there are reliable communication channels available for the Consumer to rely questions and concerns to the Creator.
+ - Consumer-Platform: the Consumers trust that the Platform will provide a safe and reliable mechanism to find, research, install, and update software. The Consumers rely on the Platform to ensure that there are reliable and accountable communication channels available for the Consumer to relay questions and concerns to the Creator.
  
-<!--  - Consumer-Creator: 
- - Consumer-Platform: 
- 
- - Creator-Consumer: the Creators trust that the Consumers will use their software as intended and will respect the intellectual property rights of the Creators.
-
- - Platform-Creator: the Platforms trust that the Creators will use their distribution 
- - Platform-Consumer:  -->
-
 ## Ideal: Forever
 
 While apps distributed through the App Fair catalog can be removed by their creators at any time, the apps do not otherwise expire.
@@ -735,7 +706,7 @@ When a signature is "Ad-Hoc", it means that there is no identifying information 
 
 ### Are App Fair apps notarized?
 
-Although App Fair apps are signed, sandboxed, and utilize the hardened runtime, they are not automatically notarized during the fairground's `integrate-release` phases. 
+Although App Fair apps are signed, sandboxed, and utilize the hardened runtime, they are not automatically notarized during the fair-ground's `integrate-release` phases. 
 Notarization requires a recurring paid developer subscription (and the ongoing acceptance of terms & conditions) and is therefore incompatible with the free & fair nature of the App Fair.
 
 If you have a paid developer subscription, you are free to notarize the App Fair release binaries for your app yourself, which will enable you to distribute the same binary both via **App Fair.app** catalog browser application and via other distribution channels.
@@ -766,6 +737,7 @@ The App Fair does not analyze any of your transitive dependences other than to e
 The App Fair's `integrate-release` phases are triggered by Pull Request that are made from your `/APP-ORG/App` fork.
 So in order to create a new release, something in your `/APP-ORG/App` fork will need to change before a Pull Request can be created.
 One possible change to make would be to increment the version of the dependent library in your `Package.swift` file, and use that change to issue the PR.
+You can also manually update your open integration PR via the web interface in order to trigger the fair-ground's [pull_request_target](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request_target) action.
 
 ### What prevents malicious apps from being distributed through the App Fair?
 
@@ -786,26 +758,26 @@ Both the [appfair/Fair](https://github.com/appfair/Fair) and [appfair/App](https
 ### Is my app code required to use the AGPL?
 
 Only the portion of your app contained in your app organization's `/APP-ORG/App` fork is required to be covered by the AGPL.
-You can develop any portion of your app in a separate repository, which can be covered by any license of your choosing (provided the source code is available during the fairground's `integrate-release` phases).
+You can develop any portion of your app in a separate repository, which can be covered by any license of your choosing (provided the source code is available during the fair-ground's `integrate-release` phases).
 
 
 
-## FairGround FAQ
+## fair-ground FAQ
 
-### Can I make my own FairGround?
+### Can I make my own fair-ground?
 
-The "App Fair" is the reference implementation of a fairground, using a model of non-commercial open-source projects mandating source transparency and explicit security entitlements.
-Alternative fairground models are possible by simply mirroring the structure and repositories of the `appfair` organization.
-The bulk of the fairground's logic, as well as the runtime code for fairground integration, is in the [Fair](https://github.com/appfair/Fair) library, which you can customize to handle your implementation's policies and restrictions.
+The "App Fair" is the reference implementation of a fair-ground, using a model of non-commercial open-source projects mandating source transparency and explicit security entitlement disclosure.
+Alternative fair-ground models are possible by simply mirroring the structure and repositories of the `appfair` organization.
+The bulk of the fair-ground's logic, as well as the runtime code for fair-ground integration, is in the [Fair](https://github.com/appfair/Fair) library, which you can customize to handle your implementation's policies and restrictions.
 
-## How is the FairGround's catalog updated?
+## How is the fair-ground's catalog updated?
 
 The "App Fair" reference implementation has a special [catalog release tag](https://github.com/appfair/App/releases/tag/catalog).
 This tag is updated with a new `catalog.json` file after every successful `integrate-release` run.
 The `catalog.json` file is the manifest of all the current and valid apps that can be downloaded using a catalog browser.
 This manifest is generated by the `fairtool`, which uses the GitHub API calls to aggregate the publicly-available information from the release artifacts, fork integrations, and contributor profiles that makes up the distributed collection of available apps.
 
-## Can I run a FairGround on a self-hosted GitHub runner?
+## Can I run a fair-ground on a self-hosted GitHub runner?
 
 In theory, yes.
 
@@ -835,6 +807,15 @@ Note that this is exactly the same process that the `integrate` phase executes, 
 
 # Appendix
 
+## Glossary
+
+ * `fair-ground`: A fair-ground is a platform for app distribution.
+ * `Fair.git`: An SPM package hosted at [https://github.com/appfair/Fair.git](https://github.com/appfair/Fair.git) and licensed under the AGPL 3.0 that has targets for both the `Fair` runtime library, as well as the `fairtool` CLI utility.
+ * Fair.swift: A Swift 5.5 library that acts as the entry point to all apps that are distributed via a fair-ground; the library provides a container environment with features such as automatic addition of Help & Support menus, as well as runtime validation of security features. All apps distributed via a fair-ground are required to have the HEAD of `Fair.git` as their initial SPM dependency.
+ * fairtool: An executable tool that is included with the `Fair.git` package, and is thereby included with all apps that link to the `Fair (runtime)`. The `fairtool` utility is used to validate and merge `integrate-release` requests by the trusted fair-ground build process. The tool can also be used to initialize a new fair-ground with template code, which can act as the foundation for a customizable.
+ * FAIR: The `Fork-Apply-Integrate-Release` process summarizes a system whereby developers create apps by fork-ing a fair-ground's base repository and apply-ing their changes to back to the base in the form of a pull request. This is followed by an `integrate` phase that validates and builds the app and the creator, followed by a `release` phase that publishes the build artifacts to an app cataloging and distribution system.
+ * App Fair: The App Fair is the name of a fair-ground hosted at [https://www.appfair.net](https://www.appfair.net) that uses GitHub as its host for the `fork-apply` phases, and uses GitHub Actions for the `integrate-release` process and catalog hosting. The App Fair enforces policies of complete source transparency, security entitlement disclosure, and unfettered academic usage.
+ 
 ## App Fair Distribution Checklist
 
 Use this checklist to ensure that your app is set up properly for distribution in the App Fair catalog.
