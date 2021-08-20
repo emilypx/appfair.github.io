@@ -256,7 +256,7 @@ These release artifacts include:
   * `App-Name.png`: the app's icon
   * `Package.resolved`: the release versions of all the resolved SPM dependencies
 
-(Note that in addition to these artifacts, GitHub also automatically includes a "Source code (zip)" and "Source code (tar.gz)" archive in the releases; these are 'shallow' source archives without the dependent code; for access to the complete archive of source code that was used to actually build an application, the generated `App-Name-source.tgz` release artifact should be used).
+(Note that in addition to these artifacts, GitHub also automatically includes a "Source code (zip)" and "Source code (tar.gz)" archive in the releases; these are 'shallow' source archives without the dependent code; for access to the complete archive of source code that was used to build an application, the generated `App-Name-source.tgz` release artifact should be used).
 
 ### Validating your app with validate_app.yml
 
@@ -739,7 +739,7 @@ This is the ensure that distributed apps are always up-to-date with respect to s
 *Technically*, no: you could theoretically use any OS to write the Swift code for your `/APP-ORG/App` fork.
 Since the Integration and Release phases of the App Fair process are all run in the cloud, no client-side build & run activity is required.
 
-In practice, however, to develop anything but the most trivial of apps requires being able to use a modern IDE, debugger, and the ability to actually run your app in order to test and refine the behavior.
+In practice, however, to develop anything but the most trivial of apps requires being able to use a modern IDE, debugger, and the ability to run your app locally in order to test and refine the behavior.
 
 ### Why is my `integrate` pull request never merged?
 
