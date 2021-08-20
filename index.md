@@ -680,6 +680,18 @@ Using `SwiftUI` makes this mostly transparent to the developer.
 
 No.
 
+### What does the `Fair` library do at runtime?
+
+The `Fair` library, which is required to be the initial dependency of any app distributed via a fair-ground, handles the launch process of the app.
+This process adds various Help menus to the app linking to communications forums (such as GitHub Discussions & Issues) by which users can communicate questions and concerns to the developer(s) of the app.
+The `Fair` library also can initiate runtime security checks to ensure that apps are behaving correctly.
+
+### Can I link to a specific version of the `Fair.git` dependency?
+
+No.
+You can only specify the HEAD branch (`main`) as the `Fair.git` dependency.
+This is the ensure that distributed apps are always up-to-date with respect to security validation features and enhancements to the app's runtime environment.
+
 ### Do I need a Mac to develop App Fair apps?
 
 *Technically*, no: you could theoretically use any OS to write the Swift code for your `/APP-ORG/App` fork.
@@ -809,12 +821,12 @@ Note that this is exactly the same process that the `integrate` phase executes, 
 
 ## Glossary
 
- * `fair-ground`: A fair-ground is a platform for app distribution.
- * `Fair.git`: An SPM package hosted at [https://github.com/appfair/Fair.git](https://github.com/appfair/Fair.git) and licensed under the AGPL 3.0 that has targets for both the `Fair` runtime library, as well as the `fairtool` CLI utility.
- * Fair.swift: A Swift 5.5 library that acts as the entry point to all apps that are distributed via a fair-ground; the library provides a container environment with features such as automatic addition of Help & Support menus, as well as runtime validation of security features. All apps distributed via a fair-ground are required to have the HEAD of `Fair.git` as their initial SPM dependency.
- * fairtool: An executable tool that is included with the `Fair.git` package, and is thereby included with all apps that link to the `Fair (runtime)`. The `fairtool` utility is used to validate and merge `integrate-release` requests by the trusted fair-ground build process. The tool can also be used to initialize a new fair-ground with template code, which can act as the foundation for a customizable.
- * FAIR: The `Fork-Apply-Integrate-Release` process summarizes a system whereby developers create apps by fork-ing a fair-ground's base repository and apply-ing their changes to back to the base in the form of a pull request. This is followed by an `integrate` phase that validates and builds the app and the creator, followed by a `release` phase that publishes the build artifacts to an app cataloging and distribution system.
- * App Fair: The App Fair is the name of a fair-ground hosted at [https://www.appfair.net](https://www.appfair.net) that uses GitHub as its host for the `fork-apply` phases, and uses GitHub Actions for the `integrate-release` process and catalog hosting. The App Fair enforces policies of complete source transparency, security entitlement disclosure, and unfettered academic usage.
+  * `fair-ground`: A fair-ground is a platform for app distribution. It is the abstract name for the hosted service(s) that provides the resources for the `Fork-Apply-Integrate-Release` process of app ingestion and distribution.
+  * FAIR: The `Fork-Apply-Integrate-Release` process summarizes a system whereby developers create apps by fork-ing a fair-ground's base repository and apply-ing their changes to back to the base in the form of a pull request. This is followed by an `integrate` phase that ingests, validates and builds the app, verifies the creator's organization standing, and then initiates a `release` phase that publishes the build artifacts to an app cataloging and distribution system.
+  * `Fair.git`: An SPM package hosted at [https://github.com/appfair/Fair.git](https://github.com/appfair/Fair.git) and licensed under the AGPL 3.0 that has targets for both the `Fair` runtime library, as well as the `fairtool` CLI utility.
+  * Fair.swift: A Swift 5.5 library that acts as the entry point to all apps that are distributed via a fair-ground; the library provides a container environment with features such as automatic addition of Help & Support menus, as well as runtime validation of security features. All apps distributed via a fair-ground are required to have the HEAD of `Fair.git` as their initial SPM dependency.
+  * fairtool: An executable tool that is included with the `Fair.git` package, and is thereby included with all apps that link to the `Fair (runtime)`. The `fairtool` utility is used to validate and merge `integrate-release` requests by the trusted fair-ground build process. The tool can also be used to initialize a new fair-ground with template code for a new base repository. The utility can be run with: the command: `swift run fairtool`
+  * App Fair: The App Fair is the name of a fair-ground hosted at [https://www.appfair.net](https://www.appfair.net) that uses GitHub as its host for the `fork-apply` phases, and uses GitHub Actions for the `integrate-release` process and catalog hosting. The App Fair enforces policies of complete source transparency, security entitlement disclosure, and unfettered academic usage.
  
 ## App Fair Distribution Checklist
 
