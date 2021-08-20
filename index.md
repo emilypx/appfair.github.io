@@ -763,6 +763,22 @@ macOS includes built-in antivirus technology called "XProtect" for the signature
 Furthermore, macOS also includes the "Malware Removal Tool" (MRT), which is a process that remediates infections based on automatic updates of system data files and security information. 
 MRT removes malware upon receiving updated information, and it continues to check for infections on restart and login.
 
+### Does the integrate phase run an App's test cases?
+
+The `integrate-release` phases of the fair-ground are run in the trusted environment of the base repository by way of a [pull_request_target](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request_target) GitHub action.
+These phases only run a minimal amount of code that is defined by the App fork: the code that is defined in the `Package.swift` file, which is run in the [restrictive sandboxed environment of the Swift Package Manager](https://swift.org/blog/swift-4-0-released/#package-manager-updates).
+Since arbitrary code execution could threaten the secure environment of the base repository, and because the fair-ground's build process needs to be able to create and release apps quickly, it does not run any test code for the apps it builds.
+
+Note, though, that your own repository's fork will come with the `.github/workflows/validate_app.yml` workflow file, which *does* run your unit tests in your own forked repository, provided that you explicitly enable actions for the repository.
+
+### How can I report security issues with the App Fair?
+
+There is a reference implementation of an app that behaves as a bad actor at [https://github.com/Badware-Malware/App.git](https://github.com/Badware-Malware/App.git).
+The "Badware Malware" app's repository, and the associated issues and discussion forums, is meant to act as a forum for discussions and issues specific to the App Fair implementation and policies.
+
+For security issues related to the underlying platform or operating system (e.g., bugs in the OS that permit apps to break out of their sandbox), refer to the platform vendor's published security disclosure advice for guidance.
+For non-public disclosure and questions related to the App Fair platform itself, you can e-mail [security+nodisclosure@appfair.net](security+nodisclosure@appfair.net).
+
 ### What is the License for the App Fair project?
 
 Both the [appfair/Fair](https://github.com/appfair/Fair) and [appfair/App](https://github.com/appfair/App) projects, as well as all forks thereof (including the [**App Fair.app** catalog browser application](https://github.com/App-Fair/)), are licensed under the [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.html).
