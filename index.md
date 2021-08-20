@@ -206,7 +206,6 @@ The following `AppEntitlement.usageDescriptionProperties` are the properties for
  * `FairAppDeviceBluetoothUsageDescription`: `*.security.device.bluetooth`
  * `FairAppDeviceAudioInputUsageDescription`: `*.security.device.audio-input`
  * `FairAppDeviceAudioVideoBridgingUsageDescription`: `*.security.device.audio-video-bridging`
- * `FairAppAppleEventsUsageDescription`: `*.security.temporary-exception.apple-events`
  * `FairAppAudioUnitHostUsageDescription`: `*.security.temporary-exception.audio-unit-host`
  * `FairAppIokitUserClientClassUsageDescription`: `*.security.temporary-exception.iokit-user-client-class`
  * `FairAppMachLookupGlobalNameUsageDescription`: `*.security.temporary-exception.mach-lookup.global-name`
@@ -776,6 +775,14 @@ Note, however, that since the bundle identifier will change from `app.App-OrgA` 
 
 As a sandboxed app, only a certain set of system files can be accessed without adding the `files.user-selected.read-write` permission to the `Sandbox.entitlements` file and the corresponding 
 
+### How can I open and debug the app in Xcode?
+
+You can open the `App.xcworkspace` file in `Xcode.app`, which is a workspace that is pre-configured to use your own `/App/` fork's swift package, as well as containing an `.xcodeproj` file that is necessary for the building and packaging of the app's release artifacts.
+
+All your code, however, must reside in the SPM package itself, which is your `/App/` fork's `Sources/App/` folder.
+
+Do not edit the `App.xcodeproj` folder directly, since it doesn't link to swift package folder. Any changes made either the `App.xcworkspace` or `App.xcodeproj` files will be ignored during the fair-ground's `integrate` phase, so you should avoid making changes there that are meant to be included in the app's eventual build. 
+Instead, you should prefer to use the `Package.swift` manifest as well as local resources for the customization of your app's metadata.
 
 ### What can I change in the Package.swift file?
 
