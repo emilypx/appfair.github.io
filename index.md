@@ -5,7 +5,7 @@ title: The App Fair
 
 # Welcome to the App Fair
 
-<img align="right" width="250" alt="App Fair Icon for https://www.appfair.net" src="AppFairIcon.svg" />
+<img align="right" width="250" alt="App Fair Icon for https://www.appfair.net" src="appfair-icon.svg" />
 
 The App Fair is an independent app distribution platform for free open-source macOS (12) applications created by students and educators.
 App Fair apps use modern native frameworks and user-interface elements with a focus on performance, efficiency, accessibility and inclusiveness.
@@ -778,6 +778,61 @@ The "Badware Malware" app's repository, and the associated issues and discussion
 
 For security issues related to the underlying platform or operating system (e.g., bugs in the OS that permit apps to break out of their sandbox), refer to the platform vendor's published security disclosure advice for guidance.
 For non-public disclosure and questions related to the App Fair platform itself, you can e-mail [security+nodisclosure@appfair.net](security+nodisclosure@appfair.net).
+Sensitive communications can be encrypted using the following key:
+
+```
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+=BsIR
+-----END PGP PUBLIC KEY BLOCK-----
+```
 
 ### What is the License for the App Fair project?
 
@@ -890,13 +945,18 @@ Use this checklist to ensure that your app is set up properly for distribution i
  1. Is the e-mail address associated with the commit valid (e.g., an `.edu` address)?
  
  
+## App Fair News
+
+For announcements about the App Fair, please subscribe to the Telegram Channel at [https://t.me/appfair](https://t.me/appfair).
+ 
 ## App Fair Badge
 
-You can use the following badge on your app's promotional material to link directly to your App Fair catalog entry.
+You can use the following badge freely on your app's promotional material to link directly to your App Fair catalog entry.
+It is advised that you link directly to the version of the badge hosted at [https://www.appfair.net/appfair-free-for-all.svg](https://www.appfair.net/appfair-free-for-all.svg), since that is that resource that will be updated to use the most current version of the graphic and animation.
 You can include the App Fair badge with the following HTML:
 
 ```
-<img src="https://www.appfair.net/AppFairBadge.svg" width="450" alt="Free for all at the App Fair – https://www.appfair.net" />
+<img src="https://www.appfair.net/appfair-free-for-all.svg" width="450" alt="Free for all at the App Fair – https://www.appfair.net" />
 ```
 
-<p align="center"><img src="https://www.appfair.net/AppFairBadge.svg" width="450" alt="Free for all at the App Fair – https://www.appfair.net" /></p>
+<p align="center"><img src="https://www.appfair.net/appfair-free-for-all.svg" width="450" alt="Free for all at the App Fair – https://www.appfair.net" /></p>
