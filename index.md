@@ -7,7 +7,7 @@ title: The App Fair
 
 <img align="right" width="250" alt="App Fair Icon for https://www.appfair.net" src="appfair-icon.svg" />
 
-The App Fair is an independent app distribution platform for free open-source macOS (12) applications created by students and educators.
+The App Fair is an independent app distribution platform for free open-source macOS applications created by students and educators.
 App Fair apps use modern native frameworks and user-interface elements with a focus on performance, efficiency, accessibility and inclusiveness.
 
 ## The App Fair for App Users
