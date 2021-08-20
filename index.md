@@ -177,48 +177,47 @@ For example, if you are making a weather app, you should not need to request the
 
 The following `AppEntitlement.usageDescriptionProperties` are the properties for the `Info.plist` metadata that corresponds to the `Sandbox.entitlements` keys:
 
- * `FairAppDebugger`: permits application to act as a debugger ("cs.debugger") 
- * `FairAppNetworkCientUsageDescription`: enables network access, both local and internet ("network.client")
- * `FairAppNetworkServerUsageDescription`: enabled the app to listen on ports and receive connections ("network.server")
- * `FairAppFilesUserSelectedReadWriteUsageDescription`: allows the app to read and write files that the user has explicitly granted authorization to ("files.user-selected-read- write")
- * `FairAppFilesUserSelectedReadOnlyUsageDescription`: allows the app read-only access to the files that user has explicitly granted authorization to ("files.user-selected-read-only")
- * `FairAppFilesUserSelectedExecutableUsageDescription` 
- * `FairAppFilesDownloadsReadOnlyUsageDescription` 
- * `FairAppFilesDownloadsReadWriteUsageDescription` 
- * `FairAppAssetsPicturesReadOnlyUsageDescription` 
- * `FairAppAssetsPicturesReadWriteUsageDescription` 
- * `FairAppAssetsMusicReadOnlyUsageDescription` 
- * `FairAppAssetsMusicReadWriteUsageDescription` 
- * `FairAppAssetsMoviesReadOnlyUsageDescription` 
- * `FairAppAssetsMoviesReadWriteUsageDescription` 
- * `FairAppPersonalInformationAddressbookUsageDescription` 
- * `FairAppPersonalInformationCalendarsUsageDescription` 
- * `FairAppPersonalInformationLocationUsageDescription` 
- * `FairAppDeviceCameraUsageDescription` 
- * `FairAppDeviceMicrophoneUsageDescription` 
- * `FairAppApplicationGroupsUsageDescription` 
- * `FairAppDeviceAudioVideoBridgingUsageDescription` 
- * `FairAppDeviceUsbUsageDescription` 
- * `FairAppPrintUsageDescription` 
- * `FairAppDeviceBluetoothUsageDescription` 
- * `FairAppDeviceFirewireUsageDescription` 
- * `FairAppDeviceAudioInputUsageDescription` 
- * `FairAppDeviceSerialUsageDescription` 
- * `FairAppFilesBookmarksAppScopeUsageDescription` 
- * `FairAppFilesBookmarksDocumentScopeUsageDescription` 
- * `FairAppScriptingTargetsUsageDescription` 
- * `FairAppAppleEventsUsageDescription` 
- * `FairAppAudioUnitHostUsageDescription` 
- * `FairAppMachLookupGlobalNameUsageDescription` 
- * `FairAppMachRegisterGlobalNameUsageDescription` 
- * `FairAppFilesHomeRelativePathReadOnlyUsageDescription` 
- * `FairAppFilesHomeRelativePathReadWriteUsageDescription` 
- * `FairAppFilesAbsolutePathReadOnlyUsageDescription` 
- * `FairAppFilesAbsolutePathReadWriteUsageDescription` 
- * `FairAppIokitUserClientClassUsageDescription` 
- * `FairAppSharedPreferenceReadOnlyUsageDescription` 
- * `FairAppSharedPreferenceReadWriteUsageDescription` 
-
+ * `FairAppDebugger`: permits application to act as a debugger (`*.cs.debugger`) 
+ * `FairAppNetworkCientUsageDescription`: enables network access, both local and internet (`*.network.client`)
+ * `FairAppNetworkServerUsageDescription`: enabled the app to listen on ports and receive connections (`*.network.server`)
+ * `FairAppFilesUserSelectedReadWriteUsageDescription`: allows the app to read and write files that the user has explicitly granted authorization to (`*.files.user-selected-read- write`)
+ * `FairAppFilesUserSelectedReadOnlyUsageDescription`: allows the app read-only access to the files that user has explicitly granted authorization to (`*.files.user-selected-read-only`)
+ * `FairAppFilesUserSelectedExecutableUsageDescription`: `*.security.files.user-selected.executable`
+ * `FairAppPrintUsageDescription`: `*.security.print`
+ * `FairAppScriptingTargetsUsageDescription`: `*.security.scripting-targets`
+ * `FairAppApplicationGroupsUsageDescription`: `*.security.application-groups`
+ * `FairAppFilesDownloadsReadOnlyUsageDescription`: `*.security.files.downloads.read-only`
+ * `FairAppFilesDownloadsReadWriteUsageDescription`: `*.security.files.downloads.read-write`
+ * `FairAppFilesBookmarksAppScopeUsageDescription`: `*.security.files.bookmarks.app-scope`
+ * `FairAppFilesBookmarksDocumentScopeUsageDescription`: `*.security.files.bookmarks.document-scope`
+ * `FairAppFilesHomeRelativePathReadOnlyUsageDescription`: `*.security.temporary-exception.files.home-relative-path.read-only`
+ * `FairAppFilesHomeRelativePathReadWriteUsageDescription`: `*.security.temporary-exception.files.home-relative-path.read-write`
+ * `FairAppFilesAbsolutePathReadOnlyUsageDescription`: `*.security.temporary-exception.files.absolute-path.read-only`
+ * `FairAppFilesAbsolutePathReadWriteUsageDescription`: `*.security.temporary-exception.files.absolute-path.read-write`
+ * `FairAppAssetsPicturesReadOnlyUsageDescription`: `*.security.assets.pictures.read-only`
+ * `FairAppAssetsPicturesReadWriteUsageDescription`: `*.security.assets.pictures.read-write`
+ * `FairAppAssetsMusicReadOnlyUsageDescription`: `*.security.assets.music.read-only`
+ * `FairAppAssetsMusicReadWriteUsageDescription`: `*.security.assets.music.read-write`
+ * `FairAppAssetsMoviesReadOnlyUsageDescription`: `*.security.assets.movies.read-only`
+ * `FairAppAssetsMoviesReadWriteUsageDescription`: `*.security.assets.movies.read-write`
+ * `FairAppPersonalInformationLocationUsageDescription`: `*.security.personal-information.location`
+ * `FairAppPersonalInformationAddressbookUsageDescription`: `*.security.personal-information.addressbook`
+ * `FairAppPersonalInformationCalendarsUsageDescription`: `*.security.personal-information.calendars`
+ * `FairAppDeviceCameraUsageDescription`: `*.security.device.camera`
+ * `FairAppDeviceMicrophoneUsageDescription`: `*.security.device.microphone`
+ * `FairAppDeviceUsbUsageDescription`: `*.security.device.usb`
+ * `FairAppDeviceSerialUsageDescription`: `*.security.device.serial`
+ * `FairAppDeviceFirewireUsageDescription`: `*.security.device.firewire`
+ * `FairAppDeviceBluetoothUsageDescription`: `*.security.device.bluetooth`
+ * `FairAppDeviceAudioInputUsageDescription`: `*.security.device.audio-input`
+ * `FairAppDeviceAudioVideoBridgingUsageDescription`: `*.security.device.audio-video-bridging`
+ * `FairAppAppleEventsUsageDescription`: `*.security.temporary-exception.apple-events`
+ * `FairAppAudioUnitHostUsageDescription`: `*.security.temporary-exception.audio-unit-host`
+ * `FairAppIokitUserClientClassUsageDescription`: `*.security.temporary-exception.iokit-user-client-class`
+ * `FairAppMachLookupGlobalNameUsageDescription`: `*.security.temporary-exception.mach-lookup.global-name`
+ * `FairAppMachRegisterGlobalNameUsageDescription`: `*.security.temporary-exception.mach-register.global-name`
+ * `FairAppSharedPreferenceReadOnlyUsageDescription`: `*.security.temporary-exception.shared-preference.read-only`
+ * `FairAppSharedPreferenceReadWriteUsageDescription`: `*.security.temporary-exception.shared-preference.read-write`
 
 ## The "Fair App Integration Release" process
 
@@ -451,8 +450,9 @@ App Fair apps are no different from any other installed app in this regard.
 
 ### How do I use git and GitHub?
 
-There are a multitude of resources availabl.
+There are a multitude of resources available online for both `git` (the source control management tool), and `GitHub`, the service that hosts both free and commercial git repositories and provides related services.
 A good starting point is GitHub's [Hello World](https://guides.github.com/activities/hello-world/) tutorial.
+Fluency with git will be important for managing your app's lifecycle.
 
 ### How do I fork the `appfair/App` repository?
 
