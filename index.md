@@ -51,6 +51,8 @@ These are defined primarily in the [appfair/App](https://github.com/appfair/App)
 
 ### Introduction: the FAIR process
 
+<img align="left" width="450" alt="Diagram of the App Fair process" src="assets/fairground.svg" />
+
 "Fork-Apply-Integrate-Release" (F-A-I-R) describes the stages of creating, developing, building, and distributing an app.
 The "Fork" and "Apply" parts are handled by you, the developer: a fork is created from the base [`/appfair/App`](https://github.com/appfair/App) repository, and in that fork you develop your app.
 When you are ready to publish a release, you apply your changes in the form of a Pull Request (PR) back to the base `/appfair/App` repository.
@@ -67,9 +69,7 @@ From an App developer standpoint, an App Fair app is a Swift application that is
  - [https://github.com/appfair/App](https://github.com/appfair/App) is the repository that is forked to create a new  App Fair app; PRs submitted to this repository are automatically built and released to the **App Fair.app** catalog.
  - Fair is the runtime `SwiftUI` library that is included in every App Fair project, and acts as a sandboxed container within which your application is run. The `Fair` library is the only required dependency for your app's [https://github.com/appfair/App](https://github.com/appfair/App) fork.
 
-## The App Fair process
-
-<img align="left" width="450" alt="Diagram of the App Fair process" src="assets/fairground.svg" />
+## The Integrate Pull Request
 
 Upon submitting a [Pull Request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) for your `/APP-ORG/App` fork's changes, your project will be automatically built, signed, and packaged as a native macOS application.
 
