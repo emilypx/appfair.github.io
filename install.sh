@@ -106,6 +106,7 @@ curl -fsSL "${ZIPURL}" | ditto --noqtn -x -k - "${INSTALL_PATH}"
 
 echo " Verifying…"
 
+codesign --verify "${APP_PATH}" || abort "Validation Failed"
 #spctl -a -vv -t execute "${APP_PATH}" || abort "Validation Failed"
 
 echo " Success!"
