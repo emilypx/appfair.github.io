@@ -96,7 +96,7 @@ await_return
 
 echo ""
 echo ""
-echo -n "  Installing the App Fair …"
+printf "  Installing the App Fair…"
 
 curl -fsSL "${ZIPURL}" | ditto --noqtn -x -k - "${INSTALL_PATH}"
 
