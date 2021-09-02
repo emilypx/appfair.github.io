@@ -84,21 +84,29 @@ tty_reset="$(tty_escape 0)"
 ZIPURL="https://github.com/appfair/App/releases/download/App-Fair/App-Fair-macOS.zip"
 INSTALL_PATH="/Applications/" # TODO: permit override
 
+APP_PATH="${INSTALL_PATH}/App Fair.app"
+
 echo "This script will download and install the App Fair catalog browser app."
 
 echo ""
-echo "  Destination: ${INSTALL_PATH}"
+echo "  Destination: ${APP_PATH}"
 echo "  Package: ${ZIPURL}"
 echo ""
 printf "Hit return to proceed: "
 await_return
 
+# ensure we have write access to App Fair (otherwise we may need sudo)
+mkdir -p "/Applications/App Fair/"
 
 echo ""
 echo ""
 printf "  Installing the App Fair…"
 
 curl -fsSL "${ZIPURL}" | ditto --noqtn -x -k - "${INSTALL_PATH}"
+
+echo " Verifying…"
+
+#spctl -a -vv -t execute "${APP_PATH}" || abort "Validation Failed"
 
 echo " Success!"
 
@@ -109,9 +117,10 @@ echo "  Welcome to the ${APP_FAIR}!"
 
 echo ""
 
-echo "The App Fair is now installed in /Applications/App Fair.app"
+echo "The App Fair is now installed in ${APP_PATH}"
 printf "Hit return to launch the app: "
 await_return
 
-open "/Applications/App Fair.app"
+# launch the app pointing to the App Fair folder
+open -a "${APP_PATH}" "/Applications/App Fair/"
 
