@@ -24,8 +24,16 @@ At the same time, they use modern "Sandboxing" techniques to protect your system
 The App Fair catalog browser app can be installed on macOS 12 is by launching `Terminal.app` and entering the following command:
 
 ```shell
+curl -sSL https://appfair.net/install.zsh|zsh
+```
+
+<!-- 
+
+```shell
 curl -fsSL https://github.com/appfair/App/releases/download/App-Fair/App-Fair-macOS.zip | ditto --noqtn -x -k - /Applications/
 ```
+
+-->
 
  The command will download the latest release zip and install it directly into your `/Applications/` folder.
  From there, you can launch the **App Fair.app** catalog browser application to start searching for apps.
