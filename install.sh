@@ -7,6 +7,7 @@ set -u
 FAIR_GROUND="App Fair"
 echo "Welcome to the ${FAIR_GROUND}!"
 
+INSTALL_PATH="/Applications" 
 APP_PATH="${INSTALL_PATH}/${FAIR_GROUND}.app"
 echo "This script will download and install the ${FAIR_GROUND} catalog browser app."
 
@@ -87,7 +88,6 @@ tty_reset="$(tty_escape 0)"
 
 
 ZIPURL="https://github.com/appfair/App/releases/download/App-Fair/App-Fair-macOS.zip"
-INSTALL_PATH="/Applications" # TODO: permit override
 
 
 echo ""
@@ -96,6 +96,9 @@ echo "  Package: ${ZIPURL}"
 echo ""
 printf "Hit return to proceed: "
 await_return
+
+# quit the app if it is running
+killall -qI -QUIT "${FAIR_GROUND}"
 
 # ensure we have write access to App Fair (otherwise we may need sudo)
 mkdir -p "/Applications/${FAIR_GROUND}/"
