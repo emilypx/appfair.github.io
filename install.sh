@@ -98,7 +98,7 @@ printf "Hit return to proceed: "
 await_return
 
 # quit the app if it is running
-killall -qI -QUIT "${FAIR_GROUND}"
+killall -qI "${FAIR_GROUND}"
 
 # ensure we have write access to App Fair (otherwise we may need sudo)
 mkdir -p "/Applications/${FAIR_GROUND}/"
