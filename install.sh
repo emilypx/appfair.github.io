@@ -3,7 +3,12 @@
 # Downloads, installs, and launches App Fair.app
 #
 set -u
-echo "Welcome to the App Fair!"
+
+FAIR_GROUND="App Fair"
+echo "Welcome to the ${FAIR_GROUND}!"
+
+APP_PATH="${INSTALL_PATH}/${FAIR_GROUND}.app"
+echo "This script will download and install the ${FAIR_GROUND} catalog browser app."
 
 abort() {
   printf "%s\n" "$@"
@@ -23,12 +28,12 @@ fi
 # First check OS.
 OS="$(uname)"
 if [[ "$OS" != "Darwin" ]]; then
-  abort "The App Fair is only supported on macOS."
+  abort "The ${FAIR_GROUND} is only supported on macOS."
 fi
 
 # version check
 if [ "`/usr/bin/sw_vers -productVersion | cut -f 1 -d '.'`" -lt 12 ]; then
-    echo "Sorry, the App Fair requires macOS 12."
+    echo "Sorry, the ${FAIR_GROUND} requires macOS 12."
     echo "Come back soon!"
     exit 12
 fi
@@ -82,11 +87,8 @@ tty_reset="$(tty_escape 0)"
 
 
 ZIPURL="https://github.com/appfair/App/releases/download/App-Fair/App-Fair-macOS.zip"
-INSTALL_PATH="/Applications/" # TODO: permit override
+INSTALL_PATH="/Applications" # TODO: permit override
 
-APP_PATH="${INSTALL_PATH}/App Fair.app"
-
-echo "This script will download and install the App Fair catalog browser app."
 
 echo ""
 echo "  Destination: ${APP_PATH}"
@@ -96,21 +98,25 @@ printf "Hit return to proceed: "
 await_return
 
 # ensure we have write access to App Fair (otherwise we may need sudo)
-mkdir -p "/Applications/App Fair/"
+mkdir -p "/Applications/${FAIR_GROUND}/"
+
+# remove previous version if it is installed
+mv -f "${INSTALL_PATH}" ~/.Trash/
+
 
 echo ""
 echo ""
-printf "  Installing the App Fair…"
+printf "  Installing the ${FAIR_GROUND}…"
 
 curl -fsSL "${ZIPURL}" | ditto --noqtn -x -k - "${INSTALL_PATH}"
 
-echo " Verifying…"
+printf " Verifying…"
 
-codesign --verify "${APP_PATH}" || abort "Validation Failed"
+codesign --verify --deep --strict "${APP_PATH}" || abort "Validation Failed"
+#spctl --add --label "${FAIR_GROUND}" "${APP_PATH}"
 #spctl -a -vv -t execute "${APP_PATH}" || abort "Validation Failed"
 
 echo " Success!"
-
 
 APP_FAIR="${tty_red}A${tty_reset}${tty_blue}p${tty_reset}${tty_yellow}p${tty_reset} ${tty_green}F${tty_reset}${tty_cyan}a${tty_reset}${tty_blue}i${tty_reset}${tty_red}r${tty_reset}"
 
@@ -118,10 +124,10 @@ echo "  Welcome to the ${APP_FAIR}!"
 
 echo ""
 
-echo "The App Fair is now installed in ${APP_PATH}"
+echo "The ${FAIR_GROUND} is now installed in ${APP_PATH}"
 printf "Hit return to launch the app: "
 await_return
 
-# launch the app pointing to the App Fair folder
-open -a "${APP_PATH}" "/Applications/App Fair/"
+# launch the app pointing to the ${FAIR_GROUND} folder
+open -a "${APP_PATH}" "/Applications/${FAIR_GROUND}/"
 

@@ -172,8 +172,11 @@ The "sandbox" is the name for a security environment within which a program is r
 Your `/APP-ORG/App` fork is pre-configured to request minimal permissions, and thus runs in a very restrictive sandboxed environment: USB & bluetooth hardware access is not permitted, network access communication is blocked, and file access outside the app's own sandboxed container is not allowed.
 
 You may add new entitlements to your `/APP-ORG/App` fork's `Sandbox.entitlements` file.
-For each entitlement that is requested, a description of the reason for the entitlement must be added to `Info.plist`.
-This is enforced by the `Integration` phase.
+For each entitlement that is requested, a description of the reason for the entitlement must be added to a `FairUsage` dictionary in the `Info.plist`.
+The description's key should be the same as the key of the entitlement.
+For an example, see the base [Info.plist](https://github.com/appfair/App/blob/main/Info.plist) file.
+
+The presence of the `FairUsage` key is enforced by the `Integration` phase.
 These descriptions should be plain language explaining why the app needs access to the specific permissions.
 
 The descriptions will be presented to the user via the **App Fair.app** catalog browser, and the user will need to confirm that the app should be granted these permissions.
@@ -181,52 +184,9 @@ The apps may periodically remind the users of the permissions that have been gra
 This is in addition to automatic confirmations and re-confirmations that the host OS may present to the user over time.
 
 For these reasons, you should not request permissions that your app does not need.
-For example, if you are making a weather app, you should not need to request the user's microphone with the `device.microphone` entitlement.
+The fewer entitlements the app is granted, the safer app will appear to be to users, and they are more likely to trust and install your app.
+For example, if you are making a stand-alone utility or game, you will often not need any entitlements at all.
 
-#### Entitlement Usage Descriptions
-
-The following `AppEntitlement.usageDescriptionProperties` are the properties for the `Info.plist` metadata that corresponds to the `Sandbox.entitlements` keys:
-
- * `FairAppDebugger`: permits application to act as a debugger (`*.cs.debugger`) 
- * `FairAppNetworkCientUsageDescription`: enables network access, both local and internet (`*.network.client`)
- * `FairAppNetworkServerUsageDescription`: enabled the app to listen on ports and receive connections (`*.network.server`)
- * `FairAppFilesUserSelectedReadWriteUsageDescription`: allows the app to read and write files that the user has explicitly granted authorization to (`*.files.user-selected-read- write`)
- * `FairAppFilesUserSelectedReadOnlyUsageDescription`: allows the app read-only access to the files that user has explicitly granted authorization to (`*.files.user-selected-read-only`)
- * `FairAppFilesUserSelectedExecutableUsageDescription`: `*.security.files.user-selected.executable`
- * `FairAppPrintUsageDescription`: `*.security.print`
- * `FairAppScriptingTargetsUsageDescription`: `*.security.scripting-targets`
- * `FairAppApplicationGroupsUsageDescription`: `*.security.application-groups`
- * `FairAppFilesDownloadsReadOnlyUsageDescription`: `*.security.files.downloads.read-only`
- * `FairAppFilesDownloadsReadWriteUsageDescription`: `*.security.files.downloads.read-write`
- * `FairAppFilesBookmarksAppScopeUsageDescription`: `*.security.files.bookmarks.app-scope`
- * `FairAppFilesBookmarksDocumentScopeUsageDescription`: `*.security.files.bookmarks.document-scope`
- * `FairAppFilesHomeRelativePathReadOnlyUsageDescription`: `*.security.temporary-exception.files.home-relative-path.read-only`
- * `FairAppFilesHomeRelativePathReadWriteUsageDescription`: `*.security.temporary-exception.files.home-relative-path.read-write`
- * `FairAppFilesAbsolutePathReadOnlyUsageDescription`: `*.security.temporary-exception.files.absolute-path.read-only`
- * `FairAppFilesAbsolutePathReadWriteUsageDescription`: `*.security.temporary-exception.files.absolute-path.read-write`
- * `FairAppAssetsPicturesReadOnlyUsageDescription`: `*.security.assets.pictures.read-only`
- * `FairAppAssetsPicturesReadWriteUsageDescription`: `*.security.assets.pictures.read-write`
- * `FairAppAssetsMusicReadOnlyUsageDescription`: `*.security.assets.music.read-only`
- * `FairAppAssetsMusicReadWriteUsageDescription`: `*.security.assets.music.read-write`
- * `FairAppAssetsMoviesReadOnlyUsageDescription`: `*.security.assets.movies.read-only`
- * `FairAppAssetsMoviesReadWriteUsageDescription`: `*.security.assets.movies.read-write`
- * `FairAppPersonalInformationLocationUsageDescription`: `*.security.personal-information.location`
- * `FairAppPersonalInformationAddressbookUsageDescription`: `*.security.personal-information.addressbook`
- * `FairAppPersonalInformationCalendarsUsageDescription`: `*.security.personal-information.calendars`
- * `FairAppDeviceCameraUsageDescription`: `*.security.device.camera`
- * `FairAppDeviceMicrophoneUsageDescription`: `*.security.device.microphone`
- * `FairAppDeviceUsbUsageDescription`: `*.security.device.usb`
- * `FairAppDeviceSerialUsageDescription`: `*.security.device.serial`
- * `FairAppDeviceFirewireUsageDescription`: `*.security.device.firewire`
- * `FairAppDeviceBluetoothUsageDescription`: `*.security.device.bluetooth`
- * `FairAppDeviceAudioInputUsageDescription`: `*.security.device.audio-input`
- * `FairAppDeviceAudioVideoBridgingUsageDescription`: `*.security.device.audio-video-bridging`
- * `FairAppAudioUnitHostUsageDescription`: `*.security.temporary-exception.audio-unit-host`
- * `FairAppIokitUserClientClassUsageDescription`: `*.security.temporary-exception.iokit-user-client-class`
- * `FairAppMachLookupGlobalNameUsageDescription`: `*.security.temporary-exception.mach-lookup.global-name`
- * `FairAppMachRegisterGlobalNameUsageDescription`: `*.security.temporary-exception.mach-register.global-name`
- * `FairAppSharedPreferenceReadOnlyUsageDescription`: `*.security.temporary-exception.shared-preference.read-only`
- * `FairAppSharedPreferenceReadWriteUsageDescription`: `*.security.temporary-exception.shared-preference.read-write`
 
 ## The "Fair App Integration Release" process
 
