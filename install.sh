@@ -101,17 +101,18 @@ await_return
 killall -qI "${FAIR_GROUND}"
 
 # ensure we have write access to App Fair (otherwise we may need sudo)
-mkdir -p "/Applications/${FAIR_GROUND}/"
+mkdir -p "/Applications/${FAIR_GROUND}/" || abort "Could not create install folder: /Applications/${FAIR_GROUND}/"
+
+chmod 777 "/Applications/${FAIR_GROUND}/" || abort "Could not fix permissions on /Applications/${FAIR_GROUND}/"
 
 # remove previous version if it is installed
-mv -f "${INSTALL_PATH}" ~/.Trash/
-
+mv -f "${INSTALL_PATH}" ~/.Trash/ || true # failure is permitted
 
 echo ""
 echo ""
 printf "  Installing the ${FAIR_GROUND}…"
 
-curl -fsSL "${ZIPURL}" | ditto --noqtn -x -k - "${INSTALL_PATH}"
+curl -fsSL "${ZIPURL}" | ditto --noqtn -x -k - "${INSTALL_PATH}" || abort "Unable to install"
 
 printf " Verifying…"
 
@@ -121,9 +122,9 @@ codesign --verify --deep --strict "${APP_PATH}" || abort "Validation Failed"
 
 echo " Success!"
 
-APP_FAIR="${tty_red}A${tty_reset}${tty_blue}p${tty_reset}${tty_yellow}p${tty_reset} ${tty_green}F${tty_reset}${tty_cyan}a${tty_reset}${tty_blue}i${tty_reset}${tty_red}r${tty_reset}"
+APP_FAIR_COLORS="${tty_red}A${tty_reset}${tty_blue}p${tty_reset}${tty_yellow}p${tty_reset} ${tty_green}F${tty_reset}${tty_cyan}a${tty_reset}${tty_blue}i${tty_reset}${tty_red}r${tty_reset}"
 
-echo "  Welcome to the ${APP_FAIR}!"
+echo "  Welcome to the ${APP_FAIR_COLORS}: ${tty_bold}Free & Fair, Forever${tty_reset}!"
 
 echo ""
 
