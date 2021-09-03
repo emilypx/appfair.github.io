@@ -27,15 +27,7 @@ The App Fair catalog browser app can be installed on macOS 12 is by launching `T
 bash -c "$(curl -fsSL https://appfair.net/install.sh)"
 ```
 
-<!-- 
-
-```shell
-curl -fsSL https://github.com/appfair/App/releases/download/App-Fair/App-Fair-macOS.zip | ditto --noqtn -x -k - /Applications/
-```
-
--->
-
- The command will download the latest release zip and install it directly into your `/Applications/` folder.
+The command will download the latest release zip and install it directly into your `/Applications/` folder.
  From there, you can launch the **App Fair.app** catalog browser application to start searching for apps.
  
 As an alternative means of installation, you can download and unzip the [App-Fair-macOS.zip](https://github.com/appfair/App/releases/download/App-Fair/App-Fair-macOS.zip) file directly.
