@@ -127,14 +127,15 @@ The `/APP-ORG/App` repository is structured as a standard swift package, and inc
 In addition, at the top level of the repository, there are `Xcode`-specific project files that describe the metadata, build rules, assets, and permissions for the project:
 
   * `App.xcworkspace` – Xcode workspace file for running and debugging your app
-  * `App.xcodeproj` – Xcode-specific metadata
-  * `Info.plist` – metadata about your app
+  * `project.xcodeproj` – internal project file; you should not use this, but instead work with `App.xcworkspace`
+  * `Info.plist` – metadata about your app containing the name, version and build numbers, and information about what files and URL schemes it can handle
   * `Sandbox.entitlements` – permissions that should be granted to your app
-  * `Assets.xcassets` – the app's icon and tint
+  * `Assets.xcassets` – the app's icon and tint color definition
 
 App development can be done by opening `App.xcworkspace` using `Xcode.app` to build, run, and debug the `SwiftUI` app that is defined in `Sources/App/AppContainer.swift`.
-Note, though, that changes to these project files, `App.xcworkspace` and `App.xcodeproj`, will *not* be incorporated into the final project.
+Note, though, that changes to these project files, `App.xcworkspace` and `project.xcodeproj`, will *not* be incorporated into the final project.
 It will be best not to make changes to the project files themselves, since none of the changes will be used in the eventual `integrate-release` phases of the process.
+Specifically, your build must not rely on any script build phases that you add to the project files, since these scripts will not be run during `I-R`.
 
 ### Managing dependencies in your `/APP-ORG/App` fork
 
@@ -460,7 +461,7 @@ You can provide you own `Icon.png` file.
 ### Where do I customize my app's name?
 
 The canonical name of your app is defined by the organization name that hosts your `/App/ fork.
-This name must conform to the App Fair's naming conventions, as well as GitHub's limitations on organization names: two short and distinct words made up of URL-safe letters and separated by a hyphen.
+This name must conform to the App Fair's naming conventions, as well as GitHub's limitations on organization names: two distinct words (3-12 ASCII letters each) separated by a hyphen.
 
 In addition to the canonical `APP-ORG` name, this name must be mirrored in the app's `Info.plist` metadata file.
 Specifically, the keys `CFBundleName` and `CFBundleIdentifier` will need to be manually updated in your fork, like so:
@@ -770,18 +771,20 @@ As a sandboxed app, only a certain set of system files can be accessed without a
 
 ### How can I open and debug the app in Xcode?
 
-You can open the `App.xcworkspace` file in `Xcode.app`, which is a workspace that is pre-configured to use your own `/App/` fork's swift package, as well as containing an `.xcodeproj` file that is necessary for the building and packaging of the app's release artifacts.
+You can open the `App.xcworkspace` file in `Xcode.app`, which is a workspace that is pre-configured to use your own `/App/` fork's swift package, as well as containing a `project.xcodeproj` file that is necessary for the building and packaging of the app's release artifacts.
 
 All your code, however, must reside in the SPM package itself, which is your `/App/` fork's `Sources/App/` folder.
 
-Do not edit the `App.xcodeproj` folder directly, since it doesn't link to swift package folder. Any changes made either the `App.xcworkspace` or `App.xcodeproj` files will be ignored during the fair-ground's `integrate` phase, so you should avoid making changes there that are meant to be included in the app's eventual build. 
+Do not edit the `project.xcodeproj` folder directly, since it doesn't reference the swift package folder, and thus cannot build on its own without the surrounding workspace. 
+Any changes made either the `App.xcworkspace` or `project.xcodeproj` files will be ignored during the fair-ground's `I-R` phases, so you should avoid making changes there that are meant to be included in the app's eventual build. 
 Instead, you should prefer to use the `Package.swift` manifest as well as local resources for the customization of your app's metadata.
 
 ### What can I change in the Package.swift file?
 
 The `Package.swift` for your `/APP-ORG/App` fork is expected to conform to the structural conventions of App Fair apps.
 As such, the outline of the `Package.swift` file cannot be changed, but some of the elements, such as the package dependencies, can be edited.
-These requirements are enforces with a number of `precondition` statements at the end of the `Package.swift` file; these must not be removed or altered.
+These requirements are enforces with a number of `precondition` statements at the end of the `Package.swift` file.
+These should not be removed or altered, but the `I-R` phases will add them back in to ensure that any PR contains a valid package structure.
 
 Note that these restrictions only apply to the `Package.swift` in the `/APP-ORG/App` fork itself, and not to the `Package.swift` for any dependent packages.
 The App Fair does not analyze any of your transitive dependences other than to enforce that they do not include binary targets, so any valid SPM `Package.swift` can be used as a dependency, provided it is available for both `macOS` and `iOS`.
@@ -898,14 +901,27 @@ Note that this is exactly the same process that the `integrate` phase executes, 
   * fairtool: An executable tool that is included with the `Fair.git` package, and is thereby included with all apps that link to the `Fair (runtime)`. The `fairtool` utility is used to validate and merge `integrate-release` requests by the trusted fair-ground build process. The tool can also be used to initialize a new fair-ground with template code for a new base repository. The utility can be run with: the command: `swift run fairtool`
   * App Fair: The App Fair is the name of a fair-ground hosted at [https://www.appfair.net](https://www.appfair.net) that uses GitHub as its host for the `fork-apply` phases, and uses GitHub Actions for the `integrate-release` process and catalog hosting. The App Fair enforces policies of complete source transparency, security entitlement disclosure, and unfettered academic usage.
  
+ 
+## App Fair Limitations
+
+The following limitations are in place for the App Fair and organizations that distribute through the fair-ground:
+
+ 1. Max App Size: 15mb
+ 1. E-mail requirement: *.EDU & *.ac.uk
+ 1. I-R frequency: unlimited
+ 1. Fork Licenses: AGPL-3.0
+ 1. Fork features: Issues & Discussions
+
+  
 ## App Fair Distribution Checklist
 
 Use this checklist to ensure that your app is set up properly for distribution in the App Fair catalog.
 
+
 ### App Organization
 
  1. Does your `APP-ORG` name consist of two distinct words separated by a hyphen?
- 2. Does your `APP-ORG` consist solely of URL-safe (ASCII) letters?
+ 1. Does your `APP-ORG` consist solely of two distinct words, each of which is 3-12 ASCII letters?
 
 
 ### User Account
@@ -913,6 +929,7 @@ Use this checklist to ensure that your app is set up properly for distribution i
  1. Do you have a valid (e.g., `.edu` or `.ac.uk`) e-mail address set and verified in your [email settings](https://github.com/settings/emails)?
  1. Is "Keep my email addresses private" turned off in your [email settings](https://github.com/settings/emails)?
  1. Have you enabled [vigilant mode](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits#enabling-vigilant-mode)?
+ 
  
 ### Forked `/App` Repository
 
@@ -924,17 +941,20 @@ Use this checklist to ensure that your app is set up properly for distribution i
  1. Does your `/App` fork have discussions enabled?
  1. Does your `/App` fork use the AGPL-3.0 license?
 
+
 ### Source Code
 
  1. Is the project name in `Package.swift` the same as the `APP-ORG`?
  1. Is the `Fair` library the first entry in your app's dependencies list?
  1. Is the `Sources/App/AppMain.swift` file unmodified from the origin?
 
+
 ### Metadata
 
  1. Does your app have a version?
  1. Does your app have an icon?
  1. Does your `Info.plist` have `*UsageDescription` properties for each entitlement sought in `Sandbox.entitlements`?
+ 
  
 ### Pull Request
 
