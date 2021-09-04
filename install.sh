@@ -96,7 +96,7 @@ echo ""
 echo "  Destination: ${APP_PATH}"
 echo "  Package: ${ZIPURL}"
 echo ""
-printf "Hit return to proceed: "
+printf "Hit return to proceed (or CMD-C to quit): "
 await_return
 
 # quit the app if it is running
@@ -132,7 +132,7 @@ echo "  Welcome to the ${APP_FAIR_COLORS}: ${tty_bold}Free & Fair, Forever${tty_
 echo ""
 
 echo "The ${FAIR_GROUND} is now installed in ${APP_PATH}"
-printf "Hit return to launch the app: "
+printf "Hit return to launch the app (or CMD-C to exit): "
 await_return
 
 # launch the app pointing to the ${FAIR_GROUND} folder

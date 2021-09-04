@@ -55,7 +55,7 @@ These are defined primarily in the [appfair/App.git](https://github.com/appfair/
 
 <img align="left" width="450" alt="Diagram of the App Fair process" src="assets/fairground.svg" />
 
-"Fork-Apply-Integrate-Release" (F-A-I-R) describes the stages of creating, developing, building, and distributing an app.
+"Fork-Apply/Integrate-Release" (F-A/I-R) describes the stages of creating, developing, building, and distributing an app.
 The "Fork" and "Apply" parts are handled by you, the developer: a fork is created from the base [`/appfair/App`](https://github.com/appfair/App) repository, and in that fork you develop your app.
 When you are ready to publish a release, you apply your changes in the form of a Pull Request (PR) back to the base `/appfair/App` repository.
 The "Integrate" and "Release" phases are handled by the build host that accepts pull requests from the developer's fork and validates, builds, packages, and releases the installable app.
@@ -99,6 +99,21 @@ This is a Swift project that contains the shell of a cross-platform `SwiftUI` ap
 Your app will exist in a top-level repository named "App"; it must continue to be called "App", since that is how the catalog browser will be able to access your project metadata.
 
 For more information on the fork process, see: [Working with forks](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/working-with-forks).
+
+<!-- 
+
+XXX ### Developing with an IDE
+
+XXX ### Parts included in integration
+
+XXX ### Developing as a Swift package
+
+XXX ### Handling Versioning
+
+I-R requires increasing build number and semantic version.
+ -->
+
+
 
 ### Developing your `/APP-ORG/App` fork
 
@@ -505,9 +520,11 @@ When possible, the onus should be placed on the user to acquire their own token,
 
 ### Can I distribute Beta or Demo versions of my app through the App Fair?
 
-There are no restrictions on the kinds of apps that you can build and distribute on the App Fair.
+There are no restrictions on the kinds of apps that you can build and distribute at the App Fair.
 The App Fair welcomes all apps: Student Projects, Experiments, Artistic and Literary works, Vanity App, Demos, Tests, and Re-Mixes of other App Fair apps.
 As a completely automated system, there is no human review, so the only requirement to be included in the App Fair catalog is that it passes the automated validation phases of the `integrate-release` process.
+
+Projects and organizations will, however, need to abide by the rules and restrictions of the hosting environment (which, in the case of the App Fair fair-ground, is GitHub).
 
 ### How can I set the description of my app in the App Fair catalog
 
