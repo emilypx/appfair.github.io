@@ -7,8 +7,10 @@ set -u
 FAIR_GROUND="App Fair"
 echo "Welcome to the ${FAIR_GROUND}!"
 
-INSTALL_PATH="/Applications" 
-APP_PATH="${INSTALL_PATH}/${FAIR_GROUND}.app"
+BASE_PATH="/Applications" 
+APP_PATH="${BASE_PATH}/${FAIR_GROUND}.app"
+INSTALL_PATH="${BASE_PATH}/${FAIR_GROUND}/"
+
 echo "This script will download and install the ${FAIR_GROUND} catalog browser app."
 
 abort() {
@@ -100,19 +102,20 @@ await_return
 # quit the app if it is running
 killall -qI "${FAIR_GROUND}"
 
-# ensure we have write access to App Fair (otherwise we may need sudo)
-mkdir -p "/Applications/${FAIR_GROUND}/" || abort "Could not create install folder: /Applications/${FAIR_GROUND}/"
 
-chmod 777 "/Applications/${FAIR_GROUND}/" || abort "Could not fix permissions on /Applications/${FAIR_GROUND}/"
+# ensure we have write access to App Fair (otherwise we may need sudo)
+mkdir -p "${INSTALL_PATH}" || abort "Could not create install folder: ${INSTALL_PATH}"
+
+chmod 777 "${INSTALL_PATH}/" || abort "Could not fix permissions on ${INSTALL_PATH}/"
 
 # remove previous version if it is installed
-mv -f "${INSTALL_PATH}" ~/.Trash/ || true # failure is permitted
+mv -f "${INSTALL_PATH}" "~/.Trash/App-Fair-$(uuidgen)" || true # failure is permitted
 
 echo ""
 echo ""
 printf "  Installing the ${FAIR_GROUND}…"
 
-curl -fsSL "${ZIPURL}" | ditto --noqtn -x -k - "${INSTALL_PATH}" || abort "Unable to install"
+curl -fsSL "${ZIPURL}" | ditto --noqtn -x -k - "${BASE_PATH}" || abort "Unable to install"
 
 printf " Verifying…"
 
@@ -133,5 +136,5 @@ printf "Hit return to launch the app: "
 await_return
 
 # launch the app pointing to the ${FAIR_GROUND} folder
-open -a "${APP_PATH}" "/Applications/${FAIR_GROUND}/"
+open -a "${APP_PATH}" "${INSTALL_PATH}"
 

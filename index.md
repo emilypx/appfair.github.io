@@ -230,6 +230,7 @@ Your `/APP-ORG/App` fork will include a GitHub action at `.github/workflows/vali
 This allows you to ensure that while developing your app, all the required tests and validations continue to pass, which increases the likelihood that your app will pass the eventual `integrate-releases` phases.
 
 All you need to do to enable that the validation action runs on every commit to your `main` branch is to enable the actions in the `Actions` tab of your `/APP-ORG/App` fork's page.
+Note that app validation in your own repository is optional, since the validation will always be run when the catalog is generated.
 
 
 # The App Fair Catalog
@@ -237,7 +238,8 @@ All you need to do to enable that the validation action runs on every commit to 
 ## App Fair Catalog Requirements 
 
 The "App Fair" catalog is the list of valid app releases at [appfair/App releases](https://github.com/appfair/App/releases) cross-referenced with the metadata for the `App/` forks: issues, discussions, support info, wikis, project web site, etc.
-This metadata is accumulated using the public GitHub APIs, and the appearance in the catalog is completely automated.
+This metadata is accumulated using the public GitHub APIs, and the generation in the catalog is automated.
+It is typically generated after each successful `integrate-release` phase, but it can also run on a scheduled basis to re-validate catalog entires and ensure that only valid entries are included in the list of available apps.
 
 ### Org Requirements
 
@@ -521,34 +523,36 @@ The `README.md` file in your `/App/` fork repository should be used as the entry
 You can classify and categorize your app for the App Fair catalog by adding any two of the following to the `topics` of your `/APP-ORG/App` fork's "About" settings.
 For more information, see [Adding topics to your repository](https://docs.github.com/en/github/administering-a-repository/managing-repository-settings/classifying-your-repository-with-topics#adding-topics-to-your-repository).
 
- - [`appfair-business`](https://github.com/topics/appfair-business)
- - [`appfair-developer-tools`](https://github.com/topics/appfair-developer-tools)
- - [`appfair-education`](https://github.com/topics/appfair-education)
- - [`appfair-entertainment`](https://github.com/topics/appfair-entertainment)
- - [`appfair-finance`](https://github.com/topics/appfair-finance)
- - [`appfair-games`](https://github.com/topics/appfair-games)
- - [`appfair-graphics-design`](https://github.com/topics/appfair-graphics-design)
- - [`appfair-healthcare-fitness`](https://github.com/topics/appfair-healthcare-fitness)
- - [`appfair-lifestyle`](https://github.com/topics/appfair-lifestyle)
- - [`appfair-medical`](https://github.com/topics/appfair-medical)
- - [`appfair-music`](https://github.com/topics/appfair-music)
- - [`appfair-news`](https://github.com/topics/appfair-news)
- - [`appfair-photography`](https://github.com/topics/appfair-photography)
- - [`appfair-productivity`](https://github.com/topics/appfair-productivity)
- - [`appfair-reference`](https://github.com/topics/appfair-reference)
- - [`appfair-social-networking`](https://github.com/topics/appfair-social-networking)
- - [`appfair-sports`](https://github.com/topics/appfair-sports)
- - [`appfair-travel`](https://github.com/topics/appfair-travel)
- - [`appfair-utilities`](https://github.com/topics/appfair-utilities)
- - [`appfair-video`](https://github.com/topics/appfair-video)
- - [`appfair-weather`](https://github.com/topics/appfair-weather)
+These settings should also match the `LSApplicationCategoryType` property in your `Info.plist` file, with the following GitHub category: property mapping:
+
+ - [`appfair-business`](https://github.com/topics/appfair-business): `public.app-category.business`
+ - [`appfair-developer-tools`](https://github.com/topics/appfair-developer-tools): `public.app-category.developer-tools`
+ - [`appfair-education`](https://github.com/topics/appfair-education): `public.app-category.education`
+ - [`appfair-entertainment`](https://github.com/topics/appfair-entertainment): `public.app-category.entertainment`
+ - [`appfair-finance`](https://github.com/topics/appfair-finance): `public.app-category.finance`
+ - [`appfair-games`](https://github.com/topics/appfair-games): `public.app-category.games`
+ - [`appfair-graphics-design`](https://github.com/topics/appfair-graphics-design): `public.app-category.graphics-design`
+ - [`appfair-healthcare-fitness`](https://github.com/topics/appfair-healthcare-fitness): `public.app-category.healthcare-fitness`
+ - [`appfair-lifestyle`](https://github.com/topics/appfair-lifestyle): `public.app-category.lifestyle`
+ - [`appfair-medical`](https://github.com/topics/appfair-medical): `public.app-category.medical`
+ - [`appfair-music`](https://github.com/topics/appfair-music): `public.app-category.music`
+ - [`appfair-news`](https://github.com/topics/appfair-news): `public.app-category.news`
+ - [`appfair-photography`](https://github.com/topics/appfair-photography): `public.app-category.photography`
+ - [`appfair-productivity`](https://github.com/topics/appfair-productivity): `public.app-category.productivity`
+ - [`appfair-reference`](https://github.com/topics/appfair-reference): `public.app-category.reference`
+ - [`appfair-social-networking`](https://github.com/topics/appfair-social-networking): `public.app-category.social-networking`
+ - [`appfair-sports`](https://github.com/topics/appfair-sports): `public.app-category.sports`
+ - [`appfair-travel`](https://github.com/topics/appfair-travel): `public.app-category.travel`
+ - [`appfair-utilities`](https://github.com/topics/appfair-utilities): `public.app-category.utilities`
+ - [`appfair-video`](https://github.com/topics/appfair-video): `public.app-category.video`
+ - [`appfair-weather`](https://github.com/topics/appfair-weather): `public.app-category.weather`
 
 
 ### How is e-mail verification performed?
 
 The GPG signature of the initiator of the `integrate-release` pull request must be for an `.edu` or `.ac.uk` e-mail address and the commit must be [verified](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/about-commit-signature-verification).
 
-You must have a valid e-mail address configured in your list of keys in your [GPG keys settings](https://github.com/settings/keys)
+You must have a valid e-mail address configured in your list of keys in your [GPG keys settings](https://github.com/settings/keys), and this is the address that must be associated with the commit that triggers the `integrate-release` process.
 
 
 ### Can I distribute my app using other distribution channels?
@@ -573,7 +577,7 @@ For more information about enabling sponsorships for your app, see [Displaying a
 The simplest way to remove your app from showing up in the **App Fair.app** catalog is to mark your repository or organization as "private", or else archive (or delete) your organization's `/APP-ORG/App` fork.
 
 In addition, disabling issues or discussions for your `/APP-ORG/App` fork will also have the result of making your app no longer appear as a valid installation candidate in the **App Fair.app** catalog.
-Discussions and issues are required in order to allow users a channel for support questions and other communications.
+Since discussions and issues are required in order to allow users a channel for support questions and other communications, disabling either of these features will remove these apps from the catalog the next time it is generated.
 
 ### How can I have someone else's app removed from the App Fair?
 
@@ -628,7 +632,8 @@ Note that binary dependencies are not permitted in the `Package.swift` build fil
 
 Yes.
 The App Fair expects that your app will conform to the protocols defined in the `FairApp` library.
-The App Fair's `integrate-release` process will validate your `Package.swift` file to ensure that the first dependency for your app is `appfair/Fair` and that it uses the `main` branch.
+Your app must import the `FairApp` module and implement the `AppContainer` protocol.
+The App Fair's `integrate-release` process will validate your `Package.swift` file to ensure that the first dependency for your app is `appfair/Fair`, and that is points directly to the `main` branch. 
 
 ### Can I load executable code at runtime?
 
@@ -692,14 +697,17 @@ No.
 ### What does the `Fair` library do at runtime?
 
 The `Fair` library, which is required to be the initial dependency of any app distributed via a fair-ground, handles the launch process of the app.
-This process adds various Help menus to the app linking to communications forums (such as GitHub Discussions & Issues) by which users can communicate questions and concerns to the developer(s) of the app.
-The `Fair` library also can initiate runtime security checks to ensure that apps are behaving correctly.
+The `Fair` library exports both the `FairCore` utility module and the `FairApp` SwiftUI container.
+This contain adds various Help menus to the app linking to communications forums (such as GitHub Discussions & Issues) by which users can communicate questions and concerns to the developer(s) of the app.
+The `FairApp` module also can initiate runtime security checks to ensure that apps are behaving correctly.
 
 ### Can I link to a specific version of the `Fair.git` dependency?
 
 No.
 You can only specify the HEAD branch (`main`) as the `Fair.git` dependency.
 This is the ensure that distributed apps are always up-to-date with respect to security validation features and enhancements to the app's runtime environment.
+Since the `FairCore` and `FairApp` modules have no dependencies, these modules are also safe to reference from external dependencies that your app may reference. 
+Improvements to these `Fair` modules will be automatically included in any subsequent `integrate-release` processes, and so improvements to this library will immediately be available to see for any fair-ground app developer.
 
 ### Do I need a Mac to develop App Fair apps?
 
@@ -794,64 +802,6 @@ There is a reference implementation of an app that behaves as a bad actor at [ht
 The "Badware Malware" app's repository, and the associated issues and discussion forums, is meant to act as a forum for discussions and issues specific to the App Fair implementation and policies.
 
 For security issues related to the underlying platform or operating system (e.g., bugs in the OS that permit apps to break out of their sandbox), refer to the platform vendor's published security disclosure advice for guidance.
-
-For non-public disclosure and questions related to the App Fair platform itself, you can e-mail [security+nodisclosure@appfair.net](security+nodisclosure@appfair.net).
-
-Sensitive communications should be signed with your PGP public key.
-Encryption with the following key is also encouraged:
-
-```
------BEGIN PGP PUBLIC KEY BLOCK-----
-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
-=BsIR
------END PGP PUBLIC KEY BLOCK-----
-```
 
 ### What is the License for the App Fair project?
 
