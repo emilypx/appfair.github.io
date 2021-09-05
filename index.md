@@ -16,7 +16,7 @@ From an end-user standpoint, the **App Fair.app** catalog browser application al
 
 <img align="left" width="600" alt="App Fair macOS Catalog Browser App" src="assets/app-fair-app.png" />
 
-Apps installed with the **App Fair.app** application are created using the modern platform-native `SwiftUI` framework and built for both Intel and ARM processors, and therefore tend to run faster and use resources more efficiently than other cross-platform application frameworks.
+Apps installed through the **App Fair.app** application are created using the modern platform-native `SwiftUI` framework and built for both Intel and ARM processors, and therefore run faster and use resources more efficiently than a non-native cross-platform application framework.
 At the same time, they use modern "Sandboxing" techniques to protect your system and ensure that you are always aware of what actions the apps are permitted to take, such as reading and writing files, communicating over the internet, or accessing your camera, microphone, or other USB & bluetooth devices.
 
 ### Getting Started
@@ -78,7 +78,7 @@ Upon submitting a [Pull Request](https://docs.github.com/en/github/collaborating
 These releases can be browsed, searched, and installed using the macOS the **App Fair.app** catalog browser application, which acts as the hub for discovering, researching, installing, and updating apps.
 
 The process is completely automated, instantaneous, and free. 
-Provided you have a free GitHubAccount, no additional registration, sign-up, or approval is required in order to start developing App Fair apps.
+Provided you have a free GitHub account, no additional registration, sign-up, or approval is required in order to start developing apps for the App Fair.
 
 ## The Structure of an App Fair app
 
@@ -111,6 +111,9 @@ XXX ### Developing as a Swift package
 XXX ### Handling Versioning
 
 I-R requires increasing build number and semantic version.
+
+XXX ### Translating and Localizing your App
+
  -->
 
 
@@ -127,15 +130,20 @@ The `/APP-ORG/App` repository is structured as a standard swift package, and inc
 In addition, at the top level of the repository, there are `Xcode`-specific project files that describe the metadata, build rules, assets, and permissions for the project:
 
   * `App.xcworkspace` – Xcode workspace file for running and debugging your app
-  * `project.xcodeproj` – internal project file; you should not use this, but instead work with `App.xcworkspace`
+  * `project.xcodeproj` – internal project file; you should not open this directly, but instead work with `App.xcworkspace`
   * `Info.plist` – metadata about your app containing the name, version and build numbers, and information about what files and URL schemes it can handle
   * `Sandbox.entitlements` – permissions that should be granted to your app
   * `Assets.xcassets` – the app's icon and tint color definition
 
-App development can be done by opening `App.xcworkspace` using `Xcode.app` to build, run, and debug the `SwiftUI` app that is defined in `Sources/App/AppContainer.swift`.
-Note, though, that changes to these project files, `App.xcworkspace` and `project.xcodeproj`, will *not* be incorporated into the final project.
+App development must be done by opening `App.xcworkspace` using `Xcode.app` to build, run, and debug the `SwiftUI` app that is defined in `Sources/App/AppContainer.swift`.
+Note, however, that changes to these project files, `App.xcworkspace` and `project.xcodeproj`, will *not* be incorporated into the final project.
 It will be best not to make changes to the project files themselves, since none of the changes will be used in the eventual `integrate-release` phases of the process.
 Specifically, your build must not rely on any script build phases that you add to the project files, since these scripts will not be run during `I-R`.
+
+When adding project files, they should be added directly to the `App` Swift package's `Sources/App/` folder or a sub-folder that you create.
+Localizable resources (such as `.strings` files containing translations of your app into different languages) should be placed beneath `Sources/App/Resources/`, which is the folder that will be pre-processed and flattened as part of the build process.
+Resources files that need to retain their directory structure should be instead placed in the `Sources/App/Bundle/`.
+These resource bundles will be available at runtime by referencing the `Foundation.Bundle.module` accessor, and then using standard `Bundle` API to load resources. 
 
 ### Managing dependencies in your `/APP-ORG/App` fork
 
@@ -904,13 +912,14 @@ Note that this is exactly the same process that the `integrate` phase executes, 
  
 ## App Fair Limitations
 
-The following limitations are in place for the App Fair and organizations that distribute through the fair-ground:
+The following limitations are configured for the App Fair:
 
  1. Max App Size: 15mb
- 1. E-mail requirement: *.EDU & *.ac.uk
  1. I-R frequency: unlimited
+ 1. Max I-R action time: 15 minutes 
  1. Fork Licenses: AGPL-3.0
- 1. Fork features: Issues & Discussions
+ 1. Fork Repository features: Issues & Discussions
+ 1. E-mail requirement: *.EDU & *.ac.uk
 
   
 ## App Fair Distribution Checklist
