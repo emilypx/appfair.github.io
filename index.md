@@ -342,16 +342,18 @@ The App Fair is founded on a principle of mutual respect between the software us
 
 ## Ideal: Free
 
-App Fair apps are always free; there is never any charge to download and install apps from the catalog, nor is there any mechanism for in-app purchases or subscriptions.
+App Fair apps are always free; there is never any cost to download and install apps from the catalog, nor is there any mechanism for in-app purchases or subscriptions.
 All apps on the App Fair are licensed under the [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.html), thereby guaranteeing that they will be free and fair, forever.
+
+In addition, software creators also have benefit from the creative freedom afforded by a platform with no mercurial gate-keeping, annual corporate developer fees, or capricious terms and conditions.
 
 
 ## Ideal: Fair
 
 The App Fair is designed to encourage fairness and respect between software creators (the app developers), software consumers (the users of the app), and the "fair-ground" distribution platform (the App Fair).
 
-Software creators benefit from the creative freedom afforded by a platform with no mercurial gate-keeping, annual corporate developer fees, or capricious terms and conditions.
-They also benefit from the global reach of a centralized and self-maintaining catalog.
+Software creators benefit from the a fair platform without the uncertainly of an opaque and mercurial app review process.
+They also benefit from the global reach of a centralized and self-maintaining catalog with the unfettered ability to distribute bug fixes and feature improvements to their users in real time.
 In exchange, they commit to publishing all their source code for other developers to scrutinize, improve, and share.
 
 Software consumers benefit from a massive catalog of truly free software.
