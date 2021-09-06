@@ -36,6 +36,9 @@ This will have to be done *twice*, both times accepting the warning about launch
 
 Note that once you have installed and launched the `App Fair.app` a first time, subsequent updates will take place via the App Fair itself, and you will no longer need to perform any special steps to launch the app.
 
+Apps that are installed by **App Fair.app** are placed in `/Applications/App Fair/`.
+They can be un-installed using the catalog app itself, or they can be removed using the standard macOS method of dragging it into the trash.
+
 ## The App Fair for App Developers
 
 App Fair apps are written in Swift and utilize a native `SwiftUI` user interface. 
@@ -224,7 +227,20 @@ Finally, it sets the "version" of the app to be the PR's commit hash, which prov
 If validation passes, the PR will be built, packaged, and signed for all the supported platforms. Once this is successful, the app is considered to be "integrated" and thus ready for release.
 See the [workflow file](https://github.com/appfair/App/blob/main/.github/workflows/release_pr.yml) for the exact details of the process.
 
-The pull request itself can remain open, and it can be later updated (or re-opened) when a new integration is requested.
+Once the PR has been created, the `I-R` will be initiated as a `pull_request_target` GitHub action.
+At the bottom of the PR page, you will see a status update:
+
+```
+Deploy PR / Release App-Org (pull_request_target) In progress — This check has started...
+```
+
+If `I-R` fails, you can reference the action logs to see the error that may have occurred.
+Most frequently, it is either a configuration problem (discussions or issues not being enabled), or a formatting issue (Info.plist values not matching the PR title), or else simply a build error.
+
+Once the PR succeeds or fails, 
+The pull request itself can be closed, or it can remain open and can be later updated (or re-opened) when a new integration is requested.
+
+
 
 ### The Fair App Release Phase
 
@@ -322,18 +338,24 @@ The full structure of the `fairapps.json` file is:
 
 # Principles of the App Fair
 
-The App Fair is founded on a principle of mutual respect between the creators and users of the app, as well as the app distribution itself.
+The App Fair is founded on a principle of mutual respect between the software users and the developers of the software.
 
 ## Ideal: Free
 
-App Fair apps are always free; there is never any charge to download and install apps from the catalog, nor is there any possibility for in-app purchases or subscriptions.
-Any apps you install from the App Fair will be free and fair, forever.
+App Fair apps are always free; there is never any charge to download and install apps from the catalog, nor is there any mechanism for in-app purchases or subscriptions.
+All apps on the App Fair are licensed under the [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.html), thereby guaranteeing that they will be free and fair, forever.
 
-Some App developers may enable patronage services, which provides the ability for users to electively sponsor developers whose apps they enjoy using, as well as to fund the ongoing development of the app and encourage new features.
 
 ## Ideal: Fair
 
 The App Fair is designed to encourage fairness and respect between software creators (the app developers), software consumers (the users of the app), and the "fair-ground" distribution platform (the App Fair).
+
+Software creators benefit from the creative freedom afforded by a platform with no mercurial gate-keeping, annual corporate developer fees, or capricious terms and conditions.
+They also benefit from the global reach of a centralized and self-maintaining catalog.
+In exchange, they commit to publishing all their source code for other developers to scrutinize, improve, and share.
+
+Software consumers benefit from a massive catalog of truly free software.
+The [Source Accountability](#source-accountability) feature of the App Fair ensures that a user of the software knows the identity or the creator and has mechanisms to contact the creator for support.
 
 ### Creator-Platform-Consumer Trust Relationship
 
@@ -382,7 +404,7 @@ For any release in the App Fair catalog, the complete source code is available f
 This access enables the security community to use all its resources to identify, isolate, and mitigate badly-behaved apps.
 In addition, a requirement that all the code be hosted in publicly-available Git repositories means that tools like [code scanning](https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning) can be used to identify security vulnerabilities in the app or any of the frameworks it embeds.
 
-### Commit Signing & Verification
+### Source Accountability
 
 The App Fair's `integrate-release` build process signs the release's binary artifacts with an "Ad-Hoc" code signing certificate.
 While this satisfies the policy requirements of certain platforms and provides some protection against tampering, this ad-hoc signature does not offer any useful identifying information.
