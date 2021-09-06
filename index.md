@@ -23,7 +23,7 @@ At the same time, they use modern "Sandboxing" techniques to protect your system
 
 The App Fair catalog browser app can be installed on macOS 12 is by launching `Terminal.app` and entering the following command:
 
-```shell
+```
 bash -c "$(curl -fsSL https://appfair.net/install.sh)"
 ```
 
@@ -907,7 +907,7 @@ Note that this is exactly the same process that the `integrate` phase executes, 
   * `Fair.git`: An SPM package hosted at [https://github.com/appfair/Fair.git](https://github.com/appfair/Fair.git) and licensed under the AGPL 3.0 that has targets for both the `Fair` runtime library, as well as the `fairtool` CLI utility.
   * Fair.swift: A Swift 5.5 library that acts as the entry point to all apps that are distributed via a fair-ground; the library provides a container environment with features such as automatic addition of Help & Support menus, as well as runtime validation of security features. All apps distributed via a fair-ground are required to have the HEAD of `Fair.git` as their initial SPM dependency.
   * fairtool: An executable tool that is included with the `Fair.git` package, and is thereby included with all apps that link to the `Fair (runtime)`. The `fairtool` utility is used to validate and merge `integrate-release` requests by the trusted fair-ground build process. The tool can also be used to initialize a new fair-ground with template code for a new base repository. The utility can be run with: the command: `swift run fairtool`
-  * App Fair: The App Fair is the name of a fair-ground hosted at [https://www.appfair.net](https://www.appfair.net) that uses GitHub as its host for the `fork-apply` phases, and uses GitHub Actions for the `integrate-release` process and catalog hosting. The App Fair enforces policies of complete source transparency, security entitlement disclosure, and unfettered academic usage.
+  * App Fair: The App Fair is the name of a fair-ground hosted at [https://www.appfair.net](https://www.appfair.net) that uses GitHub as its host for the `fork-apply` (F-A) phases, and uses GitHub Actions for the `integrate-release` (I-R) process and catalog hosting. The App Fair enforces policies of complete source transparency, security entitlement disclosure, and unfettered academic usage.
  
  
 ## App Fair Limitations
