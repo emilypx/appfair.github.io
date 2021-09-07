@@ -1001,10 +1001,6 @@ Use this checklist to ensure that your app is set up properly for distribution i
  1. Is the e-mail address associated with the commit valid (e.g., an `.edu` address)?
  
  
-## App Fair News
-
-For announcements about the App Fair, please subscribe to the Telegram Channel at [https://t.me/appfair](https://t.me/appfair).
- 
 ## App Fair Badge
 
 You can use the following badge freely on your app's promotional material to link directly to your App Fair catalog entry.
