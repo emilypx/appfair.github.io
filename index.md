@@ -50,11 +50,11 @@ No additional registration, sign-up, or approval is required in order to start d
 
 ## The App Fair fair-ground
 
-The "fair-ground" is the name for the abstract service that acts as the platform for app distribution, and includes services for user authorization, and for validating, building, packaging, cataloging, and distributing the apps.
-The "App Fair" is the reference fair-ground, implemented as a set of GitHub repositories, actions, and policies.
-These are defined primarily in the [appfair/App.git](https://github.com/appfair/App.git) repository, which also acts as the base repository to be forked by app developers.
+The "fair-ground" is the name for the autonomous cataloging service that acts as the reference for app distribution. It handles organization verification, app build validation, and cataloging of all the verified apps.
+The "App Fair" is one instance of a fair-ground, and is implemented as a set of GitHub repositories, actions, and policies for cataloging the build artifacts of the app forks.
+The configuration for the App Fair is defined primarily in the [appfair/App.git](https://github.com/appfair/App.git) repository, which additionally acts as the base repository to be forked by app developers.
 
-### Introduction: the FAIR process
+### Introduction: the F-A/I-R process
 
 <img align="left" width="450" alt="Diagram of the App Fair process" src="assets/fairground.svg" />
 
