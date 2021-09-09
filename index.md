@@ -18,6 +18,7 @@ From an end-user standpoint, the **App Fair.app** catalog browser application al
 
 Apps installed through the **App Fair.app** application are created using the modern platform-native `SwiftUI` framework and built for both Intel and ARM processors, and therefore run faster and use resources more efficiently than a non-native cross-platform application framework.
 At the same time, they use modern "Sandboxing" techniques to protect your system and ensure that you are always aware of what actions the apps are permitted to take, such as reading and writing files, communicating over the internet, or accessing your camera, microphone, or other USB & bluetooth devices.
+And since they rely on the native frameworks of the system, they tend to be quite small (under 2 megabytes compressed), and so are faster to download and launch than non-native web apps.
 
 ### Getting Started
 
@@ -737,12 +738,14 @@ Users will need to first manually un-install the app in order to then manually i
 The shell of the App you write, including any top-level system menus, must utilize `SwiftUI` views, idioms, and commands.
 Embedding a binary framework, such as the Chromium rendering engine and the Node.js runtime that together power Electron apps, is not supported.
 However, there is nothing preventing you from embedding any arbitrary native view controller within your app's view hierarchy, such as the `WKWebView` that enables apps to host an HTML5 application within a Safari-like container.
+Provided that the entry point to your app is through SwiftUI, you can build and drive the content of the app in any way you want.
 
 ### Can I build my App Fair app using Mac Catalyst?
 
 No.
 App Fair apps are cross-platform and must use the native user-interface toolkit for their respective platform (AppKit on macOS and UIKit on iOS).
-Using `SwiftUI` makes this mostly transparent to the developer.
+Using the built-in `SwiftUI` views can make this mostly transparent to the developer, but when you need to implement lower-level `*ViewRepresentable` wrappers around native controls, you will need to provide implementations for both `AppKit` as well as `UIKit`.
+There are some `typealias`es in `FairAdaptor.swift` that can help ease this process, notably `UXView` and `UXViewRepresentable`.
 
 ### Can I build my App Fair app using Qt?
 
