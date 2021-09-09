@@ -127,7 +127,7 @@ echo " Success!"
 
 APP_FAIR_COLORS="${tty_red}A${tty_reset}${tty_blue}p${tty_reset}${tty_yellow}p${tty_reset} ${tty_green}F${tty_reset}${tty_cyan}a${tty_reset}${tty_blue}i${tty_reset}${tty_red}r${tty_reset}"
 
-echo "  Welcome to the ${APP_FAIR_COLORS}: ${tty_bold}Free & Fair, Forever${tty_reset}!"
+echo "  Welcome to the ${APP_FAIR_COLORS}!"
 
 echo ""
 
