@@ -790,9 +790,11 @@ When a signature is "Ad-Hoc", it means that there is no identifying information 
 ### Are App Fair apps notarized?
 
 Although App Fair apps are signed, sandboxed, and utilize the hardened runtime, they are not automatically notarized during the fair-ground's `integrate-release` phases. 
-Notarization requires a recurring paid developer subscription (and the ongoing acceptance of terms & conditions) and is therefore incompatible with the free & fair nature of the App Fair.
+Notarization requires a recurring paid developer subscription (and the ongoing acceptance of varying terms & conditions) and is therefore incompatible with the autonomous nature of the App Fair fair-ground.
 
-If you have a paid developer subscription, you are free to notarize the App Fair release binaries for your app yourself, which will enable you to distribute the same binary both via **App Fair.app** catalog browser application and via other distribution channels.
+If you have a developer subscription, you are free to notarize the App Fair release binaries for your app yourself, which will enable you to distribute the same binary both via **App Fair.app** catalog browser application and via other distribution channels that may favor or require notarization.
+Notarization can be accomplished by adding your signing certificate to your `/App.git` fork's secrets and adding a signing phase that invokes `xcrun notarytool submit staging/App-Org-macOS.zip` to the workflow in the `.github/workflows/` folder.
+Note that notarization tickets should currently *not* be stapled to the build artifact before release upload, since that is known to interfere with the binary artifact validation by the base catalog repository.
 
 ### How do I re-name my project?
 
@@ -800,10 +802,13 @@ An App Fair app is defined exclusively by the `App-Org` name of the organization
 If you can change the name of your organization, the new app name will be used the next time you make a release.
 If you re-name `App-OrgA` to `App-OrgB`, the old `App-OrgA` will automatically disappear from the catalog.
 Note, however, that since the bundle identifier will change from `app.App-OrgA` to `app.App-OrgB`, all the container settings for you app will change, so your users will find that they will not be able to access preferences or resources that were stored in the previous `app.App-OrgA` container.
+This is an unavoidable consequence of renaming your project, so it should not be a decision that is undertaken lightly if your app has a significant number of users who may be forced to manually perform migration tasks.
 
 ### What files can my app access?
 
-As a sandboxed app, only a certain set of system files can be accessed without adding the `files.user-selected.read-write` permission to the `Sandbox.entitlements` file and the corresponding 
+As a sandboxed app, only local container files and a certain set of system files can be accessed without adding the `files.user-selected.read-write` permission to the `Sandbox.entitlements` file and the corresponding `FairUsage` usage description property in the `Info.plist`.
+With the `files.user-selected.read-write` entitlement enabled, the normal sandboxing rules for file access will come into effect: users will need to explicitly grant access to files, either using the standard system "Powerbox" open panel, or by actions such as dragging a file onto the app's icon.
+Long-term access permissions for files will require that the security-scoped bookmark for URL be persisted by the app and re-used for future access to the file.
 
 ### How can I open and debug the app in Xcode?
 
@@ -812,7 +817,7 @@ You can open the `App.xcworkspace` file in `Xcode.app`, which is a workspace tha
 All your code, however, must reside in the SPM package itself, which is your `/App/` fork's `Sources/App/` folder.
 
 Do not edit the `project.xcodeproj` folder directly, since it doesn't reference the swift package folder, and thus cannot build on its own without the surrounding workspace. 
-Any changes made either the `App.xcworkspace` or `project.xcodeproj` files will be ignored during the fair-ground's `I-R` phases, so you should avoid making changes there that are meant to be included in the app's eventual build. 
+Any changes made either to the `App.xcworkspace` or `project.xcodeproj` files will be ignored during the fair-ground's `I-R` phases, so you should avoid making changes there that are meant to be included in the app's eventual build. 
 Instead, you should prefer to use the `Package.swift` manifest as well as local resources for the customization of your app's metadata.
 
 ### What can I change in the Package.swift file?
