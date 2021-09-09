@@ -6,12 +6,12 @@ sequenceDiagram
     activate Creator
     Note over Creator: App Development
     Note over Creator: App Testing
+    Note over Creator: Build & Sign Release
+    Note over Creator: Release Artifacts
     Creator->>Platform: Integrate: Pull Request
     deactivate Creator
     Note over Platform: Validate Creator
-    Note over Platform: Validate App
-    Note over Platform: Build & Sign Binary
-    Note over Platform: Release Artifacts
+    Note over Platform: Validate Release
     Note over Platform: Update Catalog
     Consumer->>Platform: Browse & Search apps
     Platform-->>Consumer: app catalog
@@ -19,8 +19,8 @@ sequenceDiagram
     Note over Consumer: Compare Apps
     Note over Consumer: Select App
     Note over Consumer: Approve Permissions
-    Consumer->>Platform: Install App
-    Platform-->>Consumer: app download & install
+    Consumer->>Creator: Install App
+    Creator-->>Consumer: app download & install
     Note over Consumer: Use App
 
     rect rgb(0, 100, 200, 0.3)
@@ -36,13 +36,15 @@ sequenceDiagram
     Note over Creator: Maintain App
     Note over Creator: Fix Bugs
     Note over Creator: Add Features
+    Note over Creator: Build & Sign Release
     Creator->>Platform: Integrate: Pull Request
-    Note over Platform: Build & Release
+    Note over Platform: Re-Validate Creator
+    Note over Platform: Re-Validate Release
     Note over Platform: Update Catalog
     Platform-->>Consumer: app update notification
     Note over Consumer: Review App Changes
     Note over Consumer: Choose to Update App
-    Consumer->>Platform: Update App
-    Platform-->>Consumer: app updated
+    Consumer->>Creator: Update App
+    Creator-->>Consumer: app updated
 
 
