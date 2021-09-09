@@ -10,25 +10,34 @@ sequenceDiagram
     Note over Creator: Release Artifacts
     Creator->>Platform: Integrate: Pull Request
     deactivate Creator
+    activate Platform
     Note over Platform: Validate Creator
     Note over Platform: Validate Release
     Note over Platform: Update Catalog
     Consumer->>Platform: Browse & Search apps
+    deactivate Platform
     Platform-->>Consumer: app catalog
+    activate Consumer
     Note over Consumer: Search Apps
     Note over Consumer: Compare Apps
     Note over Consumer: Select App
     Note over Consumer: Approve Permissions
     Consumer->>Creator: Install App
-    Creator-->>Consumer: app download & install
+    deactivate Consumer
+    Note over Creator: App releases
+    Creator-->>Consumer: app download
+    Consumer->>Platform: Verify app
+    Note over Platform: Catalog checksum lookup
+    Platform-->>Consumer: app verification
+    Note over Consumer: App Installed
     Note over Consumer: Use App
 
     rect rgb(0, 100, 200, 0.3)
         loop User-Developer Communication
             Consumer->>Creator: Consumer Feedback
-                Note over Platform: Discussion Forums
+                Note over Creator: Discussion Forums
                 Note over Creator,Consumer: Direct Communication
-                Note over Platform: Issue Reporting System
+                Note over Creator: Issue Reporting System
             Creator->>Consumer: Creator Response
         end
     end
@@ -41,10 +50,16 @@ sequenceDiagram
     Note over Platform: Re-Validate Creator
     Note over Platform: Re-Validate Release
     Note over Platform: Update Catalog
+    Consumer->>Platform: Check for updates
     Platform-->>Consumer: app update notification
     Note over Consumer: Review App Changes
     Note over Consumer: Choose to Update App
     Consumer->>Creator: Update App
+    Note over Creator: App releases
     Creator-->>Consumer: app updated
+    Consumer->>Platform: Re-Verify app
+    Note over Platform: Catalog checksum lookup
+    Platform-->>Consumer: app verification
+    Note over Consumer: Use New App Version
 
 
