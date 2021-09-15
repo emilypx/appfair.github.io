@@ -107,14 +107,16 @@ sequenceDiagram
     Note over Consumer: Review App Changes
     Note over Consumer: Choose to Update App
 
-    Consumer->>Developer: Update App
-    Note over Developer: App releases
+    Consumer->>App-Name/App.git: Update App
+    Note over App-Name/App.git: App releases
 
-    Developer-->>Consumer: app updated
+    App-Name/App.git-->>Consumer: app updated
+
     Consumer-->>appfair/App.git: re-verify app
-
     Note over appfair/App.git: fairseal lookup
+
     appfair/App.git-->>Consumer: fairseal verification
+
     Note over Consumer: #9829; New App Version
 
     %% Note over App-Name/App.git,appfair/App.git: Free & Fair, Forever
