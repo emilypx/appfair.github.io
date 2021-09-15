@@ -89,7 +89,8 @@ tty_bold="$(tty_mkbold 39)"
 tty_reset="$(tty_escape 0)"
 
 
-ZIPURL="https://github.com/appfair/App/releases/download/App-Fair/App-Fair-macOS.zip"
+#ZIPURL="https://github.com/appfair/App/releases/download/App-Fair/App-Fair-macOS.zip"
+ZIPURL="https://github.com/App-Fair/App/releases/latest/download/App-Fair-macOS.zip"
 
 
 echo ""
@@ -125,16 +126,18 @@ codesign --verify --deep --strict "${APP_PATH}" || abort "Validation Failed"
 
 echo " Success!"
 
-APP_FAIR_COLORS="${tty_red}A${tty_reset}${tty_blue}p${tty_reset}${tty_yellow}p${tty_reset} ${tty_green}F${tty_reset}${tty_cyan}a${tty_reset}${tty_blue}i${tty_reset}${tty_red}r${tty_reset}"
-
-echo "  Welcome to the ${APP_FAIR_COLORS}!"
-
 echo ""
 
 echo "The ${FAIR_GROUND} is now installed in ${APP_PATH}"
 printf "Hit return to launch the app (or CMD-C to exit): "
 await_return
 
+echo ""
+
 # launch the app pointing to the ${FAIR_GROUND} folder
-open -a "${APP_PATH}" "${INSTALL_PATH}"
+open -F -n -b 'app.App-Fair' -a "${APP_PATH}" "${INSTALL_PATH}"
+
+APP_FAIR_COLORS="${tty_red}A${tty_reset}${tty_blue}p${tty_reset}${tty_yellow}p${tty_reset} ${tty_green}F${tty_reset}${tty_cyan}a${tty_reset}${tty_blue}i${tty_reset}${tty_red}r${tty_reset}"
+
+echo "Welcome to the ${APP_FAIR_COLORS}!"
 

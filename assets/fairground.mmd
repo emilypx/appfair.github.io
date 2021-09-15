@@ -1,65 +1,123 @@
 %%{init: { 'logLevel': 'debug', 'theme': 'forest' } }%%
 sequenceDiagram
     %% see: https://mermaid-js.github.io/mermaid/#/sequenceDiagram
-    Creator->>Platform: Fork: appfair/App
-    Platform-->>Creator: fork created at:<br />github.com/App-Org/App.git
-    activate Creator
-    Note over Creator: App Development
-    Note over Creator: App Testing
-    Note over Creator: Build & Sign Release
-    Note over Creator: Release Artifacts
-    Creator->>Platform: Integrate: Pull Request
-    deactivate Creator
-    activate Platform
-    Note over Platform: Validate Creator
-    Note over Platform: Validate Release
-    Note over Platform: Update Catalog
-    Consumer->>Platform: Browse & Search apps
-    deactivate Platform
-    Platform-->>Consumer: app catalog
-    activate Consumer
+    autonumber
+
+    Developer->>App-Name/App.git: Create App-Name<br/>GitHub Organization
+    Developer->>App-Name/App.git: Set public & verified<br/>e-mail address
+    Developer->>appfair/App.git: Fork: github.com/appfair/App.git
+
+    appfair/App.git-->>App-Name/App.git: fork created at:<br />App-Name/App.git
+
+    Developer->>App-Name/App.git: Enable Issues
+    Developer->>App-Name/App.git: Enable Discussions
+
+    Note over App-Name/App.git: App Fork is now Valid
+
+    Developer->>App-Name/App.git: Clone App-Name/App.git
+
+    App-Name/App.git->>Developer: app fork clone
+
+    Note over Developer: Open App.xcworkspace
+    Note over Developer: Update Info.plist
+    Note over Developer: Code your app!
+    Note over Developer: Commit Changes
+
+    Developer->>App-Name/App.git: Push tag "1.0.0"
+    Developer->>App-Name/App.git: Enable GitHub actions
+
+    Note over App-Name/App.git: fairground.yml workflow runs
+    Note over App-Name/App.git: Build Release (automatic)
+    Note over App-Name/App.git: Sign Release (optional)
+    Note over App-Name/App.git: Publish Release Artifacts (automatic)
+
+    Developer->>appfair/App.git: Integrate: Pull Request
+
+    Note over appfair/App.git: validate creator
+    Note over appfair/App.git: re-build app in trusted environment
+
+    appfair/App.git-->>App-Name/App.git: fetch artifacts
+
+    App-Name/App.git-->>appfair/App.git: release artifacts
+
+    Note over appfair/App.git: compare Trusted & Untrusted Artifacts
+    Note over appfair/App.git: generate fairseal
+    Note over appfair/App.git: publish fairseal
+
+    Consumer->>appfair/App.git: Browse & Search apps
+
+    appfair/App.git-->>Consumer: app catalog
+
     Note over Consumer: Search Apps
     Note over Consumer: Compare Apps
     Note over Consumer: Select App
     Note over Consumer: Approve Permissions
-    Consumer->>Creator: Install App
-    deactivate Consumer
-    Note over Creator: App releases
-    Creator-->>Consumer: app download
-    Consumer->>Platform: Verify app
-    Note over Platform: Catalog checksum lookup
-    Platform-->>Consumer: app verification
+
+    Consumer->>App-Name/App.git: Install App
+
+    Note over App-Name/App.git: App releases
+
+    App-Name/App.git-->>Consumer: artifact download
+
+    Consumer-->>appfair/App.git: Verify app
+
+    Note over appfair/App.git: fairseal lookup
+
+    appfair/App.git-->>Consumer: fairseal verification
+
     Note over Consumer: App Installed
     Note over Consumer: Use App
 
     rect rgb(0, 100, 200, 0.3)
         loop User-Developer Communication
-            Consumer->>Creator: Consumer Feedback
-                Note over Creator: Discussion Forums
-                Note over Creator,Consumer: Direct Communication
-                Note over Creator: Issue Reporting System
-            Creator->>Consumer: Creator Response
+            Consumer->>Developer: Consumer Feedback
+                Note over App-Name/App.git: Discussion Forums
+                Note over App-Name/App.git: Issue Reporting System
+                Note over Developer: Direct Contact
+            Developer->>Consumer: Developer Response
         end
     end
 
-    Note over Creator: Maintain App
-    Note over Creator: Fix Bugs
-    Note over Creator: Add Features
-    Note over Creator: Build & Sign Release
-    Creator->>Platform: Integrate: Pull Request
-    Note over Platform: Re-Validate Creator
-    Note over Platform: Re-Validate Release
-    Note over Platform: Update Catalog
-    Consumer->>Platform: Check for updates
-    Platform-->>Consumer: app update notification
+    Note over Developer: Maintain & Improve App
+
+    Developer->>appfair/App.git: Rebase from main
+    appfair/App.git-->>App-Name/App.git: Rebased
+
+    Note over Developer: Merge
+    Note over Developer: Test changes
+    Note over Developer: Update Release Note
+
+    Developer->>App-Name/App.git: Push new tag: "1.0.1"
+
+    Note over App-Name/App.git: fairground.yml workflow runs
+    Note over App-Name/App.git: Build Release (automatic)
+    Note over App-Name/App.git: Sign Release (optional)
+    Note over App-Name/App.git: Publish Release Artifacts (automatic)
+
+    Developer->>appfair/App.git: Integrate: Pull Request Synchronize
+
+    Note over appfair/App.git: re-validate fairseal
+    Note over appfair/App.git: publish fairseal 
+    Note over appfair/App.git: update Catalog
+
+    Consumer->>appfair/App.git: Check updates
+
+    appfair/App.git-->>Consumer: update available
+
     Note over Consumer: Review App Changes
     Note over Consumer: Choose to Update App
-    Consumer->>Creator: Update App
-    Note over Creator: App releases
-    Creator-->>Consumer: app updated
-    Consumer->>Platform: Re-Verify app
-    Note over Platform: Catalog checksum lookup
-    Platform-->>Consumer: app verification
-    Note over Consumer: Use New App Version
 
+    Consumer->>Developer: Update App
+    Note over Developer: App releases
+
+    Developer-->>Consumer: app updated
+    Consumer-->>appfair/App.git: re-verify app
+
+    Note over appfair/App.git: fairseal lookup
+    appfair/App.git-->>Consumer: fairseal verification
+    Note over Consumer: #9829; New App Version
+
+    Note over App-Name/App.git,appfair/App.git: Free & Fair, Forever
+    Consumer->>Developer: #9829;
+    Developer->>Consumer: #9829;
 
