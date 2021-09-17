@@ -3,6 +3,12 @@ sequenceDiagram
     %% see: https://mermaid-js.github.io/mermaid/#/sequenceDiagram
     autonumber
 
+    Note over Developer: Individual App Creator
+    Note over App-Name/App.git: Forked App (untrusted)
+    Note over App-Name/App.git,appfair/App.git: Forked & Upstream GitHub Repositories
+    Note over appfair/App.git: Base fair-ground (trusted)
+    Note over Consumer: Individual App Users
+
     Developer->>App-Name/App.git: Create App-Name<br/>GitHub Organization
     Developer->>App-Name/App.git: Set public & verified<br/>e-mail address
     Developer->>appfair/App.git: Fork: github.com/appfair/App.git
@@ -37,7 +43,6 @@ sequenceDiagram
     Note over appfair/App.git: re-build app in trusted environment
 
     appfair/App.git-->>App-Name/App.git: fetch artifacts
-
     App-Name/App.git-->>appfair/App.git: release artifacts
 
     Note over appfair/App.git: compare Trusted & Untrusted Artifacts
@@ -45,17 +50,16 @@ sequenceDiagram
     Note over appfair/App.git: publish fairseal
 
     Consumer->>appfair/App.git: Browse & Search apps
-
     appfair/App.git-->>Consumer: app catalog
 
-    Note over Consumer: Search Apps
-    Note over Consumer: Compare Apps
-    Note over Consumer: Select App
+    Note over Consumer: Browse & Discover Apps
+    Note over Consumer: Research App
+    Note over Consumer: Trust & Install App
     Note over Consumer: Approve Permissions
 
-    Consumer->>App-Name/App.git: Install App
+    Consumer->>App-Name/App.git: Download App
 
-    Note over App-Name/App.git: App releases
+    Note over App-Name/App.git: app download artifact
 
     App-Name/App.git-->>Consumer: artifact download
 

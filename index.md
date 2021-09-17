@@ -45,9 +45,11 @@ They can be un-installed using the catalog app itself, or they can be removed us
 App Fair apps are written in Swift and utilize a native `SwiftUI` user interface. 
 Apps target macOS 12 and Swift version 5.5, giving them access to the full power of Swift's async/await concurrency features.
 
-The distribution process for App Fair apps is completely automated, instantaneous, and free. 
+The distribution process for App Fair apps is completely autonomous, instantaneous, and free. 
 The only requirement is a GitHub account that is associated with your `.edu` e-mail address.
 No additional registration, sign-up, or approval is required in order to start developing and distributing apps for the App Fair.
+Apps are built, validated, and distributed using GitHub's free actions for open-source projects, and so can be used at no cost.
+
 
 ## The App Fair fair-ground
 
@@ -374,7 +376,7 @@ They also benefit from the global reach of a centralized and self-maintaining ca
 In exchange, they commit to publishing all their source code for other developers to scrutinize, improve, and share.
 
 Software consumers benefit from a massive catalog of truly free software.
-The [Source Accountability](#source-accountability) feature of the App Fair ensures that a user of the software knows the identity or the creator and has mechanisms to contact the creator for support.
+The [Source Accountability](#source-accountability) feature of the App Fair ensures that a user of the software knows the identity of the creator and has open channels to contact the developer for support.
 
 ### Creator-Platform-Consumer Trust Relationship
 
@@ -395,7 +397,7 @@ This guiding principles for each separate relationship in this collection is:
 While apps distributed through the App Fair catalog can be removed by their creators at any time, the apps do not otherwise expire.
 Once you have downloaded and installed an app, you can be confident that it will remain in its current operational state until you remove or update it.
 To this end, the App Fair does not impose any automatic updating mechanism on your apps.
-App updated must always be explicitly initiated by the end user.
+App updates must always be explicitly initiated by the end user.
 
 
 ## App Fair Security
@@ -416,7 +418,8 @@ The App Fair integration process requires that all software be hardened and sand
 ### Source Transparency
 
 The App Fair's `integrate-release` build process is completely automated; there is no individual review of apps, neither when they are initially submitted nor when updates are released.
-This allows the release & update processes to be free of delays and keeps the catalog free from reviewer bias. It also precludes the possibility of any pre-distribution "gate-keeping" to enforce content or policy.
+This allows the release & update processes to be free of delays and keeps the catalog free from reviewer bias. 
+It also precludes the possibility of any pre-distribution "gate-keeping" to enforce content or policy.
 
 The App Fair instead provides post-distribution accountability by requiring that the source code for the entire app be available to the build process and that it be hosted in publicly-available GitHub repositories.
 For any release in the App Fair catalog, the complete source code is available for inspection, review, and analysis by the entire world.
@@ -426,7 +429,7 @@ In addition, a requirement that all the code be hosted in publicly-available Git
 ### Source Accountability
 
 The App Fair's `integrate-release` build process signs the release's binary artifacts with an "Ad-Hoc" code signing certificate.
-While this satisfies the policy requirements of certain platforms and provides some protection against tampering, this ad-hoc signature does not offer any useful identifying information.
+While this satisfies the policy requirements of certain platforms and provides some protection against tampering, this ad-hoc signature itself does not confer any useful identifying information.
 The signature is essentially an anonymous seal on the binary placed on it by the `integrate-release` build phases.
 
 Instead, the App Fair provides author accountability and identifiability by requiring that any commit that triggers the `integrate-release` process needs to be marked as `verified` by GitHub.
@@ -485,6 +488,13 @@ What sets the App Fair apart from other platform-native store-fronts is that the
 
 ## Developer FAQ
 
+### How is the App Fair free?
+
+The fair-ground system is designed for public forks of an open-source base repository. 
+This allows them to utilize free GitHub actions minutes and downloadable artifacts for the build, release, and `fairseal` validation phases.
+This Swift Package and Xcode cloud based build system allows a user to create and update their app without any paid subscription to any developer services.
+It even technically allows for writing and updating an app without having a macOS installation at all, since the online GitHub editor or a plain text editor can be used to modify the app's source code and configuration.
+
 ### How do I use git and GitHub?
 
 There are a multitude of resources available online for both `git` (the source control management tool), and `GitHub`, the service that hosts both free and commercial git repositories and provides related services.
@@ -493,9 +503,8 @@ Fluency with git will be important for managing your app's lifecycle.
 
 ### Can I develop an App Fair app with a non-`.edu` academic e-mail address?
 
-While anyone is free to fork the App Fair's [base repository](https://github.com/appfair/App.git), the App Fair's enforces that the committer of the `integrate` PR has an associated academic e-mail address.
-These addresses are currently restricted to those ending in `.edu`.
-More academic institutions will be added to the list on a case-by-case basis.
+While anyone is free to fork the App Fair's [base repository](https://github.com/appfair/App.git), the fair-ground enforces that the committer of the `integrate` PR has an associated academic e-mail address before it will validate the app and publish a `fairseal`, which is a prerequisite for the app to appear in the App Fair catalog.
+These addresses are currently restricted to academic `.edu` addresses.
 
 ### How do I fork the `appfair/App.git` repository?
 
@@ -510,7 +519,7 @@ You are encouraged to provide your own original artwork in the `Assets.xcassets/
 ### Where do I customize my app's name?
 
 The canonical name of your app is defined by the organization name that hosts your `/App/ fork.
-This name must conform to the App Fair's naming conventions, as well as GitHub's limitations on organization names: two distinct words (3-12 ASCII letters each) separated by a hyphen.
+This name must conform to the App Fair's naming conventions (two words separated by a hyphen) as well as GitHub's limitations on organization names (URL-safe characters). 
 
 In addition to the canonical `APP-ORG` name, this name must be mirrored in the app's `Info.plist` metadata file.
 Specifically, the keys `CFBundleName` and `CFBundleIdentifier` will need to be manually updated in your fork, like so:
@@ -535,6 +544,13 @@ Note that you will, at a minimum, need to update your new org's `/App.git` fork'
 
 Also note that a re-named organization will, by definition, also have a new bundle identifier, which will mean that the re-named app will not have access to the sandboxed container of the previous app (since as far as the platform is concerned it is an entirely different and new app).
 
+### Can I change the target and product names from "App" in the project file?
+
+The generic "App" target is used for encapsulating your app as a package.
+It is expected that you will configure your app's name in your fork's `Info.plist` metadata file.
+This allows your app's fork to easily fork-able itself, which can be used by someone to derive their own variation on the app.
+For this reason, the generic name "App" is used for targets and package names throughout the code, and should not be changed.
+
 ### What if the name I want is already in use by another GitHub organization?
 
 Pick a new name, or else [see GitHub's advice on the topic](https://docs.github.com/en/github/site-policy/github-username-policy#what-if-the-username-i-want-is-already-taken).
@@ -552,16 +568,15 @@ For details, see the [source](https://github.com/appfair/Fair/blob/main/Sources/
 
 ### How can I change the category of my app in the **App Fair.app** catalog?
 
-The App Fair uses the information in your App's `Info.plist` to categorize the app in the catalog.
+App categorization is done using GitHub topics.
+The various pre-existing topics ("appfair-games", "appfair-utilities", etc.) are used for specifying the category that the app will show up under.
+These tags must be mirrored in the `LSApplicationCategoryType` property of your app's `Info.plist` file, with the "appfair-" prefix being renamed to "public.app-category." (e.g., the "appfair-games" GitHub topic should be represented with the "public.app-category.games" value for the `LSApplicationCategoryType` key).
 
-### Where does the **App Fair.app** catalog get its information about apps?
-
-The catalog browser application uses the public GitHub API to list all the releases for the [appfair/App.git](https://github.com/appfair/App.git) project, which it cross-references with the list of forks for the organization information. Assets such as the localization information and icon for the app are retrieved from the releases assets.
 
 ### Can I embed API keys for online services into my App Fair app?
 
 Any "secrets" that are included in your software, such as passwords and API keys, should be considered to be public information.
-The App Fair's "Source Transparency" requirement means that every piece of data that goes into the build process of your app will also be available to the users of the app.
+The App Fair's "Source Transparency" mandate means that every piece of data that goes into the build process of your app will also be available to the users of the app.
 The presents a problem for API keys and service passwords, since there is no way to "hide" them in your code.
 Sensitive information pushed to open-source repositories, such as GitHub OAuth tokens, personal access tokens, tokens from various cloud service providers, and unencrypted SSH private keys, are routinely scanned, and can be subject to automatic revocation by the organization that hosts the service.
 
@@ -708,7 +723,7 @@ The App Fair's `integrate-release` process will validate your `Package.swift` fi
 ### Can I load executable code at runtime?
 
 Except for Just-in-Time compilation, the `Sandbox.entitlements` forbids the dynamic loading of unsigned executable code at runtime.
-This is to help ensure the App Fair's Source Transparency goal.
+This is to help ensure the App Fair's "Source Transparency" mandate.
 
 ### How large are App Fair apps?
 
@@ -974,9 +989,9 @@ Note that this is exactly the same process that the `integrate` phase executes, 
   * FAIR: The `Fork-Apply-Integrate-Release` process summarizes a system whereby developers create apps by fork-ing a fair-ground's base repository and apply-ing their changes to back to the base in the form of a pull request. This is followed by an `integrate` phase that ingests, validates and builds the app, verifies the creator's organization standing, and then initiates a `release` phase that publishes the build artifacts to an app cataloging and distribution system.
   * `Fair.git`: An SPM package hosted at [https://github.com/appfair/Fair.git](https://github.com/appfair/Fair.git) and licensed under the AGPL 3.0 that has targets for both the `Fair` runtime library, as well as the `fairtool` CLI utility.
   * Fair.swift: A Swift 5.5 library that acts as the entry point to all apps that are distributed via a fair-ground; the library provides a container environment with features such as automatic addition of Help & Support menus, as well as runtime validation of security features. All apps distributed via a fair-ground are required to have the HEAD of `Fair.git` as their initial SPM dependency.
-  * fairtool: An executable tool that is included with the `Fair.git` package, and is thereby included with all apps that link to the `Fair (runtime)`. The `fairtool` utility is used to validate and merge `integrate-release` requests by the trusted fair-ground build process. The tool can also be used to initialize a new fair-ground with template code for a new base repository. The utility can be run with: the command: `swift run fairtool`
-  * fairseal: the trusted cryptographic hash of the app binary that has been validated by the base fair-ground. This hash must be present in order to an app to be installable by the catalog application, and the hash must match the content of the binary that is downloaded from the app fork's releases page.
-  * App Fair: The App Fair is the name of a fair-ground hosted at [https://www.appfair.net](https://www.appfair.net) that uses GitHub as its host for the `fork-apply` (F-A) phases, and uses GitHub Actions for the `integrate-release` (I-R) process and catalog hosting. The App Fair enforces policies of complete source transparency, security entitlement disclosure, and unfettered academic usage.
+  * `fairtool`: An executable tool that is included with the `Fair.git` package, and is thereby included with all apps that link to the `Fair (runtime)`. The `fairtool` utility is used to validate and merge `integrate-release` requests by the trusted fair-ground build process. The tool can also be used to initialize a new fair-ground with template code for a new base repository. The utility can be run with: the command: `swift run fairtool`
+  * `fairseal`: the cryptographic hash of the app binary that has been validated by the trusted base fair-ground. This hash must be present in order to an app to be installable by the catalog application, and the hash must match the content of the binary that is downloaded from the app fork's releases page.
+  * App Fair: The App Fair is the name of a fair-ground hosted at [https://www.appfair.net](https://www.appfair.net) that uses GitHub as its host for the `fork-apply` (F-A) phases, and uses GitHub Actions for the `integrate-release` (I-R) process and catalog hosting. The App Fair mandates source transparency and comprehensive security entitlement disclosure.
  
  
 ## App Fair Limitations
@@ -1044,7 +1059,7 @@ Use this checklist to ensure that your app is set up properly for distribution i
 ### Post Release
  
   1. Did the integrate-release action in the base fair-ground that was triggered by your Pull Request succeed?
-  1. Were there any logged errors about failures in `fairseal` generation?
+  1. Are there any logged errors about failures in `fairseal` generation?
   1. Does the SHA-256 hash of your fork's released `.zip`/`.ipa` binary exactly match the `fairseal` that is contained in the App Fair catalog?
  
 ## App Fair Badge
@@ -1058,3 +1073,5 @@ You can include the App Fair badge with the following HTML:
 ```
 
 <p align="center"><img src="https://www.appfair.net/appfair-free-for-all.svg" width="450" alt="Free for all at the App Fair – https://www.appfair.net" /></p>
+
+<!-- “When I'm working on a problem, I never think about beauty. I think only how to solve the problem. But when I have finished, if the solution is not beautiful, I know it is wrong.” -- R. Buckminster Fuller -->
