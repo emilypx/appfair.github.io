@@ -10,6 +10,8 @@ title: The App Fair
 The App Fair is an independent app distribution platform for free open-source macOS applications created by students and educators.
 App Fair apps use modern native frameworks and user-interface elements with a focus on performance, efficiency, accessibility and inclusiveness.
 
+<!-- insert comment after accessibility -->
+
 ## The App Fair for App Users
 
 From an end-user standpoint, the **App Fair.app** catalog browser application allows you to research, discover, install, and update applications from an unlimited online collection. 
@@ -24,6 +26,8 @@ And since they rely on the native frameworks of the system, they tend to be quit
 
 The App Fair catalog browser app can be installed on macOS 12 is by launching `Terminal.app` and entering the following command:
 
+<!-- delete the "is" after "macOS 12" -->
+
 ```
 bash -c "$(curl -fsSL https://appfair.net/install.sh)"
 ```
@@ -37,8 +41,12 @@ This will have to be done *twice*, both times accepting the warning about launch
 
 Note that once you have installed and launched the `App Fair.app` a first time, subsequent updates will take place via the App Fair itself, and you will no longer need to perform any special steps to launch the app.
 
+<!-- Above you say "the `App Fair.app`", while elsewhere you say **App Fair.app** (with no "the") -->
+
 Apps that are installed by **App Fair.app** are placed in `/Applications/App Fair/`.
 They can be un-installed using the catalog app itself, or they can be removed using the standard macOS method of dragging it into the trash.
+
+<!-- dragging it -> dragging the app icon -->
 
 ## The App Fair for App Developers
 
@@ -49,6 +57,8 @@ The distribution process for App Fair apps is completely autonomous, instantaneo
 The only requirement is a GitHub account that is associated with your `.edu` e-mail address.
 No additional registration, sign-up, or approval is required in order to start developing and distributing apps for the App Fair.
 Apps are built, validated, and distributed using GitHub's free actions for open-source projects, and so can be used at no cost.
+
+<!-- I'd say ", and so they can be used..." or "and can be used" (without the comma). -->
 
 
 ## The App Fair fair-ground
@@ -66,7 +76,10 @@ The "Fork" and "Apply" parts are handled by you, the developer: a fork is create
 When you are ready to publish a release, you apply your changes in the form of a pull request (PR) back to the base `/appfair/App.git` repository.
 The "Integrate" and "Release" phases are handled by the build host that accepts pull requests from the developer's fork and validates, builds, packages, and releases the installable app.
 
+<!-- Do you say PR anywhere else? I couldn't find it -->
+
 The integration phases is the trusted core of the "fair-ground" process.
+<!-- "phases" => phase -->
 This phase handles accepting incoming pull requests to validate, build, and package an app.
 The `integrate` phase is where usage policies are enforced (to the extent permissible by automation) and where security entitlements are verified.
 Finally, the app is packaged, signed, and archived.
