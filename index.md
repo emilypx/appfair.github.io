@@ -99,16 +99,22 @@ The App's organization name must be a two word string consisting of 3-12 URL-saf
 For example, the GitHub organization for the **App Fair.app** catalog browser application itself is [https://github.com/App-Fair/](https://github.com/App-Fair/).
 
 Your app organization can be structured however you want, and can consist of a team of as few or as many as you like. 
+<!-- "as few or as many" what? -->
 You can manage create and distribute multiple apps by creating multiple separate uniquely-named organizations.
+<!-- Insert comma after "manage" -->
 
 ### App Repository
 
 Once your organization is set up, you create your your `/APP-ORG/App` project by forking the [https://github.com/appfair/App.git](https://github.com/appfair/App.git) repository into your new organization name.
+<!-- "your your" => "your" -->
 This is a Swift project that contains the shell of a cross-platform `SwiftUI` app that you will use as your starting point.
 
 Your app will exist in a top-level repository named "App"; it must continue to be called "App", since that is how the catalog browser will be able to access your project metadata.
+<!-- Delete the comma before "since" -->
 
 For more information on the fork process, see: [Working with forks](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/working-with-forks).
+
+<!-- delete the colon after "see" -->
 
 <!-- 
 
@@ -131,6 +137,7 @@ XXX ### Translating and Localizing your App
 ### Developing your `/APP-ORG/App.git` fork
 
 The `/APP-ORG/App.git` repository is structured as a standard swift package, and includes the following code that must be included as the scaffold and starting point for your app:
+<!-- Should "swift" be capitalized? Also, delete the comma before "and" -->
 
   * Package.swift
   * Sources/App/AppMain.swift
@@ -150,9 +157,12 @@ Note, however, that changes to these project files, `App.xcworkspace` and `proje
 It will be best not to make changes to the project files themselves, since none of the changes will be used in the eventual `integrate-release` phases of the process.
 Specifically, your build must not rely on any script build phases that you add to the project files, since these scripts will not be run during `I-R`.
 
+<!-- delete comma before "since" -->
+
 When adding project files, they should be added directly to the `App` Swift package's `Sources/App/` folder or a sub-folder that you create.
 Localizable resources (such as `.strings` files containing translations of your app into different languages) should be placed beneath `Sources/App/Resources/`, which is the folder that will be pre-processed and flattened as part of the build process.
 Resources files that need to retain their directory structure should be instead placed in the `Sources/App/Bundle/`.
+<!-- "Resources files" or "Resource files"? -->
 These resource bundles will be available at runtime by referencing the `Foundation.Bundle.module` accessor, and then using standard `Bundle` API to load resources. 
 
 ### Managing dependencies in your `/APP-ORG/App.git` fork
@@ -162,6 +172,8 @@ You can add anything your want to your `Package.swift` manifest, but note that t
 
   1. The initial dependency must be for the `main` branch of the `Fair.git` project, and it must appear as the first dependency for the `App` target
   2. The app target names must remain unchanged.
+
+<!-- "app target" or "`App` target"? -->
   
 This restriction is enforced by the `Integration` phase of the process, which will refuse to build the project if the `Package.swift` manifest is invalid.
 You can preview this validation with your own project by replacing `App-Org` with your app name and running:
@@ -177,6 +189,8 @@ swift run -- fairtool validate --verbose true --hub github.com/appfair --org App
 The `Sources/App/AppMain.swift` is the entry point to your app on all available platforms.
 The contents of the file must not be changed, or validation of your project will fail at the `integrate` phase.
 
+<!-- "must not be changed; otherwise, validation of your project..." -->
+
 To customize your app, you should instead start by editing the `AppContainer` extension in `Sources/App/AppContainer.swift` to provide the required protocol implementations for your app's root view.
 
 ### The Fair Library
@@ -188,7 +202,10 @@ Fair contains the code for the following aspects of a fair-ground:
   2. Serving as the canonical source for the contents of the fair-ground's base repository, such as the App Fair's at: [https://github.com/appfair/App.git](https://github.com/appfair/App.git)
   3. Acting as the point of entry to an app's launch, thereby providing automatic runtime features such as integration with the fair-ground's catalog management and runtime security checks
 
+<!-- I would have periods at the end of the above bullets. -->
+
 All apps distributed through a fair-ground such as the App Fair much include the HEAD of the `Fair` library as their initial dependency.
+<!-- "much include" => "must include" -->
 This ensures that all integrated apps are always up-to-date with respect to feature improvements, bug fixes, and security enhancements that may be made to the container environment.
 This requirement is enforced during the `integrate-release` phase
 
@@ -202,15 +219,19 @@ For each entitlement that is requested, a description of the reason for the enti
 The description's key should be the same as the key of the entitlement.
 For an example, see the base [Info.plist](https://github.com/appfair/App/blob/main/Info.plist) file.
 
+<!-- Do you want Info.plist in back ticks? -->
+
 The presence of the `FairUsage` key is enforced by the `Integration` phase.
 These descriptions should be plain language explaining why the app needs access to the specific permissions.
 
 The descriptions will be presented to the user via the **App Fair.app** catalog browser, and the user will need to confirm that the app should be granted these permissions.
 The apps may periodically remind the users of the permissions that have been granted to the app, and re-confirm with the user that the app should be granted the permissions.
+<!-- "may" or "should"? -->
 This is in addition to automatic confirmations and re-confirmations that the host OS may present to the user over time.
 
 For these reasons, you should not request permissions that your app does not need.
 The fewer entitlements the app is granted, the safer app will appear to be to users, and they are more likely to trust and install your app.
+<!-- "the safer *the* app will appear..." -->
 For example, if you are making a stand-alone utility or game, you will often not need any entitlements at all.
 
 ## Continuous Integration
@@ -225,6 +246,8 @@ You should avoid customizing the `fairground.yml` workflow itself, since that fi
 ## Creating Releases
 
 In addition, if you commit a tag with a semantic version that matches the version in your `Info.plist`'s `CFBundleShortVersionString` property, a release will be created with the build's artifacts, and will becoming available in your app's `/releases` root.
+
+<!-- "and will become available..." -->
 
 The developer has complete control over their app's own releases, and they can add, remove, hide, or mark as drafts or pre-releases any release in any of their forks.
 
@@ -254,7 +277,8 @@ The mechanism by which releases are communicated to the cataloging process is by
 This PR will not ever be merged in the base repository; rather, it acts as a trigger to initiate the `Integration` and `Releases` phases of the App Fair process, and as a mechanism for tracking the status of the catalog request.
 
 The cataloging process, which is run with the permissions if the base `/App.git` repository, checks out the fork's PR changes. 
-After validating that the organization is valid (issues & discussions enabled, etc) and that the secure portions of the project (e.g., the `project.xcodeproj` and `Sources/App/AppMain.swift` files) haven't been tampered with, it will build the project using the Swift Package Manager's sandboxed build system.
+<!-- "if the base" => "in the base" -->
+After validating that the organization is valid (issues & discussions enabled, etc.) and that the secure portions of the project (e.g., the `project.xcodeproj` and `Sources/App/AppMain.swift` files) haven't been tampered with, it will build the project using the Swift Package Manager's sandboxed build system.
 
 If the app passes validation and is built successfully, the resulting release artifacts are then compared to the release artifacts that were built and released in the `/App.git`'s forked repository.
 If these release artifacts match the artifacts from the `/App.git`'s forked repository's release, then the fork's artifacts will be considered "trusted", and the base fair-ground will publish the `fairseal` (a SHA-256 hash of the fork's validated release artifact) for that fork's release, thereby making it eligible for inclusion in the fair-ground's catalog.
@@ -265,6 +289,8 @@ Once this process has been completed for an initial release of the app, the pull
 The decision of which to do is up to the developer, and the choice has the following effects:
 
 ### Keeping Open the Integration-Release PR
+
+<!-- Aha, here is PR = pull request! Disregard my previous comment about this, or perhaps make the PR = pull request statement here -->
 
 If the Integration-Release pull request is left open after a tagged release has passed integration, the PR will continue to be automatically updated whenever commits are pushed to the branch that opened the PR.
 This means that every time a commit is pushed, a new release process will be attempted, so you should only commit to the PR's branch when a release is ready to be made.
@@ -286,6 +312,8 @@ Clicking the `details` link will show a live log of the `Integration-Release` pr
 If `I-R` fails, you can reference these action logs to see the error that may have occurred.
 Most frequently, failure is a result of either a configuration problem (discussions or issues not being enabled), or a formatting issue (e.g., Info.plist's `CFBundleShortVersionString` version not matching the current release tag), or else simply a build error.
 
+<!-- Maybe have an e.g., in the first paren above -->
+
 Errors with the `fairseal` process can be more challenging to debug, because validation will fail if there is *any* difference between the fork's release artifacts and those artifacts that were generated by the trusted fair-ground's validation process.
 The fair-ground system relies on build artifacts being exactly (byte-by-byte) reproducible.
 This is the only way to ensure that the untrusted fork's release artifacts conform to the structure and security, disclosure, and sandboxing rules imposed by the fair-ground.
@@ -299,12 +327,16 @@ The "App Fair" catalog is the list of valid app releases at [appfair/App release
 This metadata is accumulated using the public GitHub APIs, and the generation in the catalog is automated.
 It is typically generated after each successful `integrate-release` phase, but it can also run on a scheduled basis to re-validate catalog entires and ensure that only valid entries are included in the list of available apps.
 
+<!-- The uses of "it" in the last sentence are confusing. Maybe "Meta data is typically generated after each successful `integrate-release` phase, but generation can also run a scheduled basis..." or "...but metadata can be regenerated on a scheduled basis..."
+
 ### Org Requirements
 
 In order for an organization's `/APP-ORG/App` project to be visible in the **App Fair.app** catalog, it must be a public organization with at least one public member. 
 The organization must have a repository (or redirection) named "App" (literally), which must be a fork of the [appfair/App.git](https://github.com/appfair/App.git) repository.
 In addition, the repository must have issues & discussions enabled, and also must be public & un-archived.
+<!-- do you mean to have ampersands here? -->
 Finally, the `APP-ORG` organization's public contact must be a valid e-mail address ending in ".edu".
+<!-- do you want `.edu` ? -->
 
 ### Licensing
 
@@ -317,6 +349,7 @@ The App/Fair release process doesn't perform any validation of the licenses of a
 The App Fair "catalog" is simply a JSON file located at [https://github.com/appfair/App/releases/download/catalog/fairapps.json](https://github.com/appfair/App/releases/download/catalog/fairapps.json).
 This catalog file is re-generated by the `integrate-release` process after each successful release.
 The JSON file is downloaded by the **App Fair.app** catalog browser application, and can be used by other catalog apps that conform to the same format.
+<!-- delete comma before "and" -->
 
 An example of a single app entry in the catalog JSON follows.
 
@@ -344,6 +377,8 @@ An example of a single app entry in the catalog JSON follows.
 ```
 
 The catalog is constructed from the list of all the [forks of the appfair/App.git](https://github.com/appfair/App/network/members) who have passed the `integrate-release` phases and have an [artifact for download](https://github.com/appfair/App/releases) and whose organizations are valid (e.g., have a valid app name and have issues & discussions enabled).
+<!-- "forks who" or "forks that" ? -->
+<!-- do you mean "e.g." or "i.e." here? -->
 The catalog creation is completely automatic.
 
 Note that the same app will appear twice if it targets multiple operating systems with different binary artifact formats (e.g., `.zip` and `.ipa`).
@@ -364,14 +399,17 @@ App Fair apps are always free; there is never any cost to download and install a
 All apps on the App Fair are licensed under the [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.html), thereby guaranteeing that they will be free and fair, forever.
 
 In addition, software creators also have benefit from the creative freedom afforded by a platform with no mercurial gate-keeping, annual corporate developer fees, or capricious terms and conditions.
+<!-- "also have benefit" or "also benefit" (or "also have the benefit of" -->
 
 
 ## Ideal: Fair
 
 A fair-ground is a nexus that enables both sovereignty for creators, as well as agency for consumers.
+<!-- "both...and" or just "as well as" -->
 The App Fair is designed to encourage fairness and respect between software creators (the app developers), software consumers (the users of the app), and the "fair-ground" distribution platform (the App Fair). 
 
 Software creators benefit from the a fair platform without the uncertainly of an opaque and mercurial app review process.
+<!-- "from the a fair" => "from a fair" -->
 They also benefit from the global reach of a centralized and self-maintaining catalog with the unfettered ability to distribute bug fixes and feature improvements to their users in real time.
 In exchange, they commit to publishing all their source code for other developers to scrutinize, improve, and share.
 
@@ -387,6 +425,7 @@ Any system of software aggregation and distribution involves three groups:
  - Platform: the software processes that handle the ingestion, validation, packaging, cataloging, rating, and distribution of software from Creators to Consumers.
 
 This guiding principles for each separate relationship in this collection is:
+<!-- "This guiding principles...is" => "The guiding principles...are" -->
 
  - Creator-Platform: the Creators trust the distribution platform to treat them fairly. Creators should not be advantaged or disadvantaged by hidden rules implemented by the Platform. Creators should have free and unfettered control over how they add, remove, or update apps available in the Platform's catalog.
 
@@ -406,6 +445,7 @@ A challenge for any application distribution platform is dealing with "badware",
 These can be merely annoying and wasteful, such as adware, containers for offensive content, covert proof-of-work crypto-currency miners, and other potentially unwanted programs ("PUPs"). 
 Software can also be actively hostile, such as programs that attempt to exfiltrate your personal data and activities ("spyware") or programs that attempt to lock you out of your own data ("ransomware"). 
 At the extreme end of the spectrum, programs that run on your computer can be actively dangerous to both yourself as well as the broader network: they can act as hosts for virus propagation or externally-coordinated clients for a "botnet" that can perform distributed denial of service (DDoS) attacks or other malicious activities.
+<!-- "dangerous both to you and to the broader network" -->
 
 Web browsers have been dealing with these risks and issues ever since the web was born.
 Browsers have evolved to enable arbitrary code to be run while still protecting the user's system and privacy (to some extent) by having the untrusted code run inside a sandbox that restricts the sorts of activities that are permitted: file system access is generally restricted to cookie storage and compartmentalized local file storage APIs, and network access is typically limited to HTTP and websocket access back to the network host for the page that loaded the code.
@@ -418,6 +458,7 @@ The App Fair integration process requires that all software be hardened and sand
 ### Source Transparency
 
 The App Fair's `integrate-release` build process is completely automated; there is no individual review of apps, neither when they are initially submitted nor when updates are released.
+<!-- This "neither/nor" doesn't work since I think there's a double negative in there. I'd say "apps are reviewed individually neither when... nor when...". Or perhaps "there is no individual review of apps at initial submission or upon release of updates". -->
 This allows the release & update processes to be free of delays and keeps the catalog free from reviewer bias. 
 It also precludes the possibility of any pre-distribution "gate-keeping" to enforce content or policy.
 
@@ -429,12 +470,14 @@ In addition, a requirement that all the code be hosted in publicly-available Git
 ### Source Accountability
 
 The App Fair's `integrate-release` build process signs the release's binary artifacts with an "Ad-Hoc" code signing certificate.
+<!-- Why "Ad-Hoc" in quotes and capitalized? -->
 While this satisfies the policy requirements of certain platforms and provides some protection against tampering, this ad-hoc signature itself does not confer any useful identifying information.
 The signature is essentially an anonymous seal on the binary placed on it by the `integrate-release` build phases.
 
 Instead, the App Fair provides author accountability and identifiability by requiring that any commit that triggers the `integrate-release` process needs to be marked as `verified` by GitHub.
 This means that the commit itself is cryptographically signed.
 This signature must be associated with an academic e-mail address, and that address must be associated with user's GitHub account.
+<!-- "with a user's GitHub account" or "with the user's GitHub account" -->
 The academic address does not need to be the primary address for the user, but it does need to be listed in the developer's validated public e-mail addresses at [https://github.com/settings/profile](https://github.com/settings/profile).
 
 The simplest way to sign your PR commit is to simply use the GitHub web interface whenever you update your PR to trigger the `integrate-release` phases.
@@ -482,9 +525,12 @@ App Fair apps are no different from any other installed app in this regard.
 ### How does the App Fair compare to other software distribution platforms?
 
 App Fair apps are written in Swift, a modern & safe language, compiled natively for Intel & ARM, and utilize the `SwiftUI` framework to provide a truly native application user interface.
+<!-- Check ampersands -->
 This makes apps installed from the App Fair tend to be fast and efficient, and have the capability to utilize the full range of the platform's native frameworks.
+<!-- "This makes apps installed from the App Fair likely to be fast and efficient..." -->
 
 What sets the App Fair apart from other platform-native store-fronts is that there is no application, fees, or recurring subscriptions to create, develop, and update App Fair apps, nor are there any reviews or systematic delays in issuing updates to apps.
+<!-- I can't quite parse this sentence. I think maybe better would be "there is no application, fee, or recurring subscription required to create..." -->
 
 ## Developer FAQ
 
@@ -492,12 +538,16 @@ What sets the App Fair apart from other platform-native store-fronts is that the
 
 The fair-ground system is designed for public forks of an open-source base repository. 
 This allows them to utilize free GitHub actions minutes and downloadable artifacts for the build, release, and `fairseal` validation phases.
+<!-- This allows these forks... (I think that's what "them" is referring to.) -->
 This Swift Package and Xcode cloud based build system allows a user to create and update their app without any paid subscription to any developer services.
+<!-- "cloud based" => "cloud-based" -->
 It even technically allows for writing and updating an app without having a macOS installation at all, since the online GitHub editor or a plain text editor can be used to modify the app's source code and configuration.
+<!-- delete comma before "since" -->
 
 ### How do I use git and GitHub?
 
 There are a multitude of resources available online for both `git` (the source control management tool), and `GitHub`, the service that hosts both free and commercial git repositories and provides related services.
+<!-- Delete comma ater "source control management tool)" -->
 A good starting point is GitHub's [Hello World](https://guides.github.com/activities/hello-world/) tutorial.
 Fluency with git will be important for managing your app's lifecycle.
 
@@ -543,12 +593,14 @@ See the GitHub documentation on [re-naming an organization](https://docs.github.
 Note that you will, at a minimum, need to update your new org's `/App.git` fork's `Info.plist` to reflect the new name in the app's metadata.
 
 Also note that a re-named organization will, by definition, also have a new bundle identifier, which will mean that the re-named app will not have access to the sandboxed container of the previous app (since as far as the platform is concerned it is an entirely different and new app).
+<!-- maybe don't need parens here -->
 
 ### Can I change the target and product names from "App" in the project file?
 
 The generic "App" target is used for encapsulating your app as a package.
 It is expected that you will configure your app's name in your fork's `Info.plist` metadata file.
 This allows your app's fork to easily fork-able itself, which can be used by someone to derive their own variation on the app.
+<!-- maybe "to easily make itself forkable" -->
 For this reason, the generic name "App" is used for targets and package names throughout the code, and should not be changed.
 
 ### What if the name I want is already in use by another GitHub organization?
@@ -559,6 +611,7 @@ Pick a new name, or else [see GitHub's advice on the topic](https://docs.github.
 
 Fairtool is the name of the utility that is included with the `Fair` project, that can be used to validate a project, generate icons, and the like.
 It can be run from any `/APP-ORG/App.git` fork from Terminal.app with the command:
+<!-- "that can be used..." => "which can be used..." -->
 
 ```
 $ swift run fairtool help
@@ -570,7 +623,9 @@ For details, see the [source](https://github.com/appfair/Fair/blob/main/Sources/
 
 App categorization is done using GitHub topics.
 The various pre-existing topics ("appfair-games", "appfair-utilities", etc.) are used for specifying the category that the app will show up under.
+<!-- "show up under" => "appear under" -->
 These tags must be mirrored in the `LSApplicationCategoryType` property of your app's `Info.plist` file, with the "appfair-" prefix being renamed to "public.app-category." (e.g., the "appfair-games" GitHub topic should be represented with the "public.app-category.games" value for the `LSApplicationCategoryType` key).
+<!-- Just checking that you mean e.g., and not i.e., here -->
 
 
 ### Can I embed API keys for online services into my App Fair app?
@@ -578,6 +633,7 @@ These tags must be mirrored in the `LSApplicationCategoryType` property of your 
 Any "secrets" that are included in your software, such as passwords and API keys, should be considered to be public information.
 The App Fair's "Source Transparency" mandate means that every piece of data that goes into the build process of your app will also be available to the users of the app.
 The presents a problem for API keys and service passwords, since there is no way to "hide" them in your code.
+<!-- Delete the comma before "since" -->
 Sensitive information pushed to open-source repositories, such as GitHub OAuth tokens, personal access tokens, tokens from various cloud service providers, and unencrypted SSH private keys, are routinely scanned, and can be subject to automatic revocation by the organization that hosts the service.
 
 The recommendation is that you not rely on client-side secret data to utilize your application.
@@ -587,14 +643,18 @@ When possible, the onus should be placed on the user to acquire their own token,
 
 There are no restrictions on the kinds of apps that you can build and distribute at the App Fair.
 The App Fair welcomes all apps: Student Projects, Experiments, Artistic and Literary works, Vanity App, Demos, Tests, and Re-Mixes of other App Fair apps.
+<!-- I would not capitalize these. -->?
 As a completely automated system, there is no human review, so the only requirement to be included in the App Fair catalog is that it passes the automated validation phases of the `integrate-release` process.
+<!-- I'd rephrase to avoid confusing about what is the subject of the sentence, like "Since the App Fair is a completed automated system, there is no human review. The only requirement for an app to be included in the App Fair catalog is that it passes..." -->
 
 Projects and organizations will, however, need to abide by the rules and restrictions of the hosting environment (which, in the case of the App Fair fair-ground, is GitHub).
+<!-- I would not have parens here. -->
 
 ### How can I set the description of my app in the App Fair catalog
 
 Change the `Description` section of the repository details "About" setting.
 This will serve as the description of the 
+<!-- Complete this sentence! :) -->
 
 ### How do I provide documentation for my app?
 
@@ -606,6 +666,8 @@ You can classify and categorize your app for the App Fair catalog by adding any 
 For more information, see [Adding topics to your repository](https://docs.github.com/en/github/administering-a-repository/managing-repository-settings/classifying-your-repository-with-topics#adding-topics-to-your-repository).
 
 These settings should also match the `LSApplicationCategoryType` property in your `Info.plist` file, with the following GitHub category: property mapping:
+
+<!-- Do you mean "category:property mapping" ? -->
 
  - [`appfair-business`](https://github.com/topics/appfair-business): `public.app-category.business`
  - [`appfair-developer-tools`](https://github.com/topics/appfair-developer-tools): `public.app-category.developer-tools`
@@ -684,6 +746,8 @@ Side-loading the `.ipa` build artifacts is not well tested at this time.
 The integration phase of the App Fair process will build your app's fork for both macOS and iOS, even though they are currently only installable using the macOS **App Fair.app** catalog browser application.
 All apps must run in both iOS and macOS.
 
+<!-- This doesn't answer the question! : -->
+
 ### What are the target OS versions for App Fair applications?
 
 In order to be able to utilize the Swift 5.5 concurrency features (async/await & actors), App Fair apps target macOS 12 and iOS 15.
@@ -696,6 +760,7 @@ No. Only macOS and iOS builds are currently supported.
 ### Can I use App Fair release artifacts with other distribution channels?
 
 The binaries created by the `integrate-release` phase are standard `.zip` and `.ipa` archives and should be suitable for distributing via any compatible app distribution mechanisms.
+<!-- "mechanism" ? -->
 The release artifacts at [appfair/App releases](https://github.com/appfair/App/releases) are not restricted in how they are distributed or used.
 
 ### Which native frameworks will my app be able to use?
@@ -711,6 +776,7 @@ Note that any frameworks your app depends on must be available on *both* `macOS`
 
 The App Fair's `integrate-release` process uses the [Swift Package Manager (SPM)](https://swift.org/package-manager/) tool for building both your `/APP-ORG/App.git` fork, as well as all the third-party dependencies.
 SPM is focused primarily on the Swift language, but it can be used to build a wide variety of source.
+<!-- "a wide variety of sources" or "sources files" or "source code"? -->
 Note that binary dependencies are not permitted in the `Package.swift` build file; the App Fair requires that all source code that goes into the app be available during the build process.
 
 ### Do I need to use the Fair library?
@@ -719,6 +785,7 @@ Yes.
 The App Fair expects that your app will conform to the protocols defined in the `FairApp` library.
 Your app must import the `FairApp` module and implement the `AppContainer` protocol.
 The App Fair's `integrate-release` process will validate your `Package.swift` file to ensure that the initial dependency for your app is `appfair/Fair`, and that is points directly to the `main` branch. 
+<!-- "that *it* points directly..." -->
 
 ### Can I load executable code at runtime?
 
@@ -741,6 +808,7 @@ Any changes in entitlements or other security features will require explicit con
 No.
 There is only ever a single active version of your app that is available through the [appfair/App releases](https://github.com/appfair/App/releases) (and, thus, available for installation in the **App Fair.app** catalog). 
 Users can revert to previous versions only if they have their own backup or if the older version still reside's in the user's Trash after the upgrade.
+<!-- reside's => resides -->
 
 ### What permissions am I permitted to use in `Sandbox.entitlements`
 
@@ -761,6 +829,7 @@ When installing an app, users are presented with the list of entitlements that t
 These permissions are considered fundamental to the trust relationship between the app's user and the app's developer.
 
 Since changing the permissions the app is granted alters the terms of this trust relationship, the App Fair will not update an app whose `Sandbox.entitlements` have changes from the time the app was installed.
+<!-- "whose Sandbox.entitlements include..." -->
 Users will need to first manually un-install the app in order to then manually install the updated version of the app in order to get the app with the new entitlements.
 
 ### Can I distribute an Electron-style JavaScript app?
@@ -786,6 +855,7 @@ No.
 The `Fair` library, which is required to be the initial dependency of any app distributed via a fair-ground, handles the launch process of the app.
 The `Fair` library exports both the `FairCore` utility module and the `FairApp` SwiftUI container.
 This contain adds various Help menus to the app linking to communications forums (such as GitHub Discussions & Issues) by which users can communicate questions and concerns to the developer(s) of the app.
+<!-- "This contain" ? Can't quite tell what this should be. Also, I would just say "developer" not "developer(s)" -->
 The `FairApp` module also can initiate runtime security checks to ensure that apps are behaving correctly.
 
 ### Can I link to a specific version of the `Fair.git` dependency?
@@ -793,13 +863,16 @@ The `FairApp` module also can initiate runtime security checks to ensure that ap
 No.
 You can only specify the HEAD branch (`main`) as the `Fair.git` dependency.
 This is the ensure that distributed apps are always up-to-date with respect to security validation features and enhancements to the app's runtime environment.
+<!-- "This ensures that..." -->
 Since the `FairCore` and `FairApp` modules have no dependencies, these modules are also safe to reference from external dependencies that your app may reference. 
+<!-- Too many uses of the word "reference" here -->
 Improvements to these `Fair` modules will be automatically included in any subsequent `integrate-release` processes, and so improvements to this library will immediately be available to see for any fair-ground app developer.
 
 ### Do I need a Mac to develop App Fair apps?
 
 *Technically*, no: you could theoretically use any OS to write the Swift code for your `/APP-ORG/App.git` fork.
 Since the Integration and Release phases of the App Fair process are all run in the cloud, no client-side build & run activity is required.
+<!-- Check your ampersands. -->
 
 In practice, however, to develop anything but the most trivial of apps requires being able to use a modern IDE, debugger, and the ability to run your app locally in order to test and refine the behavior.
 
@@ -814,6 +887,7 @@ Yes.
 As of macOS 12, all apps must be signed in order to run on every native architecture.
 The same requirement exists for iOS.
 The `Integrate` phase of the App Fair process signs the app with an "ad-hoc" signing certificate in order to satisfy this requirement.
+<!-- Make your use of ad-hoc consistent. I suggest down-case, no quotes throughout. -->
 
 ### What is "Ad-Hoc" code signing?
 
@@ -836,6 +910,7 @@ If you can change the name of your organization, the new app name will be used t
 If you re-name `App-OrgA` to `App-OrgB`, the old `App-OrgA` will automatically disappear from the catalog.
 Note, however, that since the bundle identifier will change from `app.App-OrgA` to `app.App-OrgB`, all the container settings for you app will change, so your users will find that they will not be able to access preferences or resources that were stored in the previous `app.App-OrgA` container.
 This is an unavoidable consequence of renaming your project, so it should not be a decision that is undertaken lightly if your app has a significant number of users who may be forced to manually perform migration tasks.
+<!-- I think that you already answered this question? -->
 
 ### What files can my app access?
 
@@ -850,16 +925,20 @@ You can open the `App.xcworkspace` file in `Xcode.app`, which is a workspace tha
 All your code, however, must reside in the SPM package itself, which is your `/App/` fork's `Sources/App/` folder.
 
 Do not edit the `project.xcodeproj` folder directly, since it doesn't reference the swift package folder, and thus cannot build on its own without the surrounding workspace. 
+<!-- Check all your , since sequences since generally the comma is not needed. -->
 Any changes made either to the `App.xcworkspace` or `project.xcodeproj` files will be ignored during the fair-ground's `I-R` phases, so you should avoid making changes there that are meant to be included in the app's eventual build. 
 Instead, you should prefer to use the `Package.swift` manifest as well as local resources for the customization of your app's metadata.
 
 Similarly, when adding new files to your project, you should add them directly to the Swift package folders (either using Xcode itself, or by creating the files by other means). 
+<!-- Delete parens. -->
 New files should not be explicitly be added to the Xcode project definition, since the files from the Swift package will be included automatically.
+<!-- Check ", since". -->
 This differs somewhat from pre-SPM app development in Xcode, in that the developer should ignore Xcode's own legacy project file handling in lieu of using the Swift Package Manager's purely-file-based approach.
 
 ### What changes can be made to `project.xcodeproj`?
 
 In order to be included in the App Fair catalog, the app is built two individual times. 
+<!-- Two separate times? Two discrete times? -->
 The first build is performed in the environment of the fork's own workflow actions, which will use the `project.xcodeproj` definition that is managed by the developer.
 The second build is performed in the trusted environment of the base fair-ground, which checks out the developer's fork and also builds it, but only after first discarding the pull-request's modified `project.xcodeproj` in favor of the base fair-ground's `project.xcodeproj`.
 A `project.xcodeproj` can contain scripts that could potentially be malicious or circumvent the protections afforded by using the `FairApp` module (sandbox validation, entitlement verifications, etc), and so the fork's untrusted version of the project definition cannot be used in the base fair-ground's environment.
